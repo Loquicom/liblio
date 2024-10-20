@@ -1,0 +1,390 @@
+/* --- Utility --- */
+
+:root {
+    --icon-picked: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23FFF' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+    --icon-picked-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgba(0, 0, 0, 0.75)' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E")
+}
+
+/* --- Color Picker --- */
+
+.color-grid {
+    display: grid;
+    grid-template-rows: repeat(2,1fr);
+    grid-template-columns: repeat(9,1fr);
+    margin-bottom: 0;
+    overflow: hidden;
+}
+
+@media (min-width: 576px) {
+    .color-grid {
+        grid-template-rows: 1fr;
+        grid-template-columns: repeat(18,1fr);
+        border-top-right-radius: var(--border-radius);
+        border-top-left-radius: var(--border-radius);
+    }
+}
+
+#color-picker button {
+    margin-bottom: 0;
+    padding: 100% 0 0;
+    border: none;
+    border-radius: 0;
+}
+
+/* --- Picked --- */
+
+#color-picker button.picked {
+    box-shadow: inset 0 0 1rem 0 rgb(0 0 0 / 25%);
+    border: 1px solid black;
+}
+
+#color-picked div {
+    text-align: center;
+    visibility: hidden;
+}
+
+#color-picked div:hover {
+    visibility: visible;
+    opacity: 0.6;
+}
+
+#color-picked div.picked {
+    font-weight: bold;
+    visibility: visible;
+}
+
+@media (max-width: 576px) {
+    #color-picked {
+        display: none;
+    }
+
+    #color-picker button.picked {
+        background-image: var(--icon-picked);
+        background-position: center;
+        background-size: 0.66rem auto;
+        background-repeat: no-repeat;
+        border: none;
+    }
+
+    #color-picker button[data-color=amber].picked,
+    #color-picker figure button[data-color=lime].picked,
+    #color-picker figure button[data-color=yellow].picked {
+        background-image: var(--icon-picked-dark);
+    }
+}
+
+/* --- Color button --- */
+
+button[data-color="red"] {
+    background-color: #c52f21;
+}
+[data-theme="light"] button[data-color="red"]:hover,
+[data-theme="light"] button[data-color="red"]:active,
+[data-theme="light"] button[data-color="red"]:focus {
+    background-color: #9f261b;
+}
+[data-theme="dark"] button[data-color="red"]:hover,
+[data-theme="dark"] button[data-color="red"]:active,
+[data-theme="dark"] button[data-color="red"]:focus {
+    background-color: #f44336;
+}
+
+button[data-color="pink"] {
+    background-color: #d92662;
+}
+[data-theme="light"] button[data-color="pink"]:hover,
+[data-theme="light"] button[data-color="pink"]:active,
+[data-theme="light"] button[data-color="pink"]:focus {
+    background-color: #c2185b;
+}
+[data-theme="dark"] button[data-color="pink"]:hover,
+[data-theme="dark"] button[data-color="pink"]:active,
+[data-theme="dark"] button[data-color="pink"]:focus {
+    background-color: #e91e63;
+}
+
+button[data-color="fuchsia"] {
+    background-color: #c1208b;
+}
+[data-theme="light"] button[data-color="fuchsia"]:hover,
+[data-theme="light"] button[data-color="fuchsia"]:active,
+[data-theme="light"] button[data-color="fuchsia"]:focus {
+    background-color: #9e1a72;
+}
+[data-theme="dark"] button[data-color="fuchsia"]:hover,
+[data-theme="dark"] button[data-color="fuchsia"]:active,
+[data-theme="dark"] button[data-color="fuchsia"]:focus {
+    background-color: #e0249f;
+}
+
+button[data-color="purple"] {
+    background-color: #9236a4;
+}
+[data-theme="light"] button[data-color="purple"]:hover,
+[data-theme="light"] button[data-color="purple"]:active,
+[data-theme="light"] button[data-color="purple"]:focus {
+    background-color: #7b1fa2;
+}
+[data-theme="dark"] button[data-color="purple"]:hover,
+[data-theme="dark"] button[data-color="purple"]:active,
+[data-theme="dark"] button[data-color="purple"]:focus {
+    background-color: #b842ce;
+}
+
+button[data-color="violet"] {
+    background-color: #7540bf;
+}
+[data-theme="light"] button[data-color="violet"]:hover,
+[data-theme="light"] button[data-color="violet"]:active,
+[data-theme="light"] button[data-color="violet"]:focus {
+    background-color: #552e8c;
+}
+[data-theme="dark"] button[data-color="violet"]:hover,
+[data-theme="dark"] button[data-color="violet"]:active,
+[data-theme="dark"] button[data-color="violet"]:focus {
+    background-color: #8b4de2;
+}
+
+button[data-color="indigo"] {
+    background-color: #3949ab;
+}
+[data-theme="light"] button[data-color="indigo"]:hover,
+[data-theme="light"] button[data-color="indigo"]:active,
+[data-theme="light"] button[data-color="indigo"]:focus {
+    background-color: #2a358c;
+}
+[data-theme="dark"] button[data-color="indigo"]:hover,
+[data-theme="dark"] button[data-color="indigo"]:active,
+[data-theme="dark"] button[data-color="indigo"]:focus {
+    background-color: #3f51b5;
+}
+
+button[data-color="blue"] {
+    background-color: #1e88e5;
+}
+[data-theme="light"] button[data-color="blue"]:hover,
+[data-theme="light"] button[data-color="blue"]:active,
+[data-theme="light"] button[data-color="blue"]:focus {
+    background-color: #2060df;
+}
+[data-theme="dark"] button[data-color="blue"]:hover,
+[data-theme="dark"] button[data-color="blue"]:active,
+[data-theme="dark"] button[data-color="blue"]:focus {
+    background-color: #2196f3;
+}
+
+button[data-color="azure"] {
+    background-color: #0172ad;
+}
+[data-theme="light"] button[data-color="azure"]:hover,
+[data-theme="light"] button[data-color="azure"]:active,
+[data-theme="light"] button[data-color="azure"]:focus {
+    background-color: #0288d1;
+}
+[data-theme="dark"] button[data-color="azure"]:hover,
+[data-theme="dark"] button[data-color="azure"]:active,
+[data-theme="dark"] button[data-color="azure"]:focus {
+    background-color: #03a9f4;
+}
+
+button[data-color="cyan"] {
+    background-color: #047878;
+}
+[data-theme="light"] button[data-color="cyan"]:hover,
+[data-theme="light"] button[data-color="cyan"]:active,
+[data-theme="light"] button[data-color="cyan"]:focus {
+    background-color: #034f4f;
+}
+[data-theme="dark"] button[data-color="cyan"]:hover,
+[data-theme="dark"] button[data-color="cyan"]:active,
+[data-theme="dark"] button[data-color="cyan"]:focus {
+    background-color: #06adad;
+}
+
+button[data-color="jade"] {
+    background-color: #007a50;
+}
+[data-theme="light"] button[data-color="jade"]:hover,
+[data-theme="light"] button[data-color="jade"]:active,
+[data-theme="light"] button[data-color="jade"]:focus {
+    background-color: #004f33;
+}
+[data-theme="dark"] button[data-color="jade"]:hover,
+[data-theme="dark"] button[data-color="jade"]:active,
+[data-theme="dark"] button[data-color="jade"]:focus {
+    background-color: #00ad72;
+}
+
+button[data-color="green"] {
+    background-color: #398712;
+}
+[data-theme="light"] button[data-color="green"]:hover,
+[data-theme="light"] button[data-color="green"]:active,
+[data-theme="light"] button[data-color="green"]:focus {
+    background-color: #285e0c;
+}
+[data-theme="dark"] button[data-color="green"]:hover,
+[data-theme="dark"] button[data-color="green"]:active,
+[data-theme="dark"] button[data-color="green"]:focus {
+    background-color: #4fb81a;
+}
+
+button[data-color="lime"] {
+    background-color: #a5d601;
+}
+[data-theme="light"] button[data-color="lime"]:hover,
+[data-theme="light"] button[data-color="lime"]:active,
+[data-theme="light"] button[data-color="lime"]:focus {
+    background-color: #80a600;
+}
+[data-theme="dark"] button[data-color="lime"]:hover,
+[data-theme="dark"] button[data-color="lime"]:active,
+[data-theme="dark"] button[data-color="lime"]:focus {
+    background-color: #bff802;
+}
+
+button[data-color="yellow"] {
+    background-color: #f2df0d;
+}
+[data-theme="light"] button[data-color="yellow"]:hover,
+[data-theme="light"] button[data-color="yellow"]:active,
+[data-theme="light"] button[data-color="yellow"]:focus {
+    background-color: #cebe0b;
+}
+[data-theme="dark"] button[data-color="yellow"]:hover,
+[data-theme="dark"] button[data-color="yellow"]:active,
+[data-theme="dark"] button[data-color="yellow"]:focus {
+    background-color: #ffeb3b;
+}
+
+button[data-color="amber"] {
+    background-color: #ffbf00;
+}
+[data-theme="light"] button[data-color="amber"]:hover,
+[data-theme="light"] button[data-color="amber"]:active,
+[data-theme="light"] button[data-color="amber"]:focus {
+    background-color: #e0a800;
+}
+[data-theme="dark"] button[data-color="amber"]:hover,
+[data-theme="dark"] button[data-color="amber"]:active,
+[data-theme="dark"] button[data-color="amber"]:focus {
+    background-color: #ffc420;
+}
+
+button[data-color="pumpkin"] {
+    background-color: #ff9500;
+}
+[data-theme="light"] button[data-color="pumpkin"]:hover,
+[data-theme="light"] button[data-color="pumpkin"]:active,
+[data-theme="light"] button[data-color="pumpkin"]:focus {
+    background-color: #ce7800;
+}
+[data-theme="dark"] button[data-color="pumpkin"]:hover,
+[data-theme="dark"] button[data-color="pumpkin"]:active,
+[data-theme="dark"] button[data-color="pumpkin"]:focus {
+    background-color: #ffa01d;
+}
+
+button[data-color="orange"] {
+    background-color: #d24317;
+}
+[data-theme="light"] button[data-color="orange"]:hover,
+[data-theme="light"] button[data-color="orange"]:active,
+[data-theme="light"] button[data-color="orange"]:focus {
+    background-color: #af3713;
+}
+[data-theme="dark"] button[data-color="orange"]:hover,
+[data-theme="dark"] button[data-color="orange"]:active,
+[data-theme="dark"] button[data-color="orange"]:focus {
+    background-color: #ff502d;
+}
+
+button[data-color="sand"] {
+    background-color: #ccc6b4;
+}
+[data-theme="light"] button[data-color="sand"]:hover,
+[data-theme="light"] button[data-color="sand"]:active,
+[data-theme="light"] button[data-color="sand"]:focus {
+    background-color: #a4a092;
+}
+[data-theme="dark"] button[data-color="sand"]:hover,
+[data-theme="dark"] button[data-color="sand"]:active,
+[data-theme="dark"] button[data-color="sand"]:focus {
+    background-color: #eee8d2;
+}
+
+button[data-color="zinc"] {
+    background-color: #646b79;
+}
+[data-theme="light"] button[data-color="zinc"]:hover,
+[data-theme="light"] button[data-color="zinc"]:active,
+[data-theme="light"] button[data-color="zinc"]:focus {
+    background-color: #444852;
+}
+[data-theme="dark"] button[data-color="zinc"]:hover,
+[data-theme="dark"] button[data-color="zinc"]:active,
+[data-theme="dark"] button[data-color="zinc"]:focus {
+    background-color: #868fa1;
+}
+
+/* --- General --- */
+
+hr {
+    margin: auto;
+    padding-bottom: 1em;
+}
+
+section {
+    margin: auto;
+}
+
+@media  (768px <= width) {
+    hr {
+        max-width: 80%;
+    }
+
+    section {
+        width: 75%;
+        margin-bottom: 2em;
+    }
+}
+
+.article-title {
+    margin-bottom: 1em;
+}
+
+/* --- Section: color picker --- */
+
+#color-picker {
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+}
+
+#current-color {
+    text-transform: capitalize;
+    color: var(--pico-primary);
+    margin-bottom: 0;
+}
+
+#demo-checkbox {
+    margin: 1em auto auto;
+}
+
+/* --- Section: color picker --- */
+
+.card {
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
+    cursor: pointer;
+    max-width: 50%;
+    margin: auto;
+}
+
+.card header {
+    transform: translateZ(20px);
+    background-color: transparent;
+}
+
+.card svg {
+    font-size: 8em;
+}

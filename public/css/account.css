@@ -1,0 +1,19 @@
+hr {
+    margin: auto;
+    padding-bottom: 1em;
+}
+
+section {
+    margin: auto;
+}
+
+@media  (768px <= width) {
+    hr {
+        max-width: 80%;
+    }
+
+    section {
+        width: 75%;
+        margin-bottom: 2em;
+    }
+}

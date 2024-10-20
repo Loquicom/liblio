@@ -1,0 +1,34 @@
+.card {
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
+    cursor: pointer;
+}
+
+.card header {
+    transform: translateZ(20px);
+    background-color: transparent;
+}
+
+@media (width <= 767px) {
+    .card svg {
+        font-size: 8em;
+    }
+}
+
+@media (768px <= width <= 1023px) {
+    .card svg {
+        font-size: 5em;
+    }
+}
+
+@media (1024px <= width <= 1279px) {
+    .card svg {
+        font-size: 7.5em;
+    }
+}
+
+@media (1280px <= width) {
+    .card svg {
+        font-size: 10em;
+    }
+}

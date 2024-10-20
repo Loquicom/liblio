@@ -1,0 +1,55 @@
+.container {
+    max-height: 96.5vh;
+}
+
+#login {
+    margin: 46vh auto auto;
+    transform: translateY(-50%);
+}
+
+#login h2 {
+    text-align: center;
+}
+
+#login h2 a {
+    text-decoration: none;
+}
+
+#login header {
+    font-weight: bold;
+}
+
+#login header a {
+    font-size: 1.5em;
+    padding-right: 1em;
+}
+
+@media (768px <= width <= 989){
+    #login {
+        max-width: 60vw;
+    }
+}
+
+@media (990px <= width <= 1299px){
+    #login {
+        max-width: 55vw;
+    }
+}
+
+@media (1300px <= width <= 1699px){
+    #login {
+        max-width: 50vw;
+    }
+}
+
+@media (1700px <= width <= 2099px){
+    #login {
+        max-width: 45vw;
+    }
+}
+
+@media (2100px <= width){
+    #login {
+        max-width: 40vw;
+    }
+}

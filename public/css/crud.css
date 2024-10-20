@@ -1,0 +1,76 @@
+/* --- Section: Search --- */
+
+#search {
+    margin-top: 2em;
+    margin-bottom: 4em;
+}
+
+#simple-search {
+    max-width: 80%;
+}
+
+@media (768px <= width) {
+    #advanced-search {
+        max-width: 80%;
+        margin: auto;
+    }
+}
+
+/* --- Section: Sort & Add --- */
+
+#add {
+    font-size: 1.5em;
+    padding: .2em .4em;
+}
+
+/* --- Section: Result --- */
+
+.action-edit {
+    margin-right: 1em;
+}
+
+/* --- Section: Pagination --- */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+#page-select {
+    margin-left: auto;
+}
+
+#page-select svg {
+    font-size: 1.2em;
+}
+
+@media (1280px <= width) {
+    #page-size {
+        max-width: 60%;
+    }
+
+    #page-select {
+        max-width: 60%;
+    }
+}
+
+@media (1024px <= width <= 1279px) {
+    #page-size {
+        max-width: 75%;
+    }
+
+    #page-select {
+        max-width: 75%;
+    }
+}
+
+@media (768px <= width) {
+    #page-select button {
+        padding: .5em;
+    }
+}

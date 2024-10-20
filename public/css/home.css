@@ -1,0 +1,24 @@
+#home-content {
+    margin-top: 30vh; /* poussé de la moitié de hauteur de viewport */
+    transform: translateY(-50%); /* tiré de la moitié de sa propre hauteur */
+}
+
+.app-name {
+    color: var(--pico-primary);
+}
+
+.btn-zone {
+    margin-top: 4em;
+}
+
+.btn-zone a {
+    width: 100%;
+    position: relative;
+}
+
+.btn-zone svg {
+    font-size: 2em;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+}
