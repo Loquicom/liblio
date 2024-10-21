@@ -28,6 +28,11 @@ return [
         "confirmDelete" => "Confirm delete",
         "messageDelete" => "Please note that once deleted, it is impossible to go back.<br/>Would you like to continue?",
         "errorAjax" => "An error occurred during data retrieving",
+        "createSuccess" => "Create success",
+        "updateSuccess" => "Modification saved",
+        "deleteSuccess" => "Delete success",
+        "detail" => "Details",
+        "close" => "Close",
     ],
     "header" => [
         "preference" => "Preference",

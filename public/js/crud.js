@@ -43,7 +43,7 @@ async function loadData() {
         params.search = document.getElementById('simple-search-input').value;
     }
     // Call API
-    const result = await callGet(api, params);
+    const result = await callGet(url.api, params);
     if (result.success) {
         // Show and map data
         generateTable(result.data.values);
@@ -99,10 +99,20 @@ function generateTable(values) {
             const lib = typeof val[key] === 'object' ? val[key]['lib'] : val[key]
             html += '<td>' + lib + '</td>';
         }
-        if (mode === 'edit') {
+        if (mode === 'edit' || detail !== 'none') {
             html += '<td class="center">';
-            html += '<a class="secondary action-edit dialog-open" href="#" data-dialog="dialog-edit" data-tooltip="' + lang['edit'] + '" data-placement="top" onclick=\'selectedId="'+ val['id'] +'"\'><span class="iconify" data-icon="mdi-pencil"></span></a>'
-            html += '<a class="secondary action-delete dialog-open" href="#" data-dialog="dialog-delete" data-tooltip="' + lang['del'] + '" data-placement="top" onclick=\'selectedId="'+ val['id'] +'"\'><span class="iconify" data-icon="mdi-delete"></span></a>'
+            if (detail === 'page') {
+                const path = window.location.pathname.startsWith('/') ? window.location.pathname.substring(1) : window.location.pathname;
+                const location = window.location.origin.endsWith('/') ? window.location.origin + path : window.location.origin + '/' + path
+                const url = location.endsWith('/') ? location + val['id'] : location + '/' + val['id'];
+                html += '<a class="secondary action-detail" href="' + url + '" data-tooltip="' + lang['detail'] + '" data-placement="top"><span class="iconify" data-icon="mdi-eye"></span></a>'
+            } else if (detail === 'popup') {
+                html += '<a class="secondary action-detail dialog-open" href="#" data-dialog="dialog-detail" data-tooltip="' + lang['detail'] + '" data-placement="top" onclick=\'selectedId="'+ val['id'] +'"\'><span class="iconify" data-icon="mdi-eye"></span></a>'
+            }
+            if (mode === 'edit') {
+                html += '<a class="secondary action-edit dialog-open" href="#" data-dialog="dialog-edit" data-tooltip="' + lang['edit'] + '" data-placement="top" onclick=\'selectedId="'+ val['id'] +'"\'><span class="iconify" data-icon="mdi-pencil"></span></a>'
+                html += '<a class="secondary action-delete dialog-open" href="#" data-dialog="dialog-delete" data-tooltip="' + lang['del'] + '" data-placement="top" onclick=\'selectedId="'+ val['id'] +'"\'><span class="iconify" data-icon="mdi-delete"></span></a>'
+            }
             html += '</td>';
         }
         html += '</tr>';
@@ -195,7 +205,7 @@ function editData() {
 }
 
 async function createData(values) {
-    const result = await callPost(api, values);
+    const result = await callPost(url.api, values);
     if (result.success) {
         await loadData();
         document.getElementsByClassName('alert-success')[0].innerHTML = lang.createSuccess;
@@ -212,7 +222,7 @@ async function createData(values) {
 }
 
 async function updateData(values) {
-    const result = await callPut(api + '/' + values.id, values);
+    const result = await callPut(url.api + '/' + values.id, values);
     if (result.success) {
         await loadData();
         document.getElementsByClassName('alert-success')[0].innerHTML = lang.updateSuccess;
@@ -229,7 +239,7 @@ async function updateData(values) {
 }
 
 async function deleteDate() {
-    const result = await callDelete(api + '/' + selectedId);
+    const result = await callDelete(url.api + '/' + selectedId);
     if (result.success) {
         await loadData();
         document.getElementsByClassName('alert-success')[0].innerHTML = lang.deleteSuccess;

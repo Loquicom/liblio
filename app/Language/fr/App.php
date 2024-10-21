@@ -29,6 +29,11 @@ return [
         "confirmDelete" => "Confirmer la suppression",
         "messageDelete" => "Attention, une fois supprimée il est impossible de revenir en arrière.<br/>Voulez-vous continuer ?",
         "errorAjax" => "Une erreur à eu lieu pendant le chargement des données",
+        "createSuccess" => "Création réussis",
+        "updateSuccess" => "Modification enregistrée",
+        "deleteSuccess" => "Suppression réussite",
+        "detail" => "Détails",
+        "close" => "Fermer",
     ],
     "header" => [
         "preference" => "Préférence",

@@ -95,7 +95,7 @@
                         <th scope="col"><?= lang($field['lib']) ?></th>
                     <?php endif ?>
                 <?php endforeach ?>
-                <?php if ($mode === 'edit'): ?>
+                <?php if ($mode === 'edit' || $detail !== 'none'): ?>
                     <th class="center" scope="col"><?= lang('App.common.action') ?></th>
                 <?php endif ?>
             </tr>
@@ -182,6 +182,20 @@
             </footer>
         </article>
     </dialog>
+
+    <!-- Modal detail -->
+    <dialog id="dialog-detail">
+        <article>
+            <header>
+                <button class="dialog-close" aria-label="Close" rel="prev"></button>
+                <?= $this->renderSection('detail-header') ?>
+            </header>
+            <?= $this->renderSection('detail') ?>
+            <footer>
+                <button class="dialog-close"><?= lang('App.common.close') ?></button>
+            </footer>
+        </article>
+    </dialog>
 <?= $this->endSection() ?>
 
 <?= $this->section('script') ?>
@@ -189,13 +203,18 @@
         const api = '<?= $api ?>';
         const fields = JSON.parse('<?= json_encode($fields) ?>');
         const mode = '<?= $mode ?>';
+        const detail = '<?= $detail ?>';
         const lang = {
             edit: '<?= lang('App.common.edit') ?>',
             del: '<?= lang('App.common.delete') ?>',
+            detail: '<?= lang('App.common.detail') ?>',
             errorAjax: '<?= lang('App.common.errorAjax') ?>',
             createSuccess: '<?= lang('App.common.createSuccess') ?>',
             updateSuccess: '<?= lang('App.common.updateSuccess') ?>',
             deleteSuccess: '<?= lang('App.common.deleteSuccess') ?>',
+        }
+        const url = {
+            api: '<?= $api ?>'
         }
     </script>
     <script src="/js/crud.js"></script>

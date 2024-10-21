@@ -16,6 +16,7 @@ class Users extends BaseController
             'return' => 'config',
             'api' => 'api/users',
             'mode' => 'edit',
+            'detail' => 'none',
             'edit' => 'App.config.users.edit',
             'fields' => [
                 'username' => [
