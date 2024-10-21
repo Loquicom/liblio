@@ -15,6 +15,11 @@ $routes->get('/', 'Home::index');
 
 $routes->get('preference', [\App\Controllers\Config\Preference::class, 'index']);
 
+$routes->get('account', [\App\Controllers\Shield\Account::class, 'index'],  ['filter' => 'session']);
+$routes->post('account', [\App\Controllers\Shield\Account::class, 'update'],  ['filter' => ['session', 'csrf']]);
+
+$routes->get('books', 'Books::index');
+
 $routes->group('config', ['filter' => 'session'], function ($routes) {
     $routes->get('/', [\App\Controllers\Config\Menu::class, 'index']);
     $routes->get('users', [\App\Controllers\Config\Users::class, 'index']);
@@ -30,13 +35,11 @@ $routes->group('manage', ['filter' => 'session'], function ($routes) {
     $routes->get('return', 'Home::index');
 });
 
-$routes->get('account', [\App\Controllers\Shield\Account::class, 'index'],  ['filter' => 'session']);
-$routes->post('account', [\App\Controllers\Shield\Account::class, 'update'],  ['filter' => ['session', 'csrf']]);
-
-$routes->get('member/history', 'Home::index');
+$routes->get('members/auth', 'Home::index');
 
 $routes->get('api/login', [\App\Controllers\Api\LoginAPI::class, 'sessionLogin'],  ['filter' => 'session']);
 $routes->post('api/login', [\App\Controllers\Api\LoginAPI::class, 'credentialsLogin']);
+$routes->get('api/books', [\App\Controllers\Api\BooksAPI::class, 'search']);
 $routes->group('api', ['filter' => 'jwt'], static function ($routes) {
     $routes->get('users', [\App\Controllers\Api\UsersAPI::class, 'search']);
     $routes->post('users', [\App\Controllers\Api\UsersAPI::class, 'create']);
@@ -48,7 +51,6 @@ $routes->group('api', ['filter' => 'jwt'], static function ($routes) {
     $routes->put('publishers/(:num)', [\App\Controllers\Api\PublishersAPI::class, 'update']);
     $routes->delete('publishers/(:num)', [\App\Controllers\Api\PublishersAPI::class, 'delete']);
 
-    $routes->get('books', [\App\Controllers\Api\BooksAPI::class, 'search']);
     $routes->post('books', [\App\Controllers\Api\BooksAPI::class, 'create']);
     $routes->put('books/(:any)', [\App\Controllers\Api\BooksAPI::class, 'update']);
     $routes->delete('books/(:any)', [\App\Controllers\Api\BooksAPI::class, 'delete']);

@@ -28,12 +28,6 @@ class BooksAPI extends BaseController
 
     public function search(): \CodeIgniter\HTTP\ResponseInterface
     {
-        // Check authorization
-        $user = auth()->user();
-        if (!$user->can('manage.books.view')) {
-            return $this->respond(respond_error(lang('Api.common.forbidden')),$this->codes['forbidden']);
-        }
-
         // Check pagination info
         $get = $this->request->getGet();
         $page = $get['page'] ?? 1;

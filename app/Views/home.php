@@ -16,8 +16,8 @@
         <p><?= lang('App.home.message') ?></p>
         <div class="btn-zone grid">
             <div></div>
-            <div><a href="<?= url_to('manage/books') ?>" class="outline" role="button" data-tilt data-tilt-reverse="true"><span class="iconify" data-icon="mdi-book-open-variant"></span> <?= lang('App.common.books') ?></a></div>
-            <div><a href="<?= url_to('member/history') ?>" class="outline" role="button" data-tilt data-tilt-reverse="true"><span class="iconify" data-icon="mdi-history"></span> <?= lang('App.common.history') ?></a></div>
+            <div><a href="<?= url_to('books') ?>" class="outline" role="button" data-tilt data-tilt-reverse="true"><span class="iconify" data-icon="mdi-book-open-variant"></span> <?= lang('App.common.books') ?></a></div>
+            <div><a href="<?= url_to('members/auth') ?>" class="outline" role="button" data-tilt data-tilt-reverse="true"><span class="iconify" data-icon="mdi-history"></span> <?= lang('App.common.history') ?></a></div>
             <div></div>
         </div>
     </div>
