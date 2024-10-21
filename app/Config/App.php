@@ -7,7 +7,7 @@ use CodeIgniter\Config\BaseConfig;
 class App extends BaseConfig
 {
 
-    public string $siteName = 'Liblio Dev';
+    public string $siteName = 'Liblio';
 
     /**
      * --------------------------------------------------------------------------

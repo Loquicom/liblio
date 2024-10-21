@@ -7,6 +7,7 @@ return [
     ],
     "users" => [
         "notFound" => "Utilisateur introuvable",
+        "invalidRole" => "Role invalide",
     ],
     "publishers" => [
         "notFound" => "Éditeur introuvable",

@@ -7,6 +7,7 @@ return [
     ],
     "users" => [
         "notFound" => "User not found",
+        "invalidRole" => "Invalid role",
     ],
     "publishers" => [
         "notFound" => "Publisher not found",

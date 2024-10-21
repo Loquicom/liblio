@@ -73,6 +73,12 @@ class UsersAPI extends BaseController
             return $this->respond(respond_error(implode('<br/>', $this->validator->getErrors())),$this->codes['invalid_data']);
         }
 
+        // Check if role exist
+        $role = array_keys(config('AuthGroups')->groups);
+        if (!in_array($json['role'], $role)) {
+            return $this->respond(respond_error(lang('Api.users.invalidRole')),$this->codes['invalid_data']);
+        }
+
         // Create user
         $group = $json['role'];
         unset($json['role']);
@@ -136,6 +142,14 @@ class UsersAPI extends BaseController
         // Validate data
         if (count($rules) > 0 && !$this->validateData($json, $rules, [], config('Auth')->DBGroup)) {
             return $this->respond(respond_error(implode('<br/>', $this->validator->getErrors())),$this->codes['invalid_data']);
+        }
+
+        // Check if role exist
+        if (isset($json['role'])) {
+            $role = array_keys(config('AuthGroups')->groups);
+            if (!in_array($json['role'], $role)) {
+                return $this->respond(respond_error(lang('Api.users.invalidRole')),$this->codes['invalid_data']);
+            }
         }
 
         // Save
