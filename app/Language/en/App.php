@@ -80,6 +80,7 @@ return [
             "card" => "Books",
             "edit" => "Edit book",
             "isbn" => "ISBN",
+            "author" => "Main author",
             "publisher" => "Publisher",
             "collection" => "Collection",
         ],

@@ -10,11 +10,13 @@ return [
     ],
     "publishers" => [
         "notFound" => "Éditeur introuvable",
+        "defaultDelete" => "Impossible de supprimer l'éditeur par défaut",
     ],
     "books" => [
         "notFound" => "Livre introuvable",
     ],
     "authors" => [
         "notFound" => "Auteur introuvable",
+        "defaultDelete" => "Impossible de supprimer l'auteur par défaut",
     ],
 ];

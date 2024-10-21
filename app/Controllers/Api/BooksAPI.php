@@ -5,6 +5,7 @@ namespace App\Controllers\Api;
 use App\Controllers\BaseController;
 use App\Models\BooksModel;
 use App\Models\PublishersModel;
+use App\Models\WriteModel;
 use CodeIgniter\API\ResponseTrait;
 
 class BooksAPI extends BaseController
@@ -12,18 +13,21 @@ class BooksAPI extends BaseController
 
     use ResponseTrait;
 
-    protected $model;
-    protected $rules = [
+    protected BooksModel|null $model;
+    protected WriteModel|null $writeModel;
+    protected array $rules = [
         'isbn' => 'required|min_length[10]|max_length[13]',
         'title' => 'required|max_length[1024]',
+        'author' => 'required|integer',
         'publisher' => 'required|integer',
-        'collection' => 'max_length[512]'
+        'collection' => 'max_length[512]',
     ];
 
     public function __construct()
     {
         helper('api');
         $this->model = model(BooksModel::class);
+        $this->writeModel = model(WriteModel::class);
     }
 
     public function search(): \CodeIgniter\HTTP\ResponseInterface
@@ -76,8 +80,15 @@ class BooksAPI extends BaseController
             return $this->respond(respond_error(implode('<br/>', $this->validator->getErrors())),$this->codes['invalid_data']);
         }
 
+        // Extract author
+        $author = $json['author'];
+        unset($json['author']);
+
         try {
+            // Book insert
             $this->model->insert($json);
+            // Write insert (author)
+            $this->writeModel->insert(['author' => $author, 'book' => $json['isbn'], 'main' => true]);
         } catch (\ReflectionException $e) {
             return $this->respond(respond_error('Api.common.serverError'),$this->codes['server_error']);
         }
@@ -111,7 +122,7 @@ class BooksAPI extends BaseController
             $json['isbn'] = str_replace([' ', '-'], '', $json['isbn']);
         }
 
-        // Check change
+        // Check change from book table field
         $rules = $this->rules;
         if ($entity['isbn'] === $json['isbn']) {
             unset($json['isbn']);
@@ -130,6 +141,16 @@ class BooksAPI extends BaseController
             unset($rules['collection']);
         }
 
+        // Extract author
+        $author = $json['author'];
+
+        // Check author change
+        $write = $this->writeModel->findMainForBook($id);
+        if ($write['author'] === $author) {
+            unset($rules['author']);
+            $author = null;
+        }
+
         // Any change ?
         if (count($rules) === 0) {
             // Stop success
@@ -141,8 +162,22 @@ class BooksAPI extends BaseController
             return $this->respond(respond_error(implode('<br/>', $this->validator->getErrors())),$this->codes['invalid_data']);
         }
 
+        // Unset author infos
+        unset($json['author']);
+        unset($rules['author']);
+
         try {
-            $this->model->update($id, $json);
+            // Book insert
+            if (count($rules) > 0) {
+                $this->model->update($id, $json);
+            }
+            // Write insert (author)
+            if ($author !== null) {
+                $this->writeModel->where('author', $write['author'])
+                    ->where('book', $json['isbn'] ?? $id)
+                    ->set('author', $author)
+                    ->update();
+            }
         } catch (\ReflectionException $e) {
             return $this->respond(respond_error('Api.common.serverError'),$this->codes['server_error']);
         }

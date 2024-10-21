@@ -10,11 +10,13 @@ return [
     ],
     "publishers" => [
         "notFound" => "Publisher not found",
+        "defaultDelete" => "Can't delete the default publisher",
     ],
     "books" => [
         "notFound" => "Books not found",
     ],
     "authors" => [
         "notFound" => "Author not found",
+        "defaultDelete" => "Can't delete the default author",
     ],
 ];

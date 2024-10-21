@@ -3,6 +3,7 @@
 namespace App\Controllers\Manage;
 
 use App\Controllers\BaseController;
+use App\Models\AuthorsModel;
 use App\Models\PublishersModel;
 
 class Books extends BaseController
@@ -12,12 +13,20 @@ class Books extends BaseController
     {
         // Defined parameter
         $mode = 'view';
+        $author = [];
         $publisher = [];
 
         // Adapt parameter bases on auth
         $user = auth()->user();
         if ($user->can('manage.book.edit')) {
             $mode = 'edit';
+        }
+
+        // Load author
+        $authorModel = model(AuthorsModel::class);
+        $authorData = $authorModel->findAll();
+        foreach ($authorData as $data) {
+            $author[$data['id']] = $data['username'];
         }
 
         // Load publisher
@@ -47,6 +56,12 @@ class Books extends BaseController
                     'col' => true,
                     'lib' => 'App.common.title',
                     'type' => 'text'
+                ],
+                'author' => [
+                    'search' => true,
+                    'col' => true,
+                    'lib' => 'App.manage.books.author',
+                    'type' => $author
                 ],
                 'publisher' => [
                     'search' => true,

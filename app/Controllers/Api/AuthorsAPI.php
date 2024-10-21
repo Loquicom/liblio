@@ -5,6 +5,7 @@ namespace App\Controllers\Api;
 use App\Controllers\BaseController;
 use App\Models\AuthorsModel;
 use App\Models\PublishersModel;
+use App\Models\WriteModel;
 use CodeIgniter\API\ResponseTrait;
 
 class AuthorsAPI extends BaseController
@@ -131,10 +132,25 @@ class AuthorsAPI extends BaseController
             return $this->respond(respond_error(lang('Api.common.forbidden')),$this->codes['forbidden']);
         }
 
+        // Can't delete default
+        if ($id == 1) {
+            return $this->respond(respond_error(lang('Api.authors.defaultDelete')),$this->codes['invalid_data']);
+        }
+
         // Check data exist
         $entity = $this->model->find($id);
         if ($entity == null) {
             return $this->respond(respond_error(lang('Api.authors.notFound')),$this->codes['invalid_data']);
+        }
+
+        try {
+            // If author is use replace with default
+            $writeModel = model(WriteModel::class);
+            $writeModel->where('author', $id)
+                ->set('author', 1)
+                ->update();
+        } catch (\ReflectionException $e) {
+            return $this->respond(respond_error('Api.common.serverError'),$this->codes['server_error']);
         }
 
         $this->model->delete($id);

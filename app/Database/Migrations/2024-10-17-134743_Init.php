@@ -70,7 +70,8 @@ class Init extends Migration
             'publisher' => [
                 'type' => 'INT',
                 'unsigned' => true,
-                'constraint' => 9
+                'constraint' => 9,
+                'null' => true
             ],
             'collection' => [
                 'type' => 'VARCHAR',
@@ -80,7 +81,7 @@ class Init extends Migration
         ];
         $this->forge->addField($fields);
         $this->forge->addPrimaryKey('isbn', 'pk_book');
-        $this->forge->addForeignKey('publisher', 'publisher', 'id', 'CASCADE', 'CASCADE', 'fk_book_publisher');
+        $this->forge->addForeignKey('publisher', 'publisher', 'id', 'CASCADE', 'SET_NULL', 'fk_book_publisher');
         $this->forge->createTable('book');
         // Create table write
         $fields = [
@@ -93,7 +94,7 @@ class Init extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 13
             ],
-            'principal' => [
+            'main' => [
                 'type' => 'BOOLEAN',
                 'default' => false
             ]
@@ -128,5 +129,10 @@ class Init extends Migration
         // Disabled register and magic link
         service('settings')->set('Auth.allowRegistration', false);
         service('settings')->set('Auth.allowMagicLinkLogins', false);
+        // Default Publisher and Author
+        $defaultPublisher = lang('Init.default.publisher');
+        $this->db->query("Insert into publisher(name) values ('$defaultPublisher')");
+        $defaultAuthor = lang('Init.default.author');
+        $this->db->query("Insert into author(username) values ('$defaultAuthor')");
     }
 }

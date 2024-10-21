@@ -3,6 +3,7 @@
 namespace App\Controllers\Api;
 
 use App\Controllers\BaseController;
+use App\Models\BooksModel;
 use App\Models\PublishersModel;
 use CodeIgniter\API\ResponseTrait;
 
@@ -130,10 +131,25 @@ class PublishersAPI extends BaseController
             return $this->respond(respond_error(lang('Api.common.forbidden')),$this->codes['forbidden']);
         }
 
+        // Can't delete default
+        if ($id == 1) {
+            return $this->respond(respond_error(lang('Api.publishers.defaultDelete')),$this->codes['invalid_data']);
+        }
+
         // Check data exist
         $entity = $this->model->find($id);
         if ($entity == null) {
             return $this->respond(respond_error(lang('Api.publishers.notFound')),$this->codes['invalid_data']);
+        }
+
+        try {
+            // If publisher is use replace with default
+            $bookModel = model(BooksModel::class);
+            $bookModel->where('publisher', $id)
+                ->set('publisher', 1)
+                ->update();
+        } catch (\ReflectionException $e) {
+            return $this->respond(respond_error('Api.common.serverError'),$this->codes['server_error']);
         }
 
         $this->model->delete($id);

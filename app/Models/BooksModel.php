@@ -25,7 +25,7 @@ class BooksModel extends Model
         $where = '1=1';
         if (isset($parameter['search'])) { // Simple
             $search = $parameter['search'];
-            $where = "(isbn like '%$search%' Or title like '%$search%' Or publisher.name like '%$search%' Or collection like '%$search%')";
+            $where = "(isbn like '%$search%' OR title like '%$search%' OR author.username like '%$search%' OR publisher.name like '%$search%' OR collection like '%$search%')";
         } else { // Advanced
             if (isset($parameter['isbn'])) {
                 $search = $parameter['isbn'];
@@ -34,6 +34,10 @@ class BooksModel extends Model
             if (isset($parameter['title'])) {
                 $search = $parameter['title'];
                 $where .= " And title like '%$search%'";
+            }
+            if (isset($parameter['author'])) {
+                $search = $parameter['author'];
+                $where .= " And author.id = $search";
             }
             if (isset($parameter['publisher'])) {
                 $search = $parameter['publisher'];
@@ -54,6 +58,9 @@ class BooksModel extends Model
             if($parameter['sort'] === 'title') {
                 $orderBy = 'title';
             }
+            if($parameter['sort'] === 'author') {
+                $orderBy = 'author.username';
+            }
             if($parameter['sort'] === 'publisher') {
                 $orderBy = 'publisher.name';
             }
@@ -63,8 +70,10 @@ class BooksModel extends Model
         }
 
         // Get data
-        $result = $this->select('isbn, title, publisher.id as publisher_id, publisher.name as publisher_name, collection')
+        $result = $this->select('isbn, title, author.id as author_id, author.username as author_username, publisher.id as publisher_id, publisher.name as publisher_name, collection')
             ->join('publisher', 'book.publisher = publisher.id')
+            ->join('write', '(book.isbn = write.book and write.main = true)')
+            ->join('author', 'write.author = author.id')
             ->where($where)
             ->orderBy($orderBy)
             ->findAll($number, $offset);
@@ -73,6 +82,10 @@ class BooksModel extends Model
         $data = [];
         foreach ($result as $val) {
             $val['id'] = $val['isbn'];
+            $val['author'] = [
+                'code' => $val['author_id'],
+                'lib' => $val['author_username']
+            ];
             $val['publisher'] = [
                 'code' => $val['publisher_id'],
                 'lib' => $val['publisher_name']
