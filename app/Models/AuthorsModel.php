@@ -4,13 +4,13 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class PublishersModel extends Model
+class AuthorsModel extends Model
 {
 
-    protected $table = 'publisher';
+    protected $table = 'author';
     protected $primaryKey = 'id';
 
-    protected $allowedFields = ['name'];
+    protected $allowedFields = ['username'];
 
     public function search($parameter, $page, $number): array
     {
@@ -18,38 +18,38 @@ class PublishersModel extends Model
         $offset = $number * ($page - 1);
 
         // Count total
-        $total = $this->selectCount('name')
+        $total = $this->selectCount('username')
             ->first();
 
         // Set where clause
         $where = '1=1';
         if (isset($parameter['search'])) { // Simple
             $search = $parameter['search'];
-            $where = "(name like '%$search%')";
+            $where = "(username like '%$search%')";
         } else { // Advanced
-            if (isset($parameter['name'])) {
-                $search = $parameter['name'];
-                $where .= " And name like '%$search%'";
+            if (isset($parameter['username'])) {
+                $search = $parameter['username'];
+                $where .= " And username like '%$search%'";
             }
         }
 
         // Order by
         $orderBy = '1';
         if (isset($parameter['sort'])) {
-            if($parameter['sort'] === 'name') {
-                $orderBy = 'name';
+            if($parameter['sort'] === 'username') {
+                $orderBy = 'username';
             }
         }
 
         // Get data
-        $result = $this->select('id, name')
+        $result = $this->select('id, username')
             ->where($where)
             ->orderBy($orderBy)
             ->findAll($number, $offset);
 
         return [
             'data' => $result,
-            'total' => $total['name']
+            'total' => $total['username']
         ];
     }
 

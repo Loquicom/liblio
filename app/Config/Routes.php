@@ -33,6 +33,7 @@ $routes->group('manage', ['filter' => 'session'], function ($routes) {
     $routes->get('members', 'Home::index');
     $routes->get('borrow', 'Home::index');
     $routes->get('return', 'Home::index');
+    $routes->get('authors', [\App\Controllers\Manage\Authors::class, 'index']);
 });
 
 $routes->get('members/auth', 'Home::index');
@@ -54,4 +55,9 @@ $routes->group('api', ['filter' => 'jwt'], static function ($routes) {
     $routes->post('books', [\App\Controllers\Api\BooksAPI::class, 'create']);
     $routes->put('books/(:any)', [\App\Controllers\Api\BooksAPI::class, 'update']);
     $routes->delete('books/(:any)', [\App\Controllers\Api\BooksAPI::class, 'delete']);
+
+    $routes->get('authors', [\App\Controllers\Api\AuthorsAPI::class, 'search']);
+    $routes->post('authors', [\App\Controllers\Api\AuthorsAPI::class, 'create']);
+    $routes->put('authors/(:num)', [\App\Controllers\Api\AuthorsAPI::class, 'update']);
+    $routes->delete('authors/(:num)', [\App\Controllers\Api\AuthorsAPI::class, 'delete']);
 });

@@ -77,3 +77,7 @@ Système de tag
 Amélioration de la recherche simple
 
 Rajouter un système d'auteur multiple
+
+Faire une passe sur chaque page sous droit pour vérifier leur présence
+
+Controle role utilisateur API

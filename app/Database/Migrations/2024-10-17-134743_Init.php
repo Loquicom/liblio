@@ -36,6 +36,22 @@ class Init extends Migration
         $this->forge->addField($fields);
         $this->forge->addPrimaryKey('id', 'pk_publisher');
         $this->forge->createTable('publisher');
+        // Create table author
+        $fields = [
+            'id' => [
+                'type' => 'INT',
+                'constraint' => 9,
+                'unsigned' => true,
+                'auto_increment' => true
+            ],
+            'username' => [
+                'type' => 'VARCHAR',
+                'constraint' => 512,
+            ]
+        ];
+        $this->forge->addField($fields);
+        $this->forge->addPrimaryKey('id', 'pk_author');
+        $this->forge->createTable('author');
         // Create table book
         $fields = [
             'isbn' => [
@@ -66,10 +82,33 @@ class Init extends Migration
         $this->forge->addPrimaryKey('isbn', 'pk_book');
         $this->forge->addForeignKey('publisher', 'publisher', 'id', 'CASCADE', 'CASCADE', 'fk_book_publisher');
         $this->forge->createTable('book');
+        // Create table write
+        $fields = [
+            'author' => [
+                'type' => 'INT',
+                'constraint' => 9,
+                'unsigned' => true
+            ],
+            'book' => [
+                'type' => 'VARCHAR',
+                'constraint' => 13
+            ],
+            'principal' => [
+                'type' => 'BOOLEAN',
+                'default' => false
+            ]
+        ];
+        $this->forge->addField($fields);
+        $this->forge->addPrimaryKey(['author', 'book'], 'pk_write');
+        $this->forge->addForeignKey('author', 'author', 'id', 'CASCADE', 'CASCADE', 'fk_write_author');
+        $this->forge->addForeignKey('book', 'book', 'isbn', 'CASCADE', 'CASCADE', 'fk_write_book');
+        $this->forge->createTable('write');
     }
 
     protected function dropTable(): void
     {
+        $this->forge->dropTable('write', true, true);
+        $this->forge->dropTable('author', true, true);
         $this->forge->dropTable('book', true, true);
         $this->forge->dropTable('publisher', true, true);
     }

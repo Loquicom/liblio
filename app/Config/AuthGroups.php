@@ -73,10 +73,11 @@ class AuthGroups extends ShieldAuthGroups
      */
     public array $permissions = [
         'manage.books.view'  => 'Can view books informations',
-        'manage.books.edit'  => 'Can  edit books informations',
+        'manage.books.edit'  => 'Can edit books informations',
         'manage.members'     => 'Can view and edit members informations',
         'manage.borrow'      => 'Possibility of borrowing books',
         'manage.return'      => 'Possibility of returning books',
+        'manage.authors'      => 'Can view and edit authors informations',
         'config.users.admin' => 'Can manage admin users',
         'config.users.view'  => 'Can view users informations',
         'config.users.edit'  => 'Can edit users informations',

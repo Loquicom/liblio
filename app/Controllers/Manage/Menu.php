@@ -31,7 +31,12 @@ class Menu extends BaseController
                     'icon' => 'inbox-arrow-down',
                     'name' => 'App.manage.return',
                     'link' => url_to('manage/return')
-                ]
+                ],
+                [
+                    'icon' => 'account-edit',
+                    'name' => 'App.manage.authors.card',
+                    'link' => url_to('manage/authors')
+                ],
             ]
         ];
 

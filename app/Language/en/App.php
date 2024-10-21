@@ -35,6 +35,9 @@ return [
         "close" => "Close",
         "title" => "Title",
     ],
+    "helper" => [
+        "id" => "ID is auto-generated",
+    ],
     "header" => [
         "preference" => "Preference",
         "login" => "Log In",
@@ -75,6 +78,7 @@ return [
         "books" => [
             "title" => "Manage books",
             "card" => "Books",
+            "edit" => "Edit book",
             "isbn" => "ISBN",
             "publisher" => "Publisher",
             "collection" => "Collection",
@@ -82,6 +86,13 @@ return [
         "member" => "Members",
         "borrow" => "Borrow",
         "return" => "Return",
+        "authors" => [
+            "title" => "Manage authors",
+            "card" => "Authors",
+            "edit" => "Edit author",
+            "id" => "ID",
+            "username" => "username",
+        ],
     ],
     "config" => [
         "title" => "Config",
@@ -116,9 +127,6 @@ return [
             "card" => "Publisher",
             "id" => "ID",
             "name" => "Name",
-            "helper" => [
-                "id" => "ID is auto-generated",
-            ],
         ],
     ],
 ];

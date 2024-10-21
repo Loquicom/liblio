@@ -36,6 +36,9 @@ return [
         "close" => "Fermer",
         "title" => "Titre",
     ],
+    "helper" => [
+        "id" => "L'identifiant est géré automatiquement",
+    ],
     "header" => [
         "preference" => "Préférence",
         "login" => "Connexion",
@@ -75,6 +78,7 @@ return [
         "books" => [
             "title" => "Gestion des livres",
             "card" => "Livres",
+            "edit" => "Édition d'un livre",
             "isbn" => "ISBN",
             "publisher" => "Éditeur",
             "collection" => "Collection",
@@ -82,6 +86,13 @@ return [
         "member" => "Adhérents",
         "borrow" => "Emprunt",
         "return" => "Retour",
+        "authors" => [
+            "title" => "Gestion des auteurs",
+            "card" => "Auteurs",
+            "edit" => "Édition d'un auteur",
+            "id" => "Identifiant",
+            "username" => "Nom",
+        ],
     ],
     "config" => [
         "title" => "Configuration",
@@ -116,9 +127,6 @@ return [
             "card" => "Éditeurs",
             "id" => "Identifiant",
             "name" => "Nom",
-            "helper" => [
-                "id" => "L'identifiant est géré automatiquement",
-            ],
         ],
     ],
 ];

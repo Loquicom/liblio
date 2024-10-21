@@ -12,7 +12,8 @@ class BooksModel extends Model
 
     protected $allowedFields = ['isbn', 'title', 'description', 'publisher', 'collection'];
 
-    public function search($parameter, $page, $number) {
+    public function search($parameter, $page, $number): array
+    {
         // Adapt page to limit
         $offset = $number * ($page - 1);
 

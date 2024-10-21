@@ -1,41 +1,41 @@
 <?php
 
-namespace App\Controllers\Config;
+namespace App\Controllers\Manage;
 
 use App\Controllers\BaseController;
 
-class Publishers extends BaseController
+class Authors extends BaseController
 {
 
     public function index(): string|\CodeIgniter\HTTP\RedirectResponse
     {
         // Check access
         $user = auth()->user();
-        if (!$user->can('config.publisher')) {
-            return redirect()->to('config');
+        if (!$user->can('manage.authors')) {
+            return redirect()->to('manage');
         }
 
         // View params
         $params = [
-            'title' => 'App.config.publishers.title',
-            'return' => 'config',
-            'api' => 'api/publishers',
+            'title' => 'App.manage.authors.title',
+            'return' => 'manage',
+            'api' => 'api/authors',
             'mode' => 'edit',
-            'detail' => 'none',
-            'edit' => 'App.config.publishers.edit',
+            'detail' => 'page',
+            'edit' => 'App.manage.authors.edit',
             'fields' => [
                 'id' => [
                     'search' => false,
                     'col' => true,
                     'disabled' => true,
                     'helper' => 'App.helper.id',
-                    'lib' => 'App.config.publishers.id',
+                    'lib' => 'App.manage.authors.id',
                     'type' => 'number'
                 ],
-                'name' => [
+                'username' => [
                     'search' => true,
                     'col' => true,
-                    'lib' => 'App.config.publishers.name',
+                    'lib' => 'App.manage.authors.username',
                     'type' => 'text'
                 ]
             ]

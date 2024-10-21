@@ -14,4 +14,7 @@ return [
     "books" => [
         "notFound" => "Livre introuvable",
     ],
+    "authors" => [
+        "notFound" => "Auteur introuvable",
+    ],
 ];
