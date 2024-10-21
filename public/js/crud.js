@@ -262,6 +262,12 @@ async function deleteData() {
     selectedId = null;
 }
 
+function sendSearch(event) {
+    if (event.key === "Enter") {
+        loadData();
+    }
+}
+
 /* --- Page load --- */
 
 (function() {

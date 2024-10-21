@@ -35,8 +35,16 @@ class PublishersAPI extends BaseController
         $page = $get['page'] ?? 1;
         $number = $get['number'] ?? 10;
 
+        // Remove empty search
+        $params = [];
+        foreach ($get as $key => $val) {
+            if (trim($val) !== '') {
+                $params[$key] = $val;
+            }
+        }
+
         // Get data
-        $data = $this->model->search($get, $page, $number);
+        $data = $this->model->search($params, $page, $number);
         $data['page'] = $page;
 
         // Respond

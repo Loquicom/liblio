@@ -44,8 +44,16 @@ class BooksAPI extends BaseController
             $get['isbn'] = str_replace([' ', '-'], '', $get['isbn']);
         }
 
+        // Remove empty search
+        $params = [];
+        foreach ($get as $key => $val) {
+            if (trim($val) !== '') {
+                $params[$key] = $val;
+            }
+        }
+
         // Get data
-        $data = $this->model->search($get, $page, $number);
+        $data = $this->model->search($params, $page, $number);
         $data['page'] = $page;
 
         // Respond

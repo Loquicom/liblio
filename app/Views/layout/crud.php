@@ -15,13 +15,13 @@
     <section id="search">
         <div class="center">
             <div id="simple-search" role="search">
-                <input id="simple-search-input" name="search" type="search" placeholder="<?= lang('App.common.search') ?>" />
+                <input id="simple-search-input" name="search" type="search" placeholder="<?= lang('App.common.search') ?>" onkeyup="sendSearch(event)" />
                 <button id="search-btn" onclick="loadData()"><span class="iconify" data-icon="mdi-send"></span></button>
             </div>
         </div>
         <details id="advanced-search">
             <summary onclick="setSearchMode()"><?= lang('App.common.advancedSearch') ?></summary>
-            <form id="advanced-search-form">
+            <div id="advanced-search-form">
                 <?php $i = 0 ?>
                 <?php foreach ($fields as $key => $field): ?>
                     <?php if (!$field['search']) continue ?>
@@ -43,7 +43,7 @@
                     <?php else: ?>
                         <label>
                             <?= lang($field['lib']) ?>
-                            <input id="advanced-search-<?= $key ?>" type="<?= $field['type'] ?>" name="<?= $key ?>">
+                            <input id="advanced-search-<?= $key ?>" type="<?= $field['type'] ?>" name="<?= $key ?>" onkeyup="sendSearch(event)">
                         </label>
                     <?php endif ?>
                     <?php if ($i++ % 3 == 2): ?>
@@ -53,7 +53,7 @@
                 <?php if (($i-1) % 3 != 2): ?>
                     </fieldset>
                 <?php endif ?>
-            </form>
+            </div>
         </details>
     </section>
     <!-- Sort & Add -->

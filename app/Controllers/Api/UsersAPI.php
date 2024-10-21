@@ -36,9 +36,17 @@ class UsersAPI extends BaseController
             $get['limitRole'] = 'manager';
         }
 
+        // Remove empty search
+        $params = [];
+        foreach ($get as $key => $val) {
+            if (trim($val) !== '') {
+                $params[$key] = $val;
+            }
+        }
+
         // Get data
         $model = model(UsersModel::class);
-        $data = $model->search($get, $page, $number);
+        $data = $model->search($params, $page, $number);
         $data['page'] = $page;
 
         // Respond
