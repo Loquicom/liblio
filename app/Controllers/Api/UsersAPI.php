@@ -8,11 +8,10 @@ use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\Shield\Entities\User;
 use CodeIgniter\Shield\Validation\ValidationRules;
 
-class Users extends BaseController
+class UsersAPI extends BaseController
 {
 
     use ResponseTrait;
-
 
     public function __construct()
     {
@@ -21,7 +20,7 @@ class Users extends BaseController
 
     public function search(): \CodeIgniter\HTTP\ResponseInterface
     {
-        // Check authorisation
+        // Check authorization
         $user = auth()->user();
         if (!$user->can('config.users.view')) {
             return $this->respond(respond_error(lang('Api.common.forbidden')),$this->codes['forbidden']);
@@ -48,7 +47,7 @@ class Users extends BaseController
 
     public function create(): \CodeIgniter\HTTP\ResponseInterface
     {
-        // Check authorisation
+        // Check authorization
         $user = auth()->user();
         if (!$user->can('config.users.edit')) {
             return $this->respond(respond_error(lang('Api.common.forbidden')),$this->codes['forbidden']);
@@ -82,7 +81,7 @@ class Users extends BaseController
 
     public function update(int $id): \CodeIgniter\HTTP\ResponseInterface
     {
-        // Check authorisation
+        // Check authorization
         $actualUser = auth()->user();
         if (!$actualUser->can('config.users.edit')) {
             return $this->respond(respond_error(lang('Api.common.forbidden')),$this->codes['forbidden']);
@@ -152,7 +151,7 @@ class Users extends BaseController
 
     public function delete(int $id): \CodeIgniter\HTTP\ResponseInterface
     {
-        // Check authorisation
+        // Check authorization
         $actualUser = auth()->user();
         if (!$actualUser->can('config.users.edit')) {
             return $this->respond(respond_error(lang('Api.common.forbidden')),$this->codes['forbidden']);

@@ -18,16 +18,65 @@ class Init extends Migration
         $this->dropTable();
     }
 
-    protected function createTable() {
-
+    protected function createTable(): void
+    {
+        // Create table publisher
+        $fields = [
+            'id' => [
+                'type' => 'INT',
+                'constraint' => 9,
+                'unsigned' => true,
+                'auto_increment' => true
+            ],
+            'name' => [
+                'type' => 'VARCHAR',
+                'constraint' => 512,
+            ]
+        ];
+        $this->forge->addField($fields);
+        $this->forge->addPrimaryKey('id', 'pk_publisher');
+        $this->forge->createTable('publisher');
+        // Create table book
+        $fields = [
+            'isbn' => [
+                'type' => 'VARCHAR',
+                'constraint' => 13,
+                'unique' => true
+            ],
+            'title' => [
+                'type' => 'VARCHAR',
+                'constraint' => 1024,
+            ],
+            'description' => [
+                'type' => 'TEXT',
+                'null' => true
+            ],
+            'publisher' => [
+                'type' => 'INT',
+                'unsigned' => true,
+                'constraint' => 9,
+                'null' => true
+            ],
+            'collection' => [
+                'type' => 'VARCHAR',
+                'constraint' => 512,
+                'null' => true
+            ]
+        ];
+        $this->forge->addField($fields);
+        $this->forge->addPrimaryKey('isbn', 'pk_book');
+        $this->forge->addForeignKey('publisher', 'publisher', 'id', 'CASCADE', 'CASCADE', 'fk_book_publisher');
+        $this->forge->createTable('book');
     }
 
-    protected function dropTable() {
-
+    protected function dropTable(): void
+    {
+        $this->forge->dropTable('book', true, true);
+        $this->forge->dropTable('publisher', true, true);
     }
 
     protected function setData(): void {
-        // Création du compte admin
+        // Create superadmin user
         $users = auth()->getProvider();
         $user = new User([
             'username' => 'admin',
@@ -35,10 +84,10 @@ class Init extends Migration
             'password' => 'admin',
         ]);
         $users->save($user);
-        // Ajout des permissions
+        // Add group
         $user = $users->findById($users->getInsertID());
         $user->syncGroups('superadmin');
-        // Bloque la création de compte et l'utilisation de lien magique
+        // Disabled register and magic link
         service('settings')->set('Auth.allowRegistration', false);
         service('settings')->set('Auth.allowMagicLinkLogins', false);
     }

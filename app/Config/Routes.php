@@ -15,9 +15,12 @@ $routes->get('/', 'Home::index');
 
 $routes->get('preference', [\App\Controllers\Config\Preference::class, 'index']);
 
-$routes->get('config', [\App\Controllers\Config\Menu::class, 'index'],  ['filter' => 'session']);
-$routes->get('config/users', [\App\Controllers\Config\Users::class, 'index'],  ['filter' => 'session']);
-$routes->get('config/website', 'Home::index',  ['filter' => 'session']);
+$routes->group('config', ['filter' => 'session'], function ($routes) {
+    $routes->get('/', [\App\Controllers\Config\Menu::class, 'index']);
+    $routes->get('users', [\App\Controllers\Config\Users::class, 'index']);
+    $routes->get('website', 'Home::index');
+    $routes->get('publishers', [\App\Controllers\Config\Publishers::class, 'index']);
+});
 
 $routes->get('manage', [\App\Controllers\Manage\Menu::class, 'index'],  ['filter' => 'session']);
 $routes->get('manage/books', 'Home::index');
@@ -30,11 +33,16 @@ $routes->post('account', [\App\Controllers\Shield\Account::class, 'update'],  ['
 
 $routes->get('member/history', 'Home::index');
 
-$routes->get('api/login', [\App\Controllers\Api\Login::class, 'sessionLogin'],  ['filter' => 'session']);
-$routes->post('api/login', [\App\Controllers\Api\Login::class, 'credentialsLogin']);
+$routes->get('api/login', [\App\Controllers\Api\LoginAPI::class, 'sessionLogin'],  ['filter' => 'session']);
+$routes->post('api/login', [\App\Controllers\Api\LoginAPI::class, 'credentialsLogin']);
 $routes->group('api', ['filter' => 'jwt'], static function ($routes) {
-    $routes->get('users', [\App\Controllers\Api\Users::class, 'search']);
-    $routes->post('users', [\App\Controllers\Api\Users::class, 'create']);
-    $routes->put('users/(:num)', [\App\Controllers\Api\Users::class, 'update']);
-    $routes->delete('users/(:num)', [\App\Controllers\Api\Users::class, 'delete']);
+    $routes->get('users', [\App\Controllers\Api\UsersAPI::class, 'search']);
+    $routes->post('users', [\App\Controllers\Api\UsersAPI::class, 'create']);
+    $routes->put('users/(:num)', [\App\Controllers\Api\UsersAPI::class, 'update']);
+    $routes->delete('users/(:num)', [\App\Controllers\Api\UsersAPI::class, 'delete']);
+
+    $routes->get('publishers', [\App\Controllers\Api\PublishersAPI::class, 'search']);
+    $routes->post('publishers', [\App\Controllers\Api\PublishersAPI::class, 'create']);
+    $routes->put('publishers/(:num)', [\App\Controllers\Api\PublishersAPI::class, 'update']);
+    $routes->delete('publishers/(:num)', [\App\Controllers\Api\PublishersAPI::class, 'delete']);
 });

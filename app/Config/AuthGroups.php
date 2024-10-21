@@ -81,6 +81,7 @@ class AuthGroups extends ShieldAuthGroups
         'config.users.view'  => 'Can view users informations',
         'config.users.edit'  => 'Can edit users informations',
         'config.website'     => 'Can configure website parameters',
+        'config.publisher'   => 'Manage publisher',
         'beta.access'        => 'Can access beta-level features',
     ];
 
@@ -95,18 +96,18 @@ class AuthGroups extends ShieldAuthGroups
     public array $matrix = [
         'superadmin' => [
             'manage.*',
-            'config.users.admin',
-            'config.users.view',
-            'config.users.edit',
+            'config.*',
             'beta.*',
         ],
         'admin' => [
             'manage.*',
             'config.user.view',
             'config.user.edit',
+            'config.publisher',
         ],
         'manager' => [
             'manage.*',
+            'config.publisher',
         ],
         'member' => [
             'manage.books.view'

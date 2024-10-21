@@ -67,5 +67,13 @@ Additionally, make sure that the following extensions are enabled in your PHP:
 - [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
 - [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
 
+## TODO
+
 lecteur code barre :
 https://github.com/zxing-js/library/tree/master
+
+Système de tag
+
+Amélioration de la recherche simple
+
+Rajouter un système d'auteur multiple

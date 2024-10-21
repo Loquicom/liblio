@@ -104,5 +104,14 @@ return [
             "edit" => "Édition d'un utilisateur",
         ],
         "website" => "Site web",
+        "publishers" => [
+            "title" => "Configuration des éditeurs",
+            "card" => "Éditeurs",
+            "id" => "Identifiant",
+            "name" => "Nom",
+            "helper" => [
+                "id" => "L'identifiant est géré automatiquement",
+            ],
+        ],
     ],
 ];

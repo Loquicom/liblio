@@ -39,6 +39,14 @@ class Menu extends BaseController
                 'link' => url_to('config/website')
             ];
         }
+        // Can manage publisher
+        if ($user->can('config.publisher')) {
+            $params['menus'][] = [
+                'icon' => 'briefcase-variant',
+                'name' => 'App.config.publishers.card',
+                'link' => url_to('config/publishers')
+            ];
+        }
 
         return view('layout/menu', $params);
     }

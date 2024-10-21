@@ -9,7 +9,7 @@ use CodeIgniter\Shield\Authentication\Authenticators\Session;
 use CodeIgniter\Shield\Authentication\JWTManager;
 use CodeIgniter\Shield\Validation\ValidationRules;
 
-class Login extends BaseController
+class LoginAPI extends BaseController
 {
 
     use ResponseTrait;

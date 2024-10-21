@@ -9,6 +9,12 @@ class Users extends BaseController
 
     public function index(): string
     {
+        // Check access
+        $user = auth()->user();
+        if (!$user->can('config.users.view')) {
+            redirect()->to('config');
+        }
+
         // Defined parameter
         $mode = 'view';
         $typeRole = [
@@ -16,7 +22,6 @@ class Users extends BaseController
         ];
 
         // Adapt parameter bases on auth
-        $user = auth()->user();
         if ($user->can('config.users.edit')) {
             $mode = 'edit';
         }
@@ -25,6 +30,7 @@ class Users extends BaseController
             $typeRole['superadmin'] = 'App.role.superadmin';
         }
 
+        // View params
         $params = [
             'title' => 'App.config.users.title',
             'return' => 'config',

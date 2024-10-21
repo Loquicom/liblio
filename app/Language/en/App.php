@@ -104,5 +104,14 @@ return [
             "edit" => "Edit user",
         ],
         "website" => "Website",
+        "publisher" => [
+            "title" => "Publisher configuration",
+            "card" => "Publisher",
+            "id" => "ID",
+            "name" => "Name",
+            "helper" => [
+                "id" => "ID is auto-generated",
+            ],
+        ],
     ],
 ];

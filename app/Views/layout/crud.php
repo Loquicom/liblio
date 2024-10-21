@@ -144,7 +144,7 @@
                     <?php if (is_array($field['type'])): ?>
                         <label>
                             <?= lang($field['lib']) ?>
-                            <select id="edit-<?= $key ?>" name="<?= $key ?>">
+                            <select id="edit-<?= $key ?>" name="<?= $key ?>" <?= isset($field['disabled']) ? 'disabled' : '' ?>>
                                 <option selected value=""></option>
                                 <?php foreach ($field['type'] as $k => $val): ?>
                                     <?php if ($field['col']): ?>
@@ -156,7 +156,10 @@
                     <?php else: ?>
                         <label>
                             <?= lang($field['lib']) ?>
-                            <input id="edit-<?= $key ?>" type="<?= $field['type'] ?>" name="<?= $key ?>">
+                            <input id="edit-<?= $key ?>" type="<?= $field['type'] ?>" name="<?= $key ?>" <?= isset($field['disabled']) ? 'disabled' : '' ?>>
+                            <?php if(isset($field['helper'])): ?>
+                                <small><?= lang($field['helper']) ?></small>
+                            <?php endif ?>
                         </label>
                     <?php endif ?>
                 <?php endforeach ?>

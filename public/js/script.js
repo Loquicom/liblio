@@ -125,7 +125,8 @@ function request(method, uri, parameters, token) {
     const opt = {
         method: method.toUpperCase(),
         headers: {
-            "Content-type": "application/json;charset=UTF-8"
+            "Content-type": "application/json;charset=UTF-8",
+            "X-Requested-With": "XMLHttpRequest"
         }
     }
     if (token) {
