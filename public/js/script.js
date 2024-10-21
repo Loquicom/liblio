@@ -47,34 +47,22 @@ function disabledAnimation() {
 
 async function callGet(uri, parameters) {
     const result = await call('get', uri, parameters);
-    if (result.success) {
-        return result.respond;
-    }
-    return false;
+    return result.respond;
 }
 
 async function callPost(uri, parameters) {
     const result = await call('post', uri, parameters);
-    if (result.success) {
-        return result.respond;
-    }
-    return false;
+    return result.respond;
 }
 
 async function callPut(uri, parameters) {
     const result = await call('put', uri, parameters);
-    if (result.success) {
-        return result.respond;
-    }
-    return false;
+    return result.respond;
 }
 
 async function callDelete(uri, parameters) {
     const result = await call('delete', uri, parameters);
-    if (result.success) {
-        return result.respond;
-    }
-    return false;
+    return result.respond;
 }
 
 async function call(method, uri, parameters) {
@@ -160,7 +148,7 @@ function request(method, uri, parameters, token) {
     // Make request
     return new Promise((resolve, reject) => {
         fetch(window.location.origin + uri, opt).then((response) => {
-            if (response.status >= 400) {
+            if (response.status > 400) {
                 reject({
                     cause: 'HTTP Error',
                     error: response.status

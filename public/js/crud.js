@@ -191,6 +191,9 @@ function refreshPagination() {
 }
 
 function editData() {
+    // Hide alert
+    document.getElementById('alert-success').classList.add('none');
+    document.getElementById('alert-error').classList.add('none');
     // Get values
     const values = {id: selectedId};
     for (const key in fields) {
@@ -238,7 +241,11 @@ async function updateData(values) {
     selectedId = null;
 }
 
-async function deleteDate() {
+async function deleteData() {
+    // Hide alert
+    document.getElementById('alert-success').classList.add('none');
+    document.getElementById('alert-error').classList.add('none');
+    // Call API
     const result = await callDelete(url.api + '/' + selectedId);
     if (result.success) {
         await loadData();

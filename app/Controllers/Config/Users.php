@@ -9,13 +9,27 @@ class Users extends BaseController
 
     public function index(): string
     {
-        // TODO gérer les droits
+        // Defined parameter
+        $mode = 'view';
+        $typeRole = [
+            'manager' => 'App.role.manager',
+        ];
+
+        // Adapt parameter bases on auth
+        $user = auth()->user();
+        if ($user->can('config.users.edit')) {
+            $mode = 'edit';
+        }
+        if ($user->can('config.users.admin')) {
+            $typeRole['admin'] = 'App.role.admin';
+            $typeRole['superadmin'] = 'App.role.superadmin';
+        }
 
         $params = [
             'title' => 'App.config.users.title',
             'return' => 'config',
             'api' => 'api/users',
-            'mode' => 'edit',
+            'mode' => $mode,
             'detail' => 'none',
             'edit' => 'App.config.users.edit',
             'fields' => [
@@ -35,11 +49,7 @@ class Users extends BaseController
                     'search' => true,
                     'col' => true,
                     'lib' => 'App.config.users.role',
-                    'type' => [
-                        'superadmin' => 'App.role.superAdmin',
-                        'admin' => 'App.role.admin',
-                        'manager' => 'App.role.manager',
-                    ]
+                    'type' => $typeRole
                 ],
                 'password' => [
                     'search' => false,

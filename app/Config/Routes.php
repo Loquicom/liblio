@@ -33,5 +33,8 @@ $routes->get('member/history', 'Home::index');
 $routes->get('api/login', [\App\Controllers\Api\Login::class, 'sessionLogin'],  ['filter' => 'session']);
 $routes->post('api/login', [\App\Controllers\Api\Login::class, 'credentialsLogin']);
 $routes->group('api', ['filter' => 'jwt'], static function ($routes) {
-    $routes->get('users', [\App\Controllers\Api\Users::class, 'get']);
+    $routes->get('users', [\App\Controllers\Api\Users::class, 'search']);
+    $routes->post('users', [\App\Controllers\Api\Users::class, 'create']);
+    $routes->put('users/(:num)', [\App\Controllers\Api\Users::class, 'update']);
+    $routes->delete('users/(:num)', [\App\Controllers\Api\Users::class, 'delete']);
 });

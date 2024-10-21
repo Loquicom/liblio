@@ -60,7 +60,7 @@
     <section>
         <div class="grid">
             <div>
-                <select id="sort-select" name="sort" aria-label="Sort columns">
+                <select id="sort-select" name="sort" aria-label="Sort columns" onchange="loadData()">
                     <option value="" selected><?= lang('App.common.noSort') ?></option>
                     <?php foreach ($fields as $key => $field): ?>
                         <?php if ($field['col']): ?>
@@ -178,7 +178,7 @@
             <p><?= lang('App.common.messageDelete') ?></p>
             <footer>
                 <button class="secondary dialog-close"><?= lang('App.common.cancel') ?></button>
-                <button class="dialog-close" onclick="deleteDate()"><?= lang('App.common.confirm') ?></button>
+                <button class="dialog-close" onclick="deleteData()"><?= lang('App.common.confirm') ?></button>
             </footer>
         </article>
     </dialog>

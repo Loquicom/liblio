@@ -4,7 +4,7 @@ return [
     "lightToDark" => "Activer le mode sombre",
     "darkToLight" => "D&eacute;sactiver le mode sombre",
     "role" => [
-        "superAdmin" => "Super Admin",
+        "superadmin" => "Super Admin",
         "admin" => "Admin",
         "manager" => "Gestionnaire",
     ],
