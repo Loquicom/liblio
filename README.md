@@ -79,3 +79,7 @@ Amélioration de la recherche simple
 Rajouter un système d'auteur multiple
 
 Faire une passe sur chaque page sous droit pour vérifier leur présence
+
+Système d'envoie d'email (pour le rappel de ce qui doit être rendue)
+
+Pouvoir configurer les infos du site web (nom, nb de jour de pret, ...)
