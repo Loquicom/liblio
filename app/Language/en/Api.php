@@ -14,6 +14,7 @@ return [
     ],
     "books" => [
         "notFound" => "Books not found",
+        "isbnUnique" => "ISBN must be unique",
     ],
     "authors" => [
         "notFound" => "Author not found",

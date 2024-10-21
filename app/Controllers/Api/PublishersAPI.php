@@ -72,7 +72,7 @@ class PublishersAPI extends BaseController
         try {
             $this->model->insert($json);
         } catch (\ReflectionException $e) {
-            return $this->respond(respond_error('Api.common.serverError'),$this->codes['server_error']);
+            return $this->respond(respond_error(lang('Api.common.serverError')),$this->codes['server_error']);
         }
 
         return $this->respond(respond_success());
@@ -117,7 +117,7 @@ class PublishersAPI extends BaseController
         try {
             $this->model->update($id, $json);
         } catch (\ReflectionException $e) {
-            return $this->respond(respond_error('Api.common.serverError'),$this->codes['server_error']);
+            return $this->respond(respond_error(lang('Api.common.serverError')),$this->codes['server_error']);
         }
 
         return $this->respond(respond_success());
@@ -149,7 +149,7 @@ class PublishersAPI extends BaseController
                 ->set('publisher', 1)
                 ->update();
         } catch (\ReflectionException $e) {
-            return $this->respond(respond_error('Api.common.serverError'),$this->codes['server_error']);
+            return $this->respond(respond_error(lang('Api.common.serverError')),$this->codes['server_error']);
         }
 
         $this->model->delete($id);

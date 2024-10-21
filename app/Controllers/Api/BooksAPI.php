@@ -80,6 +80,12 @@ class BooksAPI extends BaseController
             return $this->respond(respond_error(implode('<br/>', $this->validator->getErrors())),$this->codes['invalid_data']);
         }
 
+        // Check if ISBN exist in db
+        $otherBook = $this->model->find($json['isbn']);
+        if ($otherBook !== null) {
+            return $this->respond(respond_error(lang('Api.books.isbnUnique')),$this->codes['invalid_data']);
+        }
+
         // Extract author
         $author = $json['author'];
         unset($json['author']);
@@ -90,7 +96,7 @@ class BooksAPI extends BaseController
             // Write insert (author)
             $this->writeModel->insert(['author' => $author, 'book' => $json['isbn'], 'main' => true]);
         } catch (\ReflectionException $e) {
-            return $this->respond(respond_error('Api.common.serverError'),$this->codes['server_error']);
+            return $this->respond(respond_error(lang('Api.common.serverError')),$this->codes['server_error']);
         }
 
         return $this->respond(respond_success());
@@ -162,6 +168,14 @@ class BooksAPI extends BaseController
             return $this->respond(respond_error(implode('<br/>', $this->validator->getErrors())),$this->codes['invalid_data']);
         }
 
+        // If isbn update check if exist in db
+        if (isset($json['isbn'])) {
+            $otherBook = $this->model->find($json['isbn']);
+            if ($otherBook !== null) {
+                return $this->respond(respond_error(lang('Api.books.isbnUnique')),$this->codes['invalid_data']);
+            }
+        }
+
         // Unset author infos
         unset($json['author']);
         unset($rules['author']);
@@ -179,7 +193,7 @@ class BooksAPI extends BaseController
                     ->update();
             }
         } catch (\ReflectionException $e) {
-            return $this->respond(respond_error('Api.common.serverError'),$this->codes['server_error']);
+            return $this->respond(respond_error(lang('Api.common.serverError')),$this->codes['server_error']);
         }
 
         return $this->respond(respond_success());
