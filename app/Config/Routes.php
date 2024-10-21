@@ -23,20 +23,22 @@ $routes->get('books', 'Books::index');
 $routes->group('config', ['filter' => 'session'], function ($routes) {
     $routes->get('/', [\App\Controllers\Config\Menu::class, 'index']);
     $routes->get('users', [\App\Controllers\Config\Users::class, 'index']);
-    $routes->get('website', 'Home::index');
+    $routes->get('website', 'WIP::index');
     $routes->get('publishers', [\App\Controllers\Config\Publishers::class, 'index']);
 });
 
 $routes->group('manage', ['filter' => 'session'], function ($routes) {
     $routes->get('/', [\App\Controllers\Manage\Menu::class, 'index']);
     $routes->get('books', [\App\Controllers\Manage\Books::class, 'index']);
-    $routes->get('members', 'Home::index');
-    $routes->get('borrow', 'Home::index');
-    $routes->get('return', 'Home::index');
+    $routes->get('books/(:any)', 'WIP::index');
+    $routes->get('members', 'WIP::index');
+    $routes->get('borrow', 'WIP::index');
+    $routes->get('return', 'WIP::index');
     $routes->get('authors', [\App\Controllers\Manage\Authors::class, 'index']);
+    $routes->get('authors/(:num)', 'WIP::index');
 });
 
-$routes->get('members/auth', 'Home::index');
+$routes->get('members/auth', 'WIP::index');
 
 $routes->get('api/login', [\App\Controllers\Api\LoginAPI::class, 'sessionLogin'],  ['filter' => 'session']);
 $routes->post('api/login', [\App\Controllers\Api\LoginAPI::class, 'credentialsLogin']);
