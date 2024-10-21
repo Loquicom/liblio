@@ -11,4 +11,7 @@ return [
     "publishers" => [
         "notFound" => "Éditeur introuvable",
     ],
+    "books" => [
+        "notFound" => "Livre introuvable",
+    ],
 ];

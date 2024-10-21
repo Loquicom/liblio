@@ -34,6 +34,7 @@ return [
         "deleteSuccess" => "Suppression réussite",
         "detail" => "Détails",
         "close" => "Fermer",
+        "title" => "Titre",
     ],
     "header" => [
         "preference" => "Préférence",
@@ -71,7 +72,13 @@ return [
     ],
     "manage" => [
         "title" => "Gestion",
-        "book" => "Livres",
+        "books" => [
+            "title" => "Gestion des livres",
+            "card" => "Livres",
+            "isbn" => "ISBN",
+            "publisher" => "Éditeur",
+            "collection" => "Collection",
+        ],
         "member" => "Adhérents",
         "borrow" => "Emprunt",
         "return" => "Retour",

@@ -97,7 +97,7 @@ class UsersAPI extends BaseController
         // Get user
         $user = auth()->getProvider()->findById($id);
         if ($user == null) {
-            return $this->respond(respond_error(lang('App.api.users.notFound')),$this->codes['invalid_data']);
+            return $this->respond(respond_error(lang('Api.users.notFound')),$this->codes['invalid_data']);
         }
 
         // Check change

@@ -14,7 +14,7 @@ class Menu extends BaseController
             'menus' => [
                 [
                     'icon' => 'book-open-variant',
-                    'name' => 'App.manage.book',
+                    'name' => 'App.manage.books.card',
                     'link' => url_to('manage/books')
                 ],
                 [

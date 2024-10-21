@@ -3,30 +3,34 @@
 namespace App\Controllers\Api;
 
 use App\Controllers\BaseController;
+use App\Models\BooksModel;
 use App\Models\PublishersModel;
 use CodeIgniter\API\ResponseTrait;
 
-class PublishersAPI extends BaseController
+class BooksAPI extends BaseController
 {
 
     use ResponseTrait;
 
     protected $model;
     protected $rules = [
-        'name' => 'required|max_length[512]'
+        'isbn' => 'required|min_length[10]|max_length[13]',
+        'title' => 'required|max_length[1024]',
+        'publisher' => 'required|integer',
+        'collection' => 'max_length[512]'
     ];
 
     public function __construct()
     {
         helper('api');
-        $this->model = model(PublishersModel::class);
+        $this->model = model(BooksModel::class);
     }
 
     public function search(): \CodeIgniter\HTTP\ResponseInterface
     {
         // Check authorization
         $user = auth()->user();
-        if (!$user->can('config.publisher')) {
+        if (!$user->can('manage.books.view')) {
             return $this->respond(respond_error(lang('Api.common.forbidden')),$this->codes['forbidden']);
         }
 
@@ -34,6 +38,11 @@ class PublishersAPI extends BaseController
         $get = $this->request->getGet();
         $page = $get['page'] ?? 1;
         $number = $get['number'] ?? 10;
+
+        // Clean ISBN
+        if (isset($get['isbn'])) {
+            $get['isbn'] = str_replace([' ', '-'], '', $get['isbn']);
+        }
 
         // Get data
         $data = $this->model->search($get, $page, $number);
@@ -47,13 +56,18 @@ class PublishersAPI extends BaseController
     {
         // Check authorization
         $user = auth()->user();
-        if (!$user->can('config.publisher')) {
+        if (!$user->can('manage.books.edit')) {
             return $this->respond(respond_error(lang('Api.common.forbidden')),$this->codes['forbidden']);
         }
 
         // Get data
         $json = $this->request->getJSON(true) ?? [];
         unset($json['id']);
+
+        // Clean ISBN
+        if (isset($json['isbn'])) {
+            $json['isbn'] = str_replace([' ', '-'], '', $json['isbn']);
+        }
 
         // Validate data
         if (! $this->validateData($json, $this->rules, [])) {
@@ -73,25 +87,45 @@ class PublishersAPI extends BaseController
     {
         // Check authorization
         $user = auth()->user();
-        if (!$user->can('config.publisher')) {
+        if (!$user->can('manage.books.edit')) {
             return $this->respond(respond_error(lang('Api.common.forbidden')),$this->codes['forbidden']);
         }
+
+        // Clean ID (ISBN)
+        $id = str_replace([' ', '-'], '', $id);
 
         // Check data exist
         $entity = $this->model->find($id);
         if ($entity == null) {
-            return $this->respond(respond_error(lang('Api.publishers.notFound')),$this->codes['invalid_data']);
+            return $this->respond(respond_error(lang('Api.books.notFound')),$this->codes['invalid_data']);
         }
 
         // Get data
         $json = $this->request->getJSON(true) ?? [];
         unset($json['id']);
 
+        // Clean ISBN
+        if (isset($json['isbn'])) {
+            $json['isbn'] = str_replace([' ', '-'], '', $json['isbn']);
+        }
+
         // Check change
         $rules = $this->rules;
-        if ($entity['name'] === $json['name']) {
-            unset($json['name']);
-            unset($rules['name']);
+        if ($entity['isbn'] === $json['isbn']) {
+            unset($json['isbn']);
+            unset($rules['isbn']);
+        }
+        if ($entity['title'] === $json['title']) {
+            unset($json['title']);
+            unset($rules['title']);
+        }
+        if ($entity['publisher'] === $json['publisher']) {
+            unset($json['publisher']);
+            unset($rules['publisher']);
+        }
+        if ($entity['collection'] === $json['collection']) {
+            unset($json['collection']);
+            unset($rules['collection']);
         }
 
         // Any change ?
@@ -118,14 +152,17 @@ class PublishersAPI extends BaseController
     {
         // Check authorization
         $user = auth()->user();
-        if (!$user->can('config.publisher')) {
+        if (!$user->can('manage.books.edit')) {
             return $this->respond(respond_error(lang('Api.common.forbidden')),$this->codes['forbidden']);
         }
+
+        // Clean ID (ISBN)
+        $id = str_replace([' ', '-'], '', $id);
 
         // Check data exist
         $entity = $this->model->find($id);
         if ($entity == null) {
-            return $this->respond(respond_error(lang('Api.publishers.notFound')),$this->codes['invalid_data']);
+            return $this->respond(respond_error(lang('Api.books.notFound')),$this->codes['invalid_data']);
         }
 
         $this->model->delete($id);

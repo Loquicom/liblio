@@ -33,6 +33,7 @@ return [
         "deleteSuccess" => "Delete success",
         "detail" => "Details",
         "close" => "Close",
+        "title" => "Title",
     ],
     "header" => [
         "preference" => "Preference",
@@ -71,7 +72,13 @@ return [
     ],
     "manage" => [
         "title" => "Manage",
-        "book" => "Books",
+        "books" => [
+            "title" => "Manage books",
+            "card" => "Books",
+            "isbn" => "ISBN",
+            "publisher" => "Publisher",
+            "collection" => "Collection",
+        ],
         "member" => "Members",
         "borrow" => "Borrow",
         "return" => "Return",

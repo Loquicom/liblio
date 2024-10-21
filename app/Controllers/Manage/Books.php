@@ -3,11 +3,12 @@
 namespace App\Controllers\Manage;
 
 use App\Controllers\BaseController;
+use App\Models\PublishersModel;
 
 class Books extends BaseController
 {
 
-    public function index()
+    public function index(): string
     {
         // Defined parameter
         $mode = 'view';
@@ -20,38 +21,43 @@ class Books extends BaseController
         }
 
         // Load publisher
+        $publisherModel = model(PublishersModel::class);
+        $publisherData = $publisherModel->findAll();
+        foreach ($publisherData as $data) {
+            $publisher[$data['id']] = $data['name'];
+        }
 
         // View params
         $params = [
-            'title' => 'App.manage.book.title',
-            'return' => 'config',
+            'title' => 'App.manage.books.title',
+            'return' => 'manage',
             'api' => 'api/books',
             'mode' => $mode,
             'detail' => 'page',
-            'edit' => 'App.manage.book.edit',
+            'edit' => 'App.manage.books.edit',
             'fields' => [
                 'isbn' => [
                     'search' => true,
                     'col' => true,
-                    'lib' => 'App.manage.book.isbn',
+                    'lib' => 'App.manage.books.isbn',
                     'type' => 'text'
                 ],
                 'title' => [
                     'search' => true,
                     'col' => true,
-                    'lib' => 'App.manage.book.title',
+                    'lib' => 'App.common.title',
                     'type' => 'text'
                 ],
                 'publisher' => [
                     'search' => true,
                     'col' => true,
-                    'lib' => 'App.manage.book.publisher',
+                    'lib' => 'App.manage.books.publisher',
                     'type' => $publisher
                 ],
                 'collection' => [
                     'search' => true,
                     'col' => true,
-                    'lib' => 'App.manage.book.collection',
+                    'lib' => 'App.manage.books.collection',
                     'type' => 'text'
                 ],
             ]

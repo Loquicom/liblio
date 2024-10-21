@@ -54,8 +54,7 @@ class Init extends Migration
             'publisher' => [
                 'type' => 'INT',
                 'unsigned' => true,
-                'constraint' => 9,
-                'null' => true
+                'constraint' => 9
             ],
             'collection' => [
                 'type' => 'VARCHAR',

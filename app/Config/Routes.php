@@ -22,11 +22,13 @@ $routes->group('config', ['filter' => 'session'], function ($routes) {
     $routes->get('publishers', [\App\Controllers\Config\Publishers::class, 'index']);
 });
 
-$routes->get('manage', [\App\Controllers\Manage\Menu::class, 'index'],  ['filter' => 'session']);
-$routes->get('manage/books', 'Home::index');
-$routes->get('manage/members', 'Home::index',  ['filter' => 'session']);
-$routes->get('manage/borrow', 'Home::index',  ['filter' => 'session']);
-$routes->get('manage/return', 'Home::index',  ['filter' => 'session']);
+$routes->group('manage', ['filter' => 'session'], function ($routes) {
+    $routes->get('/', [\App\Controllers\Manage\Menu::class, 'index']);
+    $routes->get('books', [\App\Controllers\Manage\Books::class, 'index']);
+    $routes->get('members', 'Home::index');
+    $routes->get('borrow', 'Home::index');
+    $routes->get('return', 'Home::index');
+});
 
 $routes->get('account', [\App\Controllers\Shield\Account::class, 'index'],  ['filter' => 'session']);
 $routes->post('account', [\App\Controllers\Shield\Account::class, 'update'],  ['filter' => ['session', 'csrf']]);
@@ -45,4 +47,9 @@ $routes->group('api', ['filter' => 'jwt'], static function ($routes) {
     $routes->post('publishers', [\App\Controllers\Api\PublishersAPI::class, 'create']);
     $routes->put('publishers/(:num)', [\App\Controllers\Api\PublishersAPI::class, 'update']);
     $routes->delete('publishers/(:num)', [\App\Controllers\Api\PublishersAPI::class, 'delete']);
+
+    $routes->get('books', [\App\Controllers\Api\BooksAPI::class, 'search']);
+    $routes->post('books', [\App\Controllers\Api\BooksAPI::class, 'create']);
+    $routes->put('books/(:any)', [\App\Controllers\Api\BooksAPI::class, 'update']);
+    $routes->delete('books/(:any)', [\App\Controllers\Api\BooksAPI::class, 'delete']);
 });
