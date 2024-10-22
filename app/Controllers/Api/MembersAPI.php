@@ -3,31 +3,33 @@
 namespace App\Controllers\Api;
 
 use App\Controllers\BaseController;
-use App\Models\AuthorsModel;
-use App\Models\WriteModel;
+use App\Models\MembersModel;
 use CodeIgniter\API\ResponseTrait;
 
-class AuthorsAPI extends BaseController
+class MembersAPI extends BaseController
 {
 
     use ResponseTrait;
 
     protected $model;
     protected $rules = [
-        'username' => 'required|max_length[512]'
+        'id' => 'required|max_length[20]',
+        'firstname' => 'required|max_length[255]',
+        'lastname' => 'required|max_length[255]',
+        'email' => 'required|max_length[512]',
     ];
 
     public function __construct()
     {
         helper('api');
-        $this->model = model(AuthorsModel::class);
+        $this->model = model(MembersModel::class);
     }
 
     public function search(): \CodeIgniter\HTTP\ResponseInterface
     {
         // Check authorization
         $user = auth()->user();
-        if (!$user->can('manage.authors')) {
+        if (!$user->can('manage.members')) {
             return $this->respond(respond_error(lang('Api.common.forbidden')),$this->codes['forbidden']);
         }
 
@@ -56,18 +58,33 @@ class AuthorsAPI extends BaseController
     {
         // Check authorization
         $user = auth()->user();
-        if (!$user->can('manage.authors')) {
+        if (!$user->can('manage.members')) {
             return $this->respond(respond_error(lang('Api.common.forbidden')),$this->codes['forbidden']);
         }
 
         // Get data
         $json = $this->request->getJSON(true) ?? [];
-        unset($json['id']);
+
+        // If no ID generate one
+        if (!isset($json['id']) || trim($json['id']) === '') {
+            $json['id'] = uniqid();
+        }
+        // Upper id
+        $json['id'] = strtoupper($json['id']);
 
         // Validate data
         if (! $this->validateData($json, $this->rules, [])) {
             return $this->respond(respond_error(implode('<br/>', $this->validator->getErrors())),$this->codes['invalid_data']);
         }
+
+        // Check if ID exist in db
+        $otherMember = $this->model->find($json['id']);
+        if ($otherMember !== null) {
+            return $this->respond(respond_error(lang('Api.members.idUnique')),$this->codes['invalid_data']);
+        }
+
+        // Add created date
+        $json['created_at'] = date('Y-m-d');
 
         try {
             $this->model->insert($json);
@@ -82,25 +99,36 @@ class AuthorsAPI extends BaseController
     {
         // Check authorization
         $user = auth()->user();
-        if (!$user->can('manage.authors')) {
+        if (!$user->can('manage.members')) {
             return $this->respond(respond_error(lang('Api.common.forbidden')),$this->codes['forbidden']);
         }
 
         // Check data exist
         $entity = $this->model->find($id);
         if ($entity == null) {
-            return $this->respond(respond_error(lang('Api.authors.notFound')),$this->codes['invalid_data']);
+            return $this->respond(respond_error(lang('Api.members.notFound')),$this->codes['invalid_data']);
         }
 
         // Get data
         $json = $this->request->getJSON(true) ?? [];
-        unset($json['id']);
 
         // Check change
         $rules = $this->rules;
-        if ($entity['name'] === $json['name']) {
-            unset($json['name']);
-            unset($rules['name']);
+        if ($entity['id'] === $json['id']) {
+            unset($json['id']);
+            unset($rules['id']);
+        }
+        if ($entity['firstname'] === $json['firstname']) {
+            unset($json['firstname']);
+            unset($rules['firstname']);
+        }
+        if ($entity['lastname'] === $json['lastname']) {
+            unset($json['lastname']);
+            unset($rules['lastname']);
+        }
+        if ($entity['email'] === $json['email']) {
+            unset($json['email']);
+            unset($rules['email']);
         }
 
         // Any change ?
@@ -113,6 +141,17 @@ class AuthorsAPI extends BaseController
         if (! $this->validateData($json, $rules, [])) {
             return $this->respond(respond_error(implode('<br/>', $this->validator->getErrors())),$this->codes['invalid_data']);
         }
+
+        // Check if ID exist in db
+        if (isset($json['id'])) {
+            $otherMember = $this->model->find($json['id']);
+            if ($otherMember !== null) {
+                return $this->respond(respond_error(lang('Api.members.idUnique')),$this->codes['invalid_data']);
+            }
+        }
+
+        // Unset created date
+        unset($json['created_at']);
 
         try {
             $this->model->update($id, $json);
@@ -127,30 +166,14 @@ class AuthorsAPI extends BaseController
     {
         // Check authorization
         $user = auth()->user();
-        if (!$user->can('manage.authors')) {
+        if (!$user->can('manage.members')) {
             return $this->respond(respond_error(lang('Api.common.forbidden')),$this->codes['forbidden']);
-        }
-
-        // Can't delete default
-        if ($id == 1) {
-            return $this->respond(respond_error(lang('Api.authors.defaultDelete')),$this->codes['invalid_data']);
         }
 
         // Check data exist
         $entity = $this->model->find($id);
         if ($entity == null) {
-            return $this->respond(respond_error(lang('Api.authors.notFound')),$this->codes['invalid_data']);
-        }
-
-        try {
-            // If author is use as main replace with default
-            $writeModel = model(WriteModel::class);
-            $writeModel->where('author', $id)
-                ->where('main', true)
-                ->set('author', 1)
-                ->update();
-        } catch (\ReflectionException $e) {
-            return $this->respond(respond_error(lang('Api.common.serverError')),$this->codes['server_error']);
+            return $this->respond(respond_error(lang('Api.members.notFound')),$this->codes['invalid_data']);
         }
 
         $this->model->delete($id);

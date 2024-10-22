@@ -21,4 +21,8 @@ return [
         "notFound" => "Auteur introuvable",
         "defaultDelete" => "Impossible de supprimer l'auteur par défaut",
     ],
+    "members" => [
+        "notFound" => "Adhérent introuvable",
+        "idUnique" => "L'ID doit être unique",
+    ],
 ];

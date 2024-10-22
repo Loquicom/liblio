@@ -38,7 +38,9 @@ return [
         "total" => "Total",
     ],
     "helper" => [
-        "id" => "L'identifiant est géré automatiquement",
+        "id" => "L'identifiant est généré automatiquement",
+        "id?" => "Si l'identifiant est laissé vide, il seras généré automatiquement",
+        "info" => "Ce champ est uniquement présent à titre d'information",
     ],
     "header" => [
         "preference" => "Préférence",
@@ -85,7 +87,16 @@ return [
             "publisher" => "Éditeur",
             "collection" => "Collection",
         ],
-        "member" => "Adhérents",
+        "members" => [
+            "title" => "Gestion des adhérents",
+            "card" => "Adhérents",
+            "edit" => "Édition d'un adhérent",
+            "id" => "Identifiant",
+            "firstname" => "Prénom",
+            "lastname" => "Nom",
+            "email" => "Email",
+            "createdAt" => "Date de création",
+        ],
         "borrow" => "Emprunt",
         "return" => "Retour",
         "authors" => [

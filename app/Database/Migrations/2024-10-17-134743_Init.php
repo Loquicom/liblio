@@ -109,10 +109,37 @@ class Init extends Migration
         $this->forge->addForeignKey('author', 'author', 'id', 'CASCADE', 'CASCADE', 'fk_write_author');
         $this->forge->addForeignKey('book', 'book', 'isbn', 'CASCADE', 'CASCADE', 'fk_write_book');
         $this->forge->createTable('write');
+        // Create table member
+        $fields = [
+            'id' => [
+                'type' => 'VARCHAR',
+                'constraint' => 20,
+                'unique' => true
+            ],
+            'firstname' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255
+            ],
+            'lastname' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255
+            ],
+            'email' => [
+                'type' => 'VARCHAR',
+                'constraint' => 512
+            ],
+            'created_at' => [
+                'type' => 'DATE',
+            ]
+        ];
+        $this->forge->addField($fields);
+        $this->forge->addPrimaryKey('id', 'pk_member');
+        $this->forge->createTable('member');
     }
 
     protected function dropTable(): void
     {
+        $this->forge->dropTable('member', true, true);
         $this->forge->dropTable('write', true, true);
         $this->forge->dropTable('author', true, true);
         $this->forge->dropTable('book', true, true);

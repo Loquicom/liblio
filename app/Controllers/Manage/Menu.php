@@ -19,7 +19,7 @@ class Menu extends BaseController
                 ],
                 [
                     'icon' => 'book-account',
-                    'name' => 'App.manage.member',
+                    'name' => 'App.manage.members.card',
                     'link' => url_to('manage/members')
                 ],
                 [

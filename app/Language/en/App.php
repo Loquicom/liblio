@@ -38,6 +38,8 @@ return [
     ],
     "helper" => [
         "id" => "ID is auto-generated",
+        "id?" => "If ID is empty, it will be auto-generated",
+        "info" => "Field only present for display purpose",
     ],
     "header" => [
         "preference" => "Preference",
@@ -85,7 +87,16 @@ return [
             "publisher" => "Publisher",
             "collection" => "Collection",
         ],
-        "member" => "Members",
+        "members" => [
+            "title" => "Manage members",
+            "card" => "Members",
+            "edit" => "Edit member",
+            "id" => "ID",
+            "firstname" => "Firstname",
+            "lastname" => "Lastname",
+            "email" => "Email",
+            "createdAt" => "Creation date",
+        ],
         "borrow" => "Borrow",
         "return" => "Return",
         "authors" => [

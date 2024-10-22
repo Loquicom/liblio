@@ -31,7 +31,8 @@ $routes->group('manage', ['filter' => 'session'], function ($routes) {
     $routes->get('/', [\App\Controllers\Manage\Menu::class, 'index']);
     $routes->get('books', [\App\Controllers\Manage\Books::class, 'index']);
     $routes->get('books/(:any)', 'WIP::index');
-    $routes->get('members', 'WIP::index');
+    $routes->get('members', [\App\Controllers\Manage\Members::class, 'index']);
+    $routes->get('members/(:alphanum)', 'WIP::index');
     $routes->get('borrow', 'WIP::index');
     $routes->get('return', 'WIP::index');
     $routes->get('authors', [\App\Controllers\Manage\Authors::class, 'index']);
@@ -62,4 +63,9 @@ $routes->group('api', ['filter' => 'jwt'], static function ($routes) {
     $routes->post('authors', [\App\Controllers\Api\AuthorsAPI::class, 'create']);
     $routes->put('authors/(:num)', [\App\Controllers\Api\AuthorsAPI::class, 'update']);
     $routes->delete('authors/(:num)', [\App\Controllers\Api\AuthorsAPI::class, 'delete']);
+
+    $routes->get('members', [\App\Controllers\Api\MembersAPI::class, 'search']);
+    $routes->post('members', [\App\Controllers\Api\MembersAPI::class, 'create']);
+    $routes->put('members/(:alphanum)', [\App\Controllers\Api\MembersAPI::class, 'update']);
+    $routes->delete('members/(:alphanum)', [\App\Controllers\Api\MembersAPI::class, 'delete']);
 });

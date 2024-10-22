@@ -21,4 +21,8 @@ return [
         "notFound" => "Author not found",
         "defaultDelete" => "Can't delete the default author",
     ],
+    "members" => [
+        "notFound" => "Member not found",
+        "idUnique" => "ID must be unique",
+    ],
 ];

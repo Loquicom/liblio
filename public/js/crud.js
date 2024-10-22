@@ -229,7 +229,7 @@ async function createData(values) {
 }
 
 async function updateData(values) {
-    const result = await callPut(url.api + '/' + values.id, values);
+    const result = await callPut(url.api + '/' + selectedId, values);
     if (result.success) {
         await loadData();
         document.getElementsByClassName('alert-success')[0].innerHTML = lang.updateSuccess;
