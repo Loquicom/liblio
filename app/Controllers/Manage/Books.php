@@ -75,10 +75,25 @@ class Books extends BaseController
                     'lib' => 'App.manage.books.publisher',
                     'type' => $publisher
                 ],
-                'collection' => [
+                'theme' => [
                     'search' => true,
                     'col' => true,
-                    'lib' => 'App.manage.books.collection',
+                    'helper' => 'App.common.optional',
+                    'lib' => 'App.manage.books.theme',
+                    'type' => 'text'
+                ],
+                'year' => [
+                    'search' => true,
+                    'col' => true,
+                    'helper' => 'App.common.optional',
+                    'lib' => 'App.manage.books.year',
+                    'type' => 'number'
+                ],
+                'reference' => [
+                    'search' => true,
+                    'col' => false,
+                    'helper' => 'App.common.optional',
+                    'lib' => 'App.manage.books.reference',
                     'type' => 'text'
                 ],
                 'copy' => [

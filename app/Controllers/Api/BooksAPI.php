@@ -21,8 +21,10 @@ class BooksAPI extends BaseController
         'title' => 'required|max_length[1024]',
         'author' => 'required|integer',
         'publisher' => 'required|integer',
-        'collection' => 'max_length[512]',
-        'copy' => 'required|integer'
+        'theme' => 'max_length[512]',
+        'year' => 'integer',
+        'copy' => 'required|integer',
+        'reference' => 'max_length[512]'
     ];
 
     public function __construct()
@@ -123,6 +125,12 @@ class BooksAPI extends BaseController
             unset($rules['copy']);
         }
 
+        // Remove year if empty
+        if (isset($json['year']) && trim($json['year']) === '') {
+            unset($json['year']);
+            unset($rules['year']);
+        }
+
         // Validate data
         if (! $this->validateData($json, $rules, [])) {
             return $this->respond(respond_error(implode('<br/>', $this->validator->getErrors())),$this->codes['invalid_data']);
@@ -182,26 +190,14 @@ class BooksAPI extends BaseController
         }
 
         // Check change from book table field
-        $rules = $this->rules;
-        if ($entity['isbn'] === $json['isbn']) {
-            unset($json['isbn']);
-            unset($rules['isbn']);
-        }
-        if ($entity['title'] === $json['title']) {
-            unset($json['title']);
-            unset($rules['title']);
-        }
-        if ($entity['publisher'] === $json['publisher']) {
-            unset($json['publisher']);
-            unset($rules['publisher']);
-        }
-        if ($entity['collection'] === $json['collection']) {
-            unset($json['collection']);
-            unset($rules['collection']);
-        }
-        if ($entity['copy'] === $json['copy']) {
-            unset($json['copy']);
-            unset($rules['copy']);
+        $adapt = adapt_rules_and_data_for_update($entity, $json, $this->rules, ['author']);
+        $json = $adapt['data'];
+        $rules = $adapt['rules'];
+
+        // Remove year if is empty
+        if (isset($json['year']) && trim($json['year']) === '') {
+            unset($json['year']);
+            unset($rules['year']);
         }
 
         // Extract author
@@ -238,7 +234,7 @@ class BooksAPI extends BaseController
         unset($rules['author']);
 
         try {
-            // Book insert
+            // Book update
             if (count($rules) > 0) {
                 $this->model->update($id, $json);
             }

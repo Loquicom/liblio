@@ -100,7 +100,12 @@ function generateTable(values) {
         for (const key in fields) {
             const field = fields[key];
             if (!field.col) continue;
-            const lib = typeof val[key] === 'object' ? val[key]['lib'] : val[key]
+            let lib = '';
+            if (val[key] != null && typeof val[key] === 'object') {
+                lib = val[key]['lib'];
+            } else if (val[key] != null) {
+                lib = val[key];
+            }
             html += '<td>' + lib + '</td>';
         }
         if (mode === 'edit' || detail !== 'none') {

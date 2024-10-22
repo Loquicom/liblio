@@ -32,3 +32,27 @@ function respond_error($message): array
         'message' => $message
     ];
 }
+
+function adapt_rules_and_data_for_update($entity, $data, $rules, $exclude = []): array
+{
+    $newRules = $rules;
+    $newData = $data;
+    foreach ($rules as $rule => $validation) {
+        if (in_array($rule, $exclude)) continue;
+        if (isset($data[$rule])) {
+            // No change, remove
+            if ($entity[$rule] === $data[$rule]) {
+                unset($newData[$rule]);
+                unset($newRules[$rule]);
+            }
+        } else {
+            // No data for the rules remove
+            unset($newRules[$rule]);
+        }
+    }
+
+    return [
+        'rules' => $newRules,
+        'data' => $newData
+    ];
+}

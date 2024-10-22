@@ -10,7 +10,7 @@ class BooksModel extends Model
     protected $table = 'book';
     protected $primaryKey = 'isbn';
 
-    protected $allowedFields = ['isbn', 'title', 'description', 'publisher', 'collection', 'copy'];
+    protected $allowedFields = ['isbn', 'title', 'description', 'publisher', 'theme', 'year', 'reference', 'copy', 'comment'];
 
     public function search($parameter, $page, $number): array
     {
@@ -25,7 +25,7 @@ class BooksModel extends Model
         $where = '1=1';
         if (isset($parameter['search'])) { // Simple
             $search = $parameter['search'];
-            $where = "(isbn like '%$search%' OR title like '%$search%' OR author.username like '%$search%' OR publisher.name like '%$search%' OR collection like '%$search%')";
+            $where = "(isbn like '%$search%' OR title like '%$search%' OR author.username like '%$search%' OR publisher.name like '%$search%' OR theme like '%$search%')";
         } else { // Advanced
             if (isset($parameter['isbn'])) {
                 $search = $parameter['isbn'];
@@ -43,9 +43,21 @@ class BooksModel extends Model
                 $search = $parameter['publisher'];
                 $where .= " And publisher = $search";
             }
-            if (isset($parameter['collection'])) {
-                $search = $parameter['collection'];
-                $where .= " And collection like '%$search%'";
+            if (isset($parameter['theme'])) {
+                $search = $parameter['theme'];
+                $where .= " And theme like '%$search%'";
+            }
+            if (isset($parameter['year'])) {
+                $search = $parameter['year'];
+                $where .= " And year = $search";
+            }
+            if (isset($parameter['reference'])) {
+                $search = $parameter['reference'];
+                $where .= " And reference like '%$search%'";
+            }
+            if (isset($parameter['theme'])) {
+                $search = $parameter['theme'];
+                $where .= " And theme like '%$search%'";
             }
             if (isset($parameter['copy'])) {
                 $search = $parameter['copy'];
@@ -68,8 +80,14 @@ class BooksModel extends Model
             if($parameter['sort'] === 'publisher') {
                 $orderBy = 'publisher.name';
             }
-            if($parameter['sort'] === 'collection') {
-                $orderBy = 'collection';
+            if($parameter['sort'] === 'theme') {
+                $orderBy = 'theme';
+            }
+            if($parameter['sort'] === 'year') {
+                $orderBy = 'year';
+            }
+            if($parameter['sort'] === 'reference') {
+                $orderBy = 'reference';
             }
             if($parameter['sort'] === 'copy') {
                 $orderBy = 'copy';
@@ -77,7 +95,7 @@ class BooksModel extends Model
         }
 
         // Get data
-        $result = $this->select('isbn, title, author.id as author_id, author.username as author_username, publisher.id as publisher_id, publisher.name as publisher_name, collection, copy')
+        $result = $this->select('isbn, title, author.id as author_id, author.username as author_username, publisher.id as publisher_id, publisher.name as publisher_name, theme, year, reference, copy')
             ->join('publisher', 'book.publisher = publisher.id')
             ->join('write', '(book.isbn = write.book and write.main = true)')
             ->join('author', 'write.author = author.id')

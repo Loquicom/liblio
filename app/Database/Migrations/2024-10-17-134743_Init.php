@@ -73,15 +73,29 @@ class Init extends Migration
                 'constraint' => 9,
                 'null' => true
             ],
-            'collection' => [
+            'theme' => [
                 'type' => 'VARCHAR',
                 'constraint' => 512,
+                'null' => true
+            ],
+            'year' => [
+                'type' => 'INT',
+                'constraint' => 9,
                 'null' => true
             ],
             'copy' => [
                 'type' => 'INT',
                 'constraint' => 9,
                 'default' => 1
+            ],
+            'reference' => [
+                'type' => 'VARCHAR',
+                'constraint' => 512,
+                'null' => true
+            ],
+            'comment' => [
+                'type' => 'TEXT',
+                'null' => true
             ]
         ];
         $this->forge->addField($fields);

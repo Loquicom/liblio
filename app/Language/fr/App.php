@@ -39,6 +39,8 @@ return [
         "total" => "Total",
         "select" => "Sélectionner",
         "valid" => "Valider",
+        "comment" => "Commentaire",
+        "optional" => "Optionnel",
     ],
     "helper" => [
         "id" => "L'identifiant est généré automatiquement",
@@ -108,8 +110,10 @@ Pellentesque in nisi at libero euismod tempor. In aliquam eget mauris finibus mo
             "isbn" => "ISBN",
             "author" => "Auteur principal",
             "publisher" => "Éditeur",
-            "collection" => "Thème",
+            "theme" => "Thème",
             "copy" => "Exemplaire",
+            "year" => "Année de parution",
+            "reference" => "Cote",
         ],
         "members" => [
             "title" => "Gestion des adhérents",

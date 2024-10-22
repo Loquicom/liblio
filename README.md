@@ -72,21 +72,20 @@ Additionally, make sure that the following extensions are enabled in your PHP:
 lecteur code barre :
 https://github.com/zxing-js/library/tree/master
 
-Système de tag
+Système de tag v1?
 
-Amélioration de la recherche simple
+Amélioration de la recherche simple v2
 
-Rajouter un système d'auteur multiple
+Rajouter un système d'auteur multiple v1
 
-Système d'envoie d'email (pour le rappel de ce qui doit être rendue)
-Bouton pour envoyer email
+Système d'envoie d'email (pour le rappel de ce qui doit être rendue) v2
+Bouton pour envoyer email v2
+Bouton mailto v1
 
 Pouvoir configurer les infos du site web (nom, nb de jour de pret, ...)
 
-Ajouter controle pour voir s'il ne reste plus d'exemplaire lors de l'emprunt
+Ajouter controle pour voir s'il ne reste plus d'exemplaire lors de l'emprunt v2
 
-Renommer collection en thème
+Select crud en select checkbox v2
 
-Rajouter année parution livre
-
-Rajouter une quote, visible dans le détail
+Export en CSV v1?

@@ -38,6 +38,8 @@ return [
         "total" => "Total",
         "select" => "Select",
         "valid" => "Valid",
+        "comment" => "Comment",
+        "optional" => "Optional",
     ],
     "helper" => [
         "id" => "ID is auto-generated",
@@ -108,8 +110,10 @@ Pellentesque in nisi at libero euismod tempor. In aliquam eget mauris finibus mo
             "isbn" => "ISBN",
             "author" => "Main author",
             "publisher" => "Publisher",
-            "collection" => "Collection",
+            "theme" => "Theme",
             "copy" => "Copy",
+            "year" => "Year of publication",
+            "reference" => "Reference",
         ],
         "members" => [
             "title" => "Manage members",
