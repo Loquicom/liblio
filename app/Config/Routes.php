@@ -12,13 +12,13 @@ $routes->get('login', [\CodeIgniter\Shield\Controllers\LoginController::class, '
 $routes->post('login', [\CodeIgniter\Shield\Controllers\LoginController::class, 'loginAction'], ['filter' => 'csrf']);
 
 $routes->get('/', 'Home::index');
+$routes->get('books', 'Books::index');
+$routes->get('members/auth', 'WIP::index');
+$routes->view('legal', 'legal');
 
 $routes->get('preference', [\App\Controllers\Config\Preference::class, 'index']);
-
 $routes->get('account', [\App\Controllers\Shield\Account::class, 'index'],  ['filter' => 'session']);
 $routes->post('account', [\App\Controllers\Shield\Account::class, 'update'],  ['filter' => ['session', 'csrf']]);
-
-$routes->get('books', 'Books::index');
 
 $routes->group('config', ['filter' => 'session'], function ($routes) {
     $routes->get('/', [\App\Controllers\Config\Menu::class, 'index']);
@@ -33,13 +33,11 @@ $routes->group('manage', ['filter' => 'session'], function ($routes) {
     $routes->get('books/(:any)', 'WIP::index');
     $routes->get('members', [\App\Controllers\Manage\Members::class, 'index']);
     $routes->get('members/(:alphanum)', 'WIP::index');
-    $routes->get('borrow', 'WIP::index');
-    $routes->get('return', 'WIP::index');
+    $routes->get('borrow', [\App\Controllers\Manage\Borrow::class, 'out']);
+    $routes->get('return', [\App\Controllers\Manage\Borrow::class, 'in']);
     $routes->get('authors', [\App\Controllers\Manage\Authors::class, 'index']);
     $routes->get('authors/(:num)', 'WIP::index');
 });
-
-$routes->get('members/auth', 'WIP::index');
 
 $routes->get('api/login', [\App\Controllers\Api\LoginAPI::class, 'sessionLogin'],  ['filter' => 'session']);
 $routes->post('api/login', [\App\Controllers\Api\LoginAPI::class, 'credentialsLogin']);

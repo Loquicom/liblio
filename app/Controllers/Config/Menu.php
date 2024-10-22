@@ -23,14 +23,6 @@ class Menu extends BaseController
 
         // Get current user
         $user = auth()->user();
-        // Can manage publisher
-        if ($user->can('config.publisher')) {
-            $params['menus'][] = [
-                'icon' => 'briefcase-variant',
-                'name' => 'App.config.publishers.card',
-                'link' => url_to('config/publishers')
-            ];
-        }
         // Can manage accounts
         if ($user->can('config.users.view')) {
             $params['menus'][] = [
@@ -39,8 +31,16 @@ class Menu extends BaseController
                 'link' => url_to('config/users')
             ];
         }
+        // Can manage publisher
+        if ($user->can('config.publisher')) {
+            $params['menus'][] = [
+                'icon' => 'briefcase-variant',
+                'name' => 'App.config.publishers.card',
+                'link' => url_to('config/publishers')
+            ];
+        }
         // Can manage website conf
-        if ($user->can('config.website', 'beta.access')) {
+        if ($user->can('config.website') && $user->can( 'beta.access')) {
             $params['menus'][] = [
                 'icon' => 'web',
                 'name' => 'App.config.website',

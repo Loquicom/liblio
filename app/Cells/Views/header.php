@@ -20,8 +20,8 @@
             <li><a href="<?= url_to('account') ?>" class="contrast" data-tooltip="<?= lang('App.header.account') ?>" data-placement="bottom"><span class="iconify" data-icon="mdi-account"></span></a></li>
             <li><a href="<?= url_to('logout') ?>" class="contrast" data-tooltip="<?= lang('App.header.logout') ?>" data-placement="left"><span class="iconify" data-icon="mdi-logout"></span></a></li>
         <?php else: ?>
-            <li><a href="<?= url_to('preference') ?>" class="contrast" data-tooltip="<?= lang('App.header.preference') ?>" data-placement="bottom"><span class="iconify" data-icon="mdi-cog"></span></a></li>
-            <li><a href="<?= url_to('login') ?>" class="contrast" data-tooltip="<?= lang('App.header.login') ?>" data-placement="left"><span class="iconify" data-icon="mdi-account-lock"></span></a></li>
+            <li><a href="<?= url_to('preference') ?>" class="contrast" data-tooltip="<?= lang('App.header.preference') ?>" data-placement="bottom"><span class="iconify" data-icon="mdi-account-cog"></span></a></li>
+            <li><a href="<?= url_to('login') ?>" class="contrast" data-tooltip="<?= lang('App.header.login') ?>" data-placement="left"><span class="iconify" data-icon="mdi-login"></span></a></li>
         <?php endif ?>
     </ul>
 </nav>
