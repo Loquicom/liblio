@@ -97,6 +97,11 @@ class Init extends Migration
             'main' => [
                 'type' => 'BOOLEAN',
                 'default' => false
+            ],
+            'role' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'null' => true
             ]
         ];
         $this->forge->addField($fields);

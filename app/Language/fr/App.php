@@ -35,6 +35,7 @@ return [
         "detail" => "Détails",
         "close" => "Fermer",
         "title" => "Titre",
+        "total" => "Total",
     ],
     "helper" => [
         "id" => "L'identifiant est géré automatiquement",

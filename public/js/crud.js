@@ -53,6 +53,8 @@ async function loadData() {
         }
         // Manage pagination
         maxPage = Math.ceil(result.data.total / pageSize);
+        document.getElementById('current-value').innerText = (params.page * pageSize) > result.data.total ? result.data.total : params.page * pageSize;
+        document.getElementById('total-value').innerText = result.data.total;
         refreshPagination();
     } else {
         if (result.message) {
@@ -73,10 +75,12 @@ function loading(active) {
         searchBtn.setAttribute('disabled', '');
         searchBtn.setAttribute('aria-busy', 'true');
         document.getElementById('loading-row').classList.remove('none');
+        document.getElementById('total-indicator').classList.add('hide');
     } else {
         searchBtn.removeAttribute('disabled');
         searchBtn.setAttribute('aria-busy', 'false');
         document.getElementById('loading-row').classList.add('none');
+        document.getElementById('total-indicator').classList.remove('hide');
     }
 }
 

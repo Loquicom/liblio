@@ -87,6 +87,7 @@
     </div>
     <!-- Result -->
     <section>
+        <small id="total-indicator" class="hide"><?= lang('App.common.total') ?> : <span id="current-value">?</span>/<span id="total-value">?</span></small>
         <table class="striped">
             <thead>
             <tr>

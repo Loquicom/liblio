@@ -144,9 +144,10 @@ class AuthorsAPI extends BaseController
         }
 
         try {
-            // If author is use replace with default
+            // If author is use as main replace with default
             $writeModel = model(WriteModel::class);
             $writeModel->where('author', $id)
+                ->where('main', true)
                 ->set('author', 1)
                 ->update();
         } catch (\ReflectionException $e) {

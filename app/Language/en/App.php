@@ -34,6 +34,7 @@ return [
         "detail" => "Details",
         "close" => "Close",
         "title" => "Title",
+        "total" => "Total",
     ],
     "helper" => [
         "id" => "ID is auto-generated",

@@ -94,7 +94,7 @@ class BooksAPI extends BaseController
             // Book insert
             $this->model->insert($json);
             // Write insert (author)
-            $this->writeModel->insert(['author' => $author, 'book' => $json['isbn'], 'main' => true]);
+            $this->writeModel->insert(['author' => $author, 'book' => $json['isbn'], 'main' => true, 'role' => lang('App.manage.books.author')]);
         } catch (\ReflectionException $e) {
             return $this->respond(respond_error(lang('Api.common.serverError')),$this->codes['server_error']);
         }
