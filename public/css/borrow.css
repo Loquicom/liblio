@@ -1,0 +1,59 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+#add-book {
+    font-size: 1.5em;
+    padding: .2em .4em;
+}
+
+#dialog-member-search {
+    margin-bottom: 2em;
+}
+
+#dialog-member-search button {
+    width: 100%
+}
+
+#dialog-member-search svg {
+    font-size: 1.2em;
+}
+
+#btn-valid-container {
+    margin-top: 2em;
+}
+
+#btn-valid-container button {
+    width: 100%;
+}
+
+#btn-valid-container svg {
+    font-size: 1.2em;
+}
+
+.selectable {
+    cursor: pointer;
+}
+
+.selected {
+    border: 2px var(--pico-primary) solid;
+}
+
+@media (768px <= width) {
+    #delay-container {
+        width: 60%
+    }
+}
+
+@media (width <= 767px) {
+    #add-book {
+        width: 100%;
+        margin-bottom: 1em;
+    }
+}

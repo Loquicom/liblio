@@ -53,6 +53,7 @@ $routes->group('api', ['filter' => 'jwt'], static function ($routes) {
     $routes->put('publishers/(:num)', [\App\Controllers\Api\PublishersAPI::class, 'update']);
     $routes->delete('publishers/(:num)', [\App\Controllers\Api\PublishersAPI::class, 'delete']);
 
+    $routes->get('books/(:any)', [\App\Controllers\Api\BooksAPI::class, 'read']);
     $routes->post('books', [\App\Controllers\Api\BooksAPI::class, 'create']);
     $routes->put('books/(:any)', [\App\Controllers\Api\BooksAPI::class, 'update']);
     $routes->delete('books/(:any)', [\App\Controllers\Api\BooksAPI::class, 'delete']);
@@ -62,8 +63,11 @@ $routes->group('api', ['filter' => 'jwt'], static function ($routes) {
     $routes->put('authors/(:num)', [\App\Controllers\Api\AuthorsAPI::class, 'update']);
     $routes->delete('authors/(:num)', [\App\Controllers\Api\AuthorsAPI::class, 'delete']);
 
+    $routes->get('members/(:alphanum)', [\App\Controllers\Api\MembersAPI::class, 'read']);
     $routes->get('members', [\App\Controllers\Api\MembersAPI::class, 'search']);
     $routes->post('members', [\App\Controllers\Api\MembersAPI::class, 'create']);
     $routes->put('members/(:alphanum)', [\App\Controllers\Api\MembersAPI::class, 'update']);
     $routes->delete('members/(:alphanum)', [\App\Controllers\Api\MembersAPI::class, 'delete']);
+    $routes->post('members/(:alphanum)/borrow', [\App\Controllers\Api\MembersAPI::class, 'borrowBooks']);
+    $routes->post('members/(:alphanum)/return', [\App\Controllers\Api\MembersAPI::class, 'returnBooks']);
 });

@@ -143,25 +143,35 @@ class Init extends Migration
         // Create table borrow
         $fields = [
             'member' => [
-
+                'type' => 'VARCHAR',
+                'constraint' => 20
             ],
             'book' => [
-
+                'type' => 'VARCHAR',
+                'constraint' => 13
             ],
             'out_date' => [
-
+                'type' => 'DATE'
             ],
             'return_date' => [
-
+                'type' => 'DATE',
+                'null' => true
             ],
             'delay' => [
-
+                'type' => 'INT',
+                'constraint' => 9,
             ]
         ];
+        $this->forge->addField($fields);
+        $this->forge->addPrimaryKey('id', 'pk_borrow');
+        $this->forge->addForeignKey('member', 'member', 'id', 'CASCADE', 'CASCADE', 'fk_borrow_author');
+        $this->forge->addForeignKey('book', 'book', 'isbn', 'CASCADE', 'CASCADE', 'fk_borrow_book');
+        $this->forge->createTable('borrow');
     }
 
     protected function dropTable(): void
     {
+        $this->forge->dropTable('borrow', true, true);
         $this->forge->dropTable('member', true, true);
         $this->forge->dropTable('write', true, true);
         $this->forge->dropTable('author', true, true);

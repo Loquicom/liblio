@@ -3,7 +3,8 @@
 return [
     "common" => [
         "forbidden" => "Access forbidden",
-        "serverError" => "Erreur serveur",
+        "serverError" => "Server error",
+        "invalidData" => "Invalid data",
     ],
     "users" => [
         "notFound" => "User not found",

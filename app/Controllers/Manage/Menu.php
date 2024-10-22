@@ -36,7 +36,7 @@ class Menu extends BaseController
         if ($user->can('manage.borrow')) {
             $params['menus'][] = [
                 'icon' => 'inbox-arrow-up',
-                'name' => 'App.manage.borrow',
+                'name' => 'App.manage.borrow.card',
                 'link' => url_to('manage/borrow')
             ];
         }

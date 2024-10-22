@@ -79,5 +79,14 @@ Amélioration de la recherche simple
 Rajouter un système d'auteur multiple
 
 Système d'envoie d'email (pour le rappel de ce qui doit être rendue)
+Bouton pour envoyer email
 
 Pouvoir configurer les infos du site web (nom, nb de jour de pret, ...)
+
+Ajouter controle pour voir s'il ne reste plus d'exemplaire lors de l'emprunt
+
+Renommer collection en thème
+
+Rajouter année parution livre
+
+Rajouter une quote, visible dans le détail

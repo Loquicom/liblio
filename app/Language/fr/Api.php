@@ -4,6 +4,7 @@ return [
     "common" => [
         "forbidden" => "Accès non autorisé",
         "serverError" => "Erreur serveur",
+        "invalidData" => "Données incorrects",
     ],
     "users" => [
         "notFound" => "Utilisateur introuvable",

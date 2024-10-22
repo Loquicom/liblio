@@ -3,6 +3,8 @@
 namespace App\Controllers\Api;
 
 use App\Controllers\BaseController;
+use App\Models\BooksModel;
+use App\Models\BorrowModel;
 use App\Models\MembersModel;
 use CodeIgniter\API\ResponseTrait;
 
@@ -23,6 +25,23 @@ class MembersAPI extends BaseController
     {
         helper('api');
         $this->model = model(MembersModel::class);
+    }
+
+    public function read(string $id): \CodeIgniter\HTTP\ResponseInterface
+    {
+        // Check authorization
+        $user = auth()->user();
+        if (!$user->can('manage.members')) {
+            return $this->respond(respond_error(lang('Api.common.forbidden')),$this->codes['forbidden']);
+        }
+
+        // Search by ID
+        $member = $this->model->find($id);
+        if ($member == null) {
+            return $this->respond(respond_error(lang('Api.members.notFound')),$this->codes['invalid_data']);
+        }
+
+        return $this->respond(respond_success($member));
     }
 
     public function search(): \CodeIgniter\HTTP\ResponseInterface
@@ -178,6 +197,60 @@ class MembersAPI extends BaseController
 
         $this->model->delete($id);
         return $this->respond(respond_success());
+    }
+
+    public function borrowBooks($id): \CodeIgniter\HTTP\ResponseInterface
+    {
+        // Check authorization
+        $user = auth()->user();
+        if (!$user->can('manage.borrow')) {
+            return $this->respond(respond_error(lang('Api.common.forbidden')),$this->codes['forbidden']);
+        }
+
+        // Check member exist
+        $entity = $this->model->find($id);
+        if ($entity == null) {
+            return $this->respond(respond_error(lang('Api.members.notFound')),$this->codes['invalid_data']);
+        }
+
+        // Get data
+        $json = $this->request->getJSON(true) ?? [];
+
+        // Check data
+        if (!isset($json['books']) || count($json['books']) === 0) {
+            return $this->respond(respond_error(lang('Api.common.invalidData')),$this->codes['invalid_data']);
+        }
+
+        // Check book exist and save
+        $booksModel = model(BooksModel::class);
+        $borrowModel = model(BorrowModel::class);
+        foreach ($json['books'] as $book) {
+            if (!is_string($book['isbn']) || !is_numeric($book['delay'])) {
+                return $this->respond(respond_error(lang('Api.common.invalidData')),$this->codes['invalid_data']);
+            }
+            $bookEntity = $booksModel->find($book['isbn']);
+            if ($bookEntity == null) {
+                return $this->respond(respond_error(lang('Api.books.notFound')),$this->codes['invalid_data']);
+            }
+            // Save
+            try {
+                $delay =
+                    $borrowModel->insert([
+                        'member' => $id,
+                        'book' => $book['isbn'],
+                        'delay' => $book['delay'],
+                        'out_date' => date('Y-m-d')
+                    ]);
+            } catch (\ReflectionException $e) {
+                return $this->respond(respond_error(lang('Api.common.serverError')),$this->codes['server_error']);
+            }
+        }
+
+        return $this->respond(respond_success());
+    }
+
+    public function returnBooks($id) {
+
     }
 
 }

@@ -7,6 +7,23 @@ use CodeIgniter\Config\BaseConfig;
 class App extends BaseConfig
 {
 
+    /**
+     * --------------------------------------------------------------------------
+     * App specific
+     * --------------------------------------------------------------------------
+     *
+     * An associative array with application specific config
+     *
+     */
+    public array $specific = [
+        'delay' => 30, //days
+    ];
+
+    /**
+     * --------------------------------------------------------------------------
+     * Site name
+     * --------------------------------------------------------------------------
+     */
     public string $siteName = 'Liblio';
 
     /**

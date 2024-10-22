@@ -3,7 +3,9 @@
 namespace App\Controllers\Api;
 
 use App\Controllers\BaseController;
+use App\Models\AuthorsModel;
 use App\Models\BooksModel;
+use App\Models\PublishersModel;
 use App\Models\WriteModel;
 use CodeIgniter\API\ResponseTrait;
 
@@ -28,6 +30,45 @@ class BooksAPI extends BaseController
         helper('api');
         $this->model = model(BooksModel::class);
         $this->writeModel = model(WriteModel::class);
+    }
+
+    public function read(string $isbn): \CodeIgniter\HTTP\ResponseInterface
+    {
+        // Clean ISBN
+        $isbn = str_replace([' ', '-'], '', $isbn);
+
+        // Search by ID
+        $book = $this->model->find($isbn);
+        if ($book == null) {
+            return $this->respond(respond_error(lang('Api.books.notFound')),$this->codes['invalid_data']);
+        }
+
+        // Get publisher info
+        $publisherModel = model(PublishersModel::class);
+        $publisher = $publisherModel->find($book['publisher']);
+        $book['publisher'] = [
+            'code' => $publisher['id'],
+            'lib' => $publisher['name'],
+        ];
+
+        // Get main author
+        $write = $this->writeModel->findMainForBook($isbn);
+        if ($write != null) {
+            $authorModel = model(AuthorsModel::class);
+            $author = $authorModel->find($write['author']);
+            $book['author'] = [
+                'code' => $author['id'],
+                'lib' => $author['username'],
+            ];
+        } else {
+            $book['author'] = [
+                'code' => -1,
+                'lib' => '',
+            ];
+        }
+
+
+        return $this->respond(respond_success($book));
     }
 
     public function search(): \CodeIgniter\HTTP\ResponseInterface
