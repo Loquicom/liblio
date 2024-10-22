@@ -75,6 +75,16 @@ class Books extends BaseController
                     'lib' => 'App.manage.books.collection',
                     'type' => 'text'
                 ],
+                'copy' => [
+                    'search' => true,
+                    'col' => true,
+                    'helper' => [
+                        'lib' => 'App.helper.default',
+                        'val' => [1]
+                    ],
+                    'lib' => 'App.manage.books.copy',
+                    'type' => 'number'
+                ],
             ]
         ];
 

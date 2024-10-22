@@ -41,6 +41,7 @@ return [
         "id" => "L'identifiant est généré automatiquement",
         "id?" => "Si l'identifiant est laissé vide, il seras généré automatiquement",
         "info" => "Ce champ est uniquement présent à titre d'information",
+        "default" => "Si le champ est laissé vide une valeur par défaut de {0} est utilisée",
     ],
     "header" => [
         "preference" => "Préférence",
@@ -86,6 +87,7 @@ return [
             "author" => "Auteur principal",
             "publisher" => "Éditeur",
             "collection" => "Collection",
+            "copy" => "Exemplaire",
         ],
         "members" => [
             "title" => "Gestion des adhérents",

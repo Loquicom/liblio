@@ -20,6 +20,7 @@ class BooksAPI extends BaseController
         'author' => 'required|integer',
         'publisher' => 'required|integer',
         'collection' => 'max_length[512]',
+        'copy' => 'required|integer'
     ];
 
     public function __construct()
@@ -74,8 +75,15 @@ class BooksAPI extends BaseController
             $json['isbn'] = str_replace([' ', '-'], '', $json['isbn']);
         }
 
+        // Remove copy if empty
+        $rules = $this->rules;
+        if (isset($json['copy']) && trim($json['copy']) === '') {
+            unset($json['copy']);
+            unset($rules['copy']);
+        }
+
         // Validate data
-        if (! $this->validateData($json, $this->rules, [])) {
+        if (! $this->validateData($json, $rules, [])) {
             return $this->respond(respond_error(implode('<br/>', $this->validator->getErrors())),$this->codes['invalid_data']);
         }
 
@@ -127,6 +135,11 @@ class BooksAPI extends BaseController
             $json['isbn'] = str_replace([' ', '-'], '', $json['isbn']);
         }
 
+        // Default value if copy if empty
+        if (isset($json['copy']) && trim($json['copy']) === '') {
+            $json['copy'] = 1;
+        }
+
         // Check change from book table field
         $rules = $this->rules;
         if ($entity['isbn'] === $json['isbn']) {
@@ -144,6 +157,10 @@ class BooksAPI extends BaseController
         if ($entity['collection'] === $json['collection']) {
             unset($json['collection']);
             unset($rules['collection']);
+        }
+        if ($entity['copy'] === $json['copy']) {
+            unset($json['copy']);
+            unset($rules['copy']);
         }
 
         // Extract author

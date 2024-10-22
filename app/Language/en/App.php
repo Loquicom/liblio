@@ -40,6 +40,7 @@ return [
         "id" => "ID is auto-generated",
         "id?" => "If ID is empty, it will be auto-generated",
         "info" => "Field only present for display purpose",
+        "default" => "If field is left empty a default value of {0} is used",
     ],
     "header" => [
         "preference" => "Preference",
@@ -86,6 +87,7 @@ return [
             "author" => "Main author",
             "publisher" => "Publisher",
             "collection" => "Collection",
+            "copy" => "Copy",
         ],
         "members" => [
             "title" => "Manage members",

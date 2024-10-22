@@ -77,6 +77,11 @@ class Init extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 512,
                 'null' => true
+            ],
+            'copy' => [
+                'type' => 'INT',
+                'constraint' => 9,
+                'default' => 1
             ]
         ];
         $this->forge->addField($fields);
@@ -135,6 +140,24 @@ class Init extends Migration
         $this->forge->addField($fields);
         $this->forge->addPrimaryKey('id', 'pk_member');
         $this->forge->createTable('member');
+        // Create table borrow
+        $fields = [
+            'member' => [
+
+            ],
+            'book' => [
+
+            ],
+            'out_date' => [
+
+            ],
+            'return_date' => [
+
+            ],
+            'delay' => [
+
+            ]
+        ];
     }
 
     protected function dropTable(): void

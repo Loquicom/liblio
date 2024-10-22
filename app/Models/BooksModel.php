@@ -10,7 +10,7 @@ class BooksModel extends Model
     protected $table = 'book';
     protected $primaryKey = 'isbn';
 
-    protected $allowedFields = ['isbn', 'title', 'description', 'publisher', 'collection'];
+    protected $allowedFields = ['isbn', 'title', 'description', 'publisher', 'collection', 'copy'];
 
     public function search($parameter, $page, $number): array
     {
@@ -47,6 +47,10 @@ class BooksModel extends Model
                 $search = $parameter['collection'];
                 $where .= " And collection like '%$search%'";
             }
+            if (isset($parameter['copy'])) {
+                $search = $parameter['copy'];
+                $where .= " And collection = $search";
+            }
         }
 
         // Order by
@@ -67,10 +71,13 @@ class BooksModel extends Model
             if($parameter['sort'] === 'collection') {
                 $orderBy = 'collection';
             }
+            if($parameter['sort'] === 'copy') {
+                $orderBy = 'copy';
+            }
         }
 
         // Get data
-        $result = $this->select('isbn, title, author.id as author_id, author.username as author_username, publisher.id as publisher_id, publisher.name as publisher_name, collection')
+        $result = $this->select('isbn, title, author.id as author_id, author.username as author_username, publisher.id as publisher_id, publisher.name as publisher_name, collection, copy')
             ->join('publisher', 'book.publisher = publisher.id')
             ->join('write', '(book.isbn = write.book and write.main = true)')
             ->join('author', 'write.author = author.id')

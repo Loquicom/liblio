@@ -159,7 +159,7 @@
                             <?= lang($field['lib']) ?>
                             <input id="edit-<?= $key ?>" type="<?= $field['type'] ?>" name="<?= $key ?>" <?= isset($field['disabled']) ? 'disabled' : '' ?>>
                             <?php if(isset($field['helper'])): ?>
-                                <small><?= lang($field['helper']) ?></small>
+                                <small><?= is_string($field['helper']) ? lang($field['helper']) : lang($field['helper']['lib'], $field['helper']['val']) ?></small>
                             <?php endif ?>
                         </label>
                     <?php endif ?>
