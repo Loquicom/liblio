@@ -72,12 +72,11 @@ class AuthGroups extends ShieldAuthGroups
      * If a permission is not listed here it cannot be used.
      */
     public array $permissions = [
-        'manage.books.view'  => 'Can view books informations',
-        'manage.books.edit'  => 'Can edit books informations',
+        'manage.books'       => 'Can edit books informations (anybody can view)',
         'manage.members'     => 'Can view and edit members informations',
         'manage.borrow'      => 'Possibility of borrowing books',
         'manage.return'      => 'Possibility of returning books',
-        'manage.authors'      => 'Can view and edit authors informations',
+        'manage.authors'     => 'Can view and edit authors informations',
         'config.users.admin' => 'Can manage admin users',
         'config.users.view'  => 'Can view users informations',
         'config.users.edit'  => 'Can edit users informations',
@@ -98,21 +97,19 @@ class AuthGroups extends ShieldAuthGroups
         'superadmin' => [
             'manage.*',
             'config.*',
-            'beta.*',
         ],
         'admin' => [
             'manage.*',
-            'config.user.view',
-            'config.user.edit',
+            'config.users.view',
+            'config.users.edit',
             'config.publisher',
         ],
         'manager' => [
             'manage.*',
             'config.publisher',
+            'config.users.view',
         ],
-        'member' => [
-            'manage.books.view'
-        ],
+        'member' => [],
         'beta' => [
             'beta.access',
         ],

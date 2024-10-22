@@ -40,7 +40,7 @@ class Menu extends BaseController
             ];
         }
         // Can manage website conf
-        if ($user->can('config.website')) {
+        if ($user->can('config.website', 'beta.access')) {
             $params['menus'][] = [
                 'icon' => 'web',
                 'name' => 'App.config.website',

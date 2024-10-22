@@ -62,7 +62,7 @@ class BooksAPI extends BaseController
     {
         // Check authorization
         $user = auth()->user();
-        if (!$user->can('manage.books.edit')) {
+        if (!$user->can('manage.books')) {
             return $this->respond(respond_error(lang('Api.common.forbidden')),$this->codes['forbidden']);
         }
 
@@ -113,7 +113,7 @@ class BooksAPI extends BaseController
     {
         // Check authorization
         $user = auth()->user();
-        if (!$user->can('manage.books.edit')) {
+        if (!$user->can('manage.books')) {
             return $this->respond(respond_error(lang('Api.common.forbidden')),$this->codes['forbidden']);
         }
 
@@ -219,7 +219,7 @@ class BooksAPI extends BaseController
     {
         // Check authorization
         $user = auth()->user();
-        if (!$user->can('manage.books.edit')) {
+        if (!$user->can('manage.books')) {
             return $this->respond(respond_error(lang('Api.common.forbidden')),$this->codes['forbidden']);
         }
 

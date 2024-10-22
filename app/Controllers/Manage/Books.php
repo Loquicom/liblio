@@ -9,8 +9,14 @@ use App\Models\PublishersModel;
 class Books extends BaseController
 {
 
-    public function index(): string
+    public function index(): string|\CodeIgniter\HTTP\RedirectResponse
     {
+        // Check access
+        $user = auth()->user();
+        if (!$user->can('manage.books')) {
+            return redirect()->to('manage');
+        }
+
         // Defined parameter
         $mode = 'view';
         $author = [];
