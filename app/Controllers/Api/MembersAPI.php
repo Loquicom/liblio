@@ -132,23 +132,9 @@ class MembersAPI extends BaseController
         $json = $this->request->getJSON(true) ?? [];
 
         // Check change
-        $rules = $this->rules;
-        if ($entity['id'] === $json['id']) {
-            unset($json['id']);
-            unset($rules['id']);
-        }
-        if ($entity['firstname'] === $json['firstname']) {
-            unset($json['firstname']);
-            unset($rules['firstname']);
-        }
-        if ($entity['lastname'] === $json['lastname']) {
-            unset($json['lastname']);
-            unset($rules['lastname']);
-        }
-        if ($entity['email'] === $json['email']) {
-            unset($json['email']);
-            unset($rules['email']);
-        }
+        $adapt = adapt_rules_and_data_for_update($entity, $json, $this->rules);
+        $json = $adapt['data'];
+        $rules = $adapt['rules'];
 
         // Any change ?
         if (count($rules) === 0) {

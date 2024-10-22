@@ -69,7 +69,7 @@ Additionally, make sure that the following extensions are enabled in your PHP:
 
 ## TODO
 
-lecteur code barre :
+lecteur code barre : v1?
 https://github.com/zxing-js/library/tree/master
 
 Système de tag v1?
@@ -82,10 +82,8 @@ Système d'envoie d'email (pour le rappel de ce qui doit être rendue) v2
 Bouton pour envoyer email v2
 Bouton mailto v1
 
-Pouvoir configurer les infos du site web (nom, nb de jour de pret, ...)
+Pouvoir configurer les infos du site web (nom, nb de jour de pret, ...) v2
 
 Ajouter controle pour voir s'il ne reste plus d'exemplaire lors de l'emprunt v2
 
-Select crud en select checkbox v2
-
-Export en CSV v1?
+Export en CSV v2

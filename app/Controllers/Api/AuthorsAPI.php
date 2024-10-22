@@ -97,11 +97,9 @@ class AuthorsAPI extends BaseController
         unset($json['id']);
 
         // Check change
-        $rules = $this->rules;
-        if ($entity['name'] === $json['name']) {
-            unset($json['name']);
-            unset($rules['name']);
-        }
+        $adapt = adapt_rules_and_data_for_update($entity, $json, $this->rules);
+        $json = $adapt['data'];
+        $rules = $adapt['rules'];
 
         // Any change ?
         if (count($rules) === 0) {
