@@ -10,7 +10,7 @@ class MembersModel extends Model
     protected $table = 'member';
     protected $primaryKey = 'id';
 
-    protected $allowedFields = ['id', 'firstname', 'lastname', 'email', 'created_at'];
+    protected $allowedFields = ['id', 'firstname', 'lastname', 'email', 'created_at', 'comment'];
 
     public function search($parameter, $page, $number): array
     {

@@ -149,6 +149,10 @@ class Init extends Migration
             ],
             'created_at' => [
                 'type' => 'DATE',
+            ],
+            'comment' => [
+                'type' => 'TEXT',
+                'null' => true
             ]
         ];
         $this->forge->addField($fields);
