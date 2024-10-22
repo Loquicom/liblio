@@ -1,6 +1,8 @@
 <?php
 
-return [
+$pathJsonOverride = '../lang/en/api.json';
+
+$lang = [
     "common" => [
         "forbidden" => "Access forbidden",
         "serverError" => "Server error",
@@ -27,3 +29,10 @@ return [
         "idUnique" => "ID must be unique",
     ],
 ];
+
+if (file_exists($pathJsonOverride)) {
+    $json = json_decode(file_get_contents($pathJsonOverride), true);
+    return replace_lang($lang, $json);
+}
+
+return $lang;

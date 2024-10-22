@@ -1,6 +1,8 @@
 <?php
 
-return [
+$pathJsonOverride = '../lang/fr/app.json';
+
+$lang = [
     "lightToDark" => "Activer le mode sombre",
     "darkToLight" => "D&eacute;sactiver le mode sombre",
     "role" => [
@@ -185,3 +187,10 @@ Pellentesque in nisi at libero euismod tempor. In aliquam eget mauris finibus mo
         ],
     ],
 ];
+
+if (file_exists($pathJsonOverride)) {
+    $json = json_decode(file_get_contents($pathJsonOverride), true);
+    return replace_lang($lang, $json);
+}
+
+return $lang;

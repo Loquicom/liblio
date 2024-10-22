@@ -13,3 +13,20 @@
  *
  * @see: https://codeigniter.com/user_guide/extending/common.html
  */
+
+function replace_lang($lang, $data): array
+{
+    $result = [];
+    foreach ($lang as $key => $val) {
+        if (isset($data[$key])) {
+            if (is_string($val)) {
+                $result[$key] = $data[$key];
+            } else {
+                $result[$key] = replace_lang($val, $data[$key]);
+            }
+        } else {
+            $result[$key] = $val;
+        }
+    }
+    return $result;
+}
