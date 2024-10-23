@@ -68,6 +68,7 @@ $routes->group('api', ['filter' => 'jwt'], static function ($routes) {
     $routes->post('members', [\App\Controllers\Api\MembersAPI::class, 'create']);
     $routes->put('members/(:alphanum)', [\App\Controllers\Api\MembersAPI::class, 'update']);
     $routes->delete('members/(:alphanum)', [\App\Controllers\Api\MembersAPI::class, 'delete']);
+    $routes->get('members/(:alphanum)/borrow', [\App\Controllers\Api\MembersAPI::class, 'listBorrowBooks']);
     $routes->post('members/(:alphanum)/borrow', [\App\Controllers\Api\MembersAPI::class, 'borrowBooks']);
     $routes->post('members/(:alphanum)/return', [\App\Controllers\Api\MembersAPI::class, 'returnBooks']);
 });

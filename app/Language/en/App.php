@@ -142,7 +142,12 @@ Pellentesque in nisi at libero euismod tempor. In aliquam eget mauris finibus mo
             "bookCollection" => "Book collection",
             "delay" => "Delay (days)",
         ],
-        "return" => "Return",
+        "return" => [
+            "title" => "Return",
+            "card" => "Return",
+            "outDate" => "Borrow date",
+            "loadError" => "Error while loading data",
+        ],
         "authors" => [
             "title" => "Manage authors",
             "card" => "Authors",

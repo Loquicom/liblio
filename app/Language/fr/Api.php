@@ -27,6 +27,7 @@ $lang = [
     "members" => [
         "notFound" => "Adhérent introuvable",
         "idUnique" => "L'ID doit être unique",
+        "alreadyBorrow" => "Le livre {0} est déjà emprunté par l'adhérent",
     ],
 ];
 

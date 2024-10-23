@@ -44,7 +44,7 @@ class Menu extends BaseController
         if ($user->can('manage.return')) {
             $params['menus'][] = [
                 'icon' => 'inbox-arrow-down',
-                'name' => 'App.manage.return',
+                'name' => 'App.manage.return.card',
                 'link' => url_to('manage/return')
             ];
         }

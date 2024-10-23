@@ -14,7 +14,7 @@ class Borrow extends BaseController
         if (!$user->can('manage.return')) {
             return redirect()->to('manage');
         }
-        return 'Salut';
+        return view('manage/return');
     }
 
     public function out(): string|\CodeIgniter\HTTP\RedirectResponse

@@ -142,7 +142,12 @@ Pellentesque in nisi at libero euismod tempor. In aliquam eget mauris finibus mo
             "bookCollection" => "Collection du livre",
             "delay" => "Durée (jours)",
         ],
-        "return" => "Retour",
+        "return" => [
+            "title" => "Retour",
+            "card" => "Retour",
+            "outDate" => "Date de prêt",
+            "loadError" => "Erreur lors du chargement des données",
+        ],
         "authors" => [
             "title" => "Gestion des auteurs",
             "card" => "Auteurs",

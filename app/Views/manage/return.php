@@ -1,13 +1,13 @@
 <?= $this->extend('layout/main') ?>
 
-<?= $this->section('title') ?><?= lang('App.manage.borrow.title') ?><?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.manage.return.title') ?><?= $this->endSection() ?>
 
 <?= $this->section('style') ?>
     <link rel="stylesheet" href="/css/borrow.css" />
 <?= $this->endSection() ?>
 
 <?= $this->section('header') ?>
-    <?= view_cell('HeaderCell', ['title' => lang('App.manage.borrow.title'), 'redirect' => 'manage', 'return' => 'manage']) ?>
+    <?= view_cell('HeaderCell', ['title' => lang('App.manage.return.title'), 'redirect' => 'manage', 'return' => 'manage']) ?>
 <?= $this->endSection() ?>
 
 <?= $this->section('main') ?>
@@ -47,25 +47,6 @@
     <!-- Select books -->
     <section>
         <h2><?= lang('App.manage.borrow.selectBooks') ?></h2>
-        <div class="grid">
-            <div>
-                <label>
-                    <?= lang('App.manage.borrow.bookISBN') ?>
-                    <input id="isbn" name="isbn" type="text" placeholder="<?= lang('App.manage.borrow.bookISBN') ?>" onchange="getBook()"/>
-                </label>
-            </div>
-            <div id="delay-container">
-                <label>
-                    <?= lang('App.manage.borrow.delay') ?>
-                    <input id="delay" name="delay" type="number" value="<?= setting('App.specific')['delay'] ?>" placeholder="<?= lang('App.manage.borrow.delay') ?>"/>
-                </label>
-            </div>
-            <div class="none-on-small"></div>
-            <div class="right">
-                <label class="none-on-small">&nbsp;</label>
-                <button id="add-book" data-tooltip="<?= lang('App.common.add') ?>" data-placement="top" data-dialog="dialog-edit" onclick="addBook()" disabled><span class="iconify" data-icon="mdi-plus-circle-outline"></span></button>
-            </div>
-        </div>
         <table class="striped">
             <thead>
                 <tr>
@@ -73,13 +54,19 @@
                     <td><?= lang('App.manage.borrow.bookTitle') ?></td>
                     <td><?= lang('App.manage.borrow.bookAuthor') ?></td>
                     <td><?= lang('App.manage.borrow.bookPublisher') ?></td>
-                    <td><?= lang('App.manage.borrow.delay') ?></td>
-                    <td><?= lang('App.common.action') ?></td>
+                    <td><?= lang('App.manage.return.outDate') ?></td>
+                    <td><?= lang('App.common.select') ?></td>
                 </tr>
             </thead>
             <tbody id="books-data">
-                <tr id="no-data-row">
+                <tr id="no-data-row" class="tr-value">
                     <td class="center" colspan="6"><?= lang('App.common.noData') ?></td>
+                </tr>
+                <tr id="loading-row" class="none">
+                    <td class="center" colspan="6" aria-busy="true"><?= lang('App.common.loading') ?></td>
+                </tr>
+                <tr id="error-row" class="none">
+                    <td class="center" colspan="6"><?= lang('App.manage.return.loadError') ?></td>
                 </tr>
             </tbody>
         </table>
@@ -140,12 +127,10 @@
 
 <?= $this->section('script') ?>
     <script>
-        const defaultDelay = <?= setting('App.specific')['delay'] ?>;
         const lang = {
-            del: '<?= lang('App.common.delete') ?>',
             errorAjax: '<?= lang('App.common.errorAjax') ?>',
             saveSuccess: '<?= lang('App.common.saveSuccess') ?>',
         }
     </script>
-    <script src="/js/borrow.js"></script>
+    <script src="/js/return.js"></script>
 <?= $this->endSection() ?>
