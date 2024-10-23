@@ -135,7 +135,7 @@
                                     <td><?= $author['role'] ?></td>
                                     <td class="center"><input type="checkbox" <?= $author['main'] == '1' ? 'checked' : '' ?> disabled></td>
                                     <td class="center">
-                                        <a class="secondary" href="<?= url_to('manage/authors' ) . '/' . $author['id']  ?>?return=manage/books" data-tooltip="<?= lang('App.common.detail') ?>" data-placement="top"><span class="iconify" data-icon="mdi-eye"></span></a>
+                                        <a class="secondary" href="<?= url_to('manage/authors' ) . '/' . $author['id']  ?>?return=<?= url_to('manage/books') . '/' . $id ?>" data-tooltip="<?= lang('App.common.detail') ?>" data-placement="top"><span class="iconify" data-icon="mdi-eye"></span></a>
                                         <?php if ($author['main'] == '0'): ?>
                                             <a class="secondary" href="#" data-tooltip="<?= lang('App.common.delete') ?>" data-placement="top" onclick="deleteAuthor(<?= $author['id'] ?>, '<?= $author['username'] ?>')"><span class="iconify" data-icon="mdi-delete"></span></a>
                                         <?php endif ?>
@@ -205,7 +205,7 @@
                         <td><?= lang('App.manage.members.lastname') ?></td>
                         <td><?= lang('App.manage.members.email') ?></td>
                         <td><?= lang('App.manage.return.outDate') ?></td>
-                        <td><?= lang('App.manage.borrow.returnDate') ?></td>
+                        <td><?= lang('App.manage.return.returnDate') ?></td>
                     </tr>
                     </thead>
                     <tbody>

@@ -56,6 +56,14 @@ class Menu extends BaseController
                 'link' => url_to('manage/authors')
             ];
         }
+        // Can manage alerts
+        if ($user->can('manage.alerts')) {
+            $params['menus'][] = [
+                'icon' => 'alert',
+                'name' => 'App.manage.alerts.card',
+                'link' => url_to('manage/alerts')
+            ];
+        }
 
         return view('layout/menu', $params);
     }

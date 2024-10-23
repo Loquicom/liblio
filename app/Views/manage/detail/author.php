@@ -3,7 +3,7 @@
 <?= $this->section('title') ?><?= lang('App.manage.authors.detail', [$author]) ?><?= $this->endSection() ?>
 
 <?= $this->section('header') ?>
-<?= view_cell('HeaderCell', ['title' => lang('App.manage.authors.detail', [$author]), 'redirect' => 'manage', 'return' => $return]) ?>
+    <?= view_cell('HeaderCell', ['title' => lang('App.manage.authors.detail', [$author]), 'redirect' => 'manage', 'return' => $return]) ?>
 <?= $this->endSection() ?>
 
 <?= $this->section('main') ?>
@@ -26,7 +26,7 @@
             <?php if (count($books) > 0): ?>
                 <?php foreach($books as $book): ?>
                     <tr>
-                        <td><a href="<?= url_to('manage/books' ) . '/' . $book['isbn']  ?>?return=manage/authors"><?= $book['isbn'] ?></a></td>
+                        <td><a href="<?= url_to('manage/books' ) . '/' . $book['isbn']  ?>?return=<?= url_to('manage/authors') . '/' . $id ?>"><?= $book['isbn'] ?></a></td>
                         <td><?= $book['title'] ?></td>
                         <td><?= $book['author'] ?></td>
                         <td><?= $book['role'] ?></td>

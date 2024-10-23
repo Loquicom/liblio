@@ -38,6 +38,7 @@ $routes->group('manage', ['filter' => 'session'], function ($routes) {
     $routes->get('return', [\App\Controllers\Manage\Borrow::class, 'in']);
     $routes->get('authors', [\App\Controllers\Manage\Authors::class, 'index']);
     $routes->get('authors/(:num)', [\App\Controllers\Manage\Authors::class, 'detail']);
+    $routes->get('alerts', [\App\Controllers\Manage\Alerts::class, 'index']);
 });
 
 $routes->get('api/login', [\App\Controllers\Api\LoginAPI::class, 'sessionLogin'],  ['filter' => 'session']);

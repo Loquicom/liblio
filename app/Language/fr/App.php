@@ -65,9 +65,10 @@ $lang = [
         "legal" => "Voir les <a href=\"{0}\" target=\"_self\">mentions légales</a> du site",
     ],
     "return" => [
+        "return" => "Retour",
+        "/" => "Accueil",
         "manage" => "Gestion",
         "config" => "Configuration",
-        "/" => "Accueil",
         "manage/authors" => "Auteurs",
         "manage/books" => "Livres",
     ],
@@ -160,6 +161,7 @@ Pellentesque in nisi at libero euismod tempor. In aliquam eget mauris finibus mo
             "title" => "Retour",
             "card" => "Retour",
             "outDate" => "Date de prêt",
+            "returnDate" => "Date de retour",
             "loadError" => "Erreur lors du chargement des données",
         ],
         "authors" => [
@@ -173,6 +175,11 @@ Pellentesque in nisi at libero euismod tempor. In aliquam eget mauris finibus mo
             "role" => "Role de l'auteur",
             "main" => "Principal"
         ],
+        "alerts" => [
+            "title" => "Alertes",
+            "card" => "Alertes",
+            "overdue" => "Retard",
+        ]
     ],
     "config" => [
         "title" => "Configuration",

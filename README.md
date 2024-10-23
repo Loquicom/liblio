@@ -82,8 +82,10 @@ Bouton mailto v1
 
 Pouvoir configurer les infos du site web (nom, nb de jour de pret, ...) v2
 
-Ajouter controle pour voir s'il ne reste plus d'exemplaire lors de l'emprunt v2
+Ajouter controle pour voir s'il ne reste plus d'exemplaire lors de l'emprunt v2?
 
 Export en CSV v2
 
-Refaire la page 404 v1
+Refaire le readme v1
+
+Detail adherent v1

@@ -3,7 +3,11 @@
         <li class="none-on-small">
             <span class="nav-title">
                 <?php if ($return != null): ?>
-                    <a class="back" href="<?= url_to($return) ?>" data-tooltip="<?= lang('App.return.' . $return) ?>" data-placement="right"><span class="iconify" data-icon="mdi-arrow-left"></a>
+                    <?php if (filter_var($return, FILTER_VALIDATE_URL)): ?>
+                        <a class="back" href="<?= $return ?>" data-tooltip="<?= lang('App.return.return') ?>" data-placement="right"><span class="iconify" data-icon="mdi-arrow-left"></a>
+                    <?php else: ?>
+                        <a class="back" href="<?= url_to($return) ?>" data-tooltip="<?= lang('App.return.' . $return) ?>" data-placement="right"><span class="iconify" data-icon="mdi-arrow-left"></a>
+                    <?php endif ?>
                 <?php endif ?>
                 <a href="<?= url_to($redirect) ?>"><?= setting('App.siteName') . (($title != null) ? '&nbsp;-&nbsp;' . lang($title) : '') ?></a>
             </span>

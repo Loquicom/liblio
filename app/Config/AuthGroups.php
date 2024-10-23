@@ -77,6 +77,7 @@ class AuthGroups extends ShieldAuthGroups
         'manage.borrow'      => 'Possibility of borrowing books',
         'manage.return'      => 'Possibility of returning books',
         'manage.authors'     => 'Can view and edit authors informations',
+        'manage.alerts'      => 'Can view alerts',
         'config.users.admin' => 'Can manage admin users',
         'config.users.view'  => 'Can view users informations',
         'config.users.edit'  => 'Can edit users informations',

@@ -65,9 +65,10 @@ $lang = [
         "legal" => "See the site's <a href=\"{0}\" target=\"_self\">legal notices</a>",
     ],
     "return" => [
+        "return" => "Return",
+        "/" => "Home",
         "manage" => "Manage",
         "config" => "Config",
-        "/" => "Home",
         "manage/authors" => "Authors",
         "manage/books" => "Books",
     ],
@@ -160,6 +161,7 @@ Pellentesque in nisi at libero euismod tempor. In aliquam eget mauris finibus mo
             "title" => "Return",
             "card" => "Return",
             "outDate" => "Borrow date",
+            "returnDate" => "Date de retour",
             "loadError" => "Error while loading data",
         ],
         "authors" => [
@@ -173,6 +175,11 @@ Pellentesque in nisi at libero euismod tempor. In aliquam eget mauris finibus mo
             "role" => "Author's role",
             "main" => "Main",
         ],
+        "alerts" => [
+            "title" => "Alerts",
+            "card" => "Alerts",
+            "overdue" => "Overdue",
+        ]
     ],
     "config" => [
         "title" => "Config",
