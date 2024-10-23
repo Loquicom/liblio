@@ -22,6 +22,10 @@ main {
     font-size: 0.6em;
 }
 
+.overflow-auto {
+    overflow: auto;
+}
+
 .center {
     text-align: center;
 }
@@ -32,6 +36,10 @@ main {
 
 .justify {
     text-align: justify;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }
 
 .hide {

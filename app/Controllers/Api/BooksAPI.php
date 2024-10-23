@@ -238,7 +238,7 @@ class BooksAPI extends BaseController
             if (count($rules) > 0) {
                 $this->model->update($id, $json);
             }
-            // Write insert (author)
+            // Write update (author)
             if ($author !== null) {
                 $this->writeModel->where('author', $write['author'])
                     ->where('book', $json['isbn'] ?? $id)

@@ -47,8 +47,9 @@
     <!-- Select books -->
     <section>
         <h2><?= lang('App.manage.borrow.selectBooks') ?></h2>
-        <table class="striped">
-            <thead>
+        <div class="overflow-auto">
+            <table class="striped">
+                <thead>
                 <tr>
                     <td><?= lang('App.manage.borrow.bookISBN') ?></td>
                     <td><?= lang('App.manage.borrow.bookTitle') ?></td>
@@ -57,8 +58,8 @@
                     <td><?= lang('App.manage.return.outDate') ?></td>
                     <td><?= lang('App.common.select') ?></td>
                 </tr>
-            </thead>
-            <tbody id="books-data">
+                </thead>
+                <tbody id="books-data">
                 <tr id="no-data-row" class="tr-value">
                     <td class="center" colspan="6"><?= lang('App.common.noData') ?></td>
                 </tr>
@@ -68,8 +69,9 @@
                 <tr id="error-row" class="none">
                     <td class="center" colspan="6"><?= lang('App.manage.return.loadError') ?></td>
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
         <div class="grid">
             <div class="none-on-small"></div>
             <div class="none-on-small"></div>
@@ -100,23 +102,25 @@
                 </div>
                 <button id="dialog-member-btn-search" onclick="loadMembers()"><span class="iconify" data-icon="mdi-account-search"></span><?= lang('App.common.search') ?></button>
             </div>
-            <table class="striped">
-                <thead>
+            <div class="overflow-auto">
+                <table class="striped">
+                    <thead>
                     <tr>
                         <th><?= lang('App.manage.members.id') ?></th>
                         <th><?= lang('App.manage.members.firstname') ?></th>
                         <th><?= lang('App.manage.members.lastname') ?></th>
                     </tr>
-                </thead>
-                <tbody id="dialog-member-data">
+                    </thead>
+                    <tbody id="dialog-member-data">
                     <tr id="dialog-member-loading-row" class="none">
                         <td class="center" colspan="3" aria-busy="true"><?= lang('App.common.loading') ?></td>
                     </tr>
                     <tr id="dialog-member-no-data-row">
                         <td class="center" colspan="3"><?= lang('App.common.noData') ?></td>
                     </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
             <footer>
                 <button class="secondary dialog-close"><?= lang('App.common.cancel') ?></button>
                 <button id="dialog-member-btn-select" class="dialog-close" onclick="selectMemberFromSearch()"><?= lang('App.common.select') ?></button>

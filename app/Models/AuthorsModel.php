@@ -53,4 +53,13 @@ class AuthorsModel extends Model
         ];
     }
 
+    public function getMainAuthor($isbn): object|array|null
+    {
+        return $this->select($this->allowedFields)
+            ->join('write', 'author.id = write.author')
+            ->where('write.book', $isbn)
+            ->where('write.main', true)
+            ->first();
+    }
+
 }

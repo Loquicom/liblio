@@ -68,6 +68,7 @@ $lang = [
         "manage" => "Gestion",
         "config" => "Configuration",
         "/" => "Accueil",
+        "manage/authors" => "Auteurs",
     ],
     "home" => [
         "title" => "Accueil",
@@ -154,6 +155,9 @@ Pellentesque in nisi at libero euismod tempor. In aliquam eget mauris finibus mo
             "edit" => "Édition d'un auteur",
             "id" => "Identifiant",
             "username" => "Nom",
+            "detail" => "Détail de l'auteur : {0}",
+            "books" => "Livres de l'auteur",
+            "role" => "Role de l'auteur",
         ],
     ],
     "config" => [

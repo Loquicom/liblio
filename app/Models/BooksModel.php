@@ -126,4 +126,23 @@ class BooksModel extends Model
         ];
     }
 
+    public function getBooksFromAuthor($authorId): array
+    {
+        // Retrieves books in which the author has participated
+        $data = $this->select('book.isbn, book.title, book.theme, book.year, book.reference, publisher.name as publisher, write.role')
+            ->join('publisher', 'book.publisher = publisher.id')
+            ->join('write', 'book.isbn = write.book')
+            ->where('write.author', $authorId)
+            ->findAll();
+
+        // Get main author
+        $authorModel = model(AuthorsModel::class);
+        for ($i = 0; $i < count($data); $i++) {
+            $author = $authorModel->getMainAuthor($data[$i]['isbn']);
+            $data[$i]['author'] = $author['username'];
+        }
+
+        return $data;
+    }
+
 }

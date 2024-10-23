@@ -36,7 +36,7 @@ $routes->group('manage', ['filter' => 'session'], function ($routes) {
     $routes->get('borrow', [\App\Controllers\Manage\Borrow::class, 'out']);
     $routes->get('return', [\App\Controllers\Manage\Borrow::class, 'in']);
     $routes->get('authors', [\App\Controllers\Manage\Authors::class, 'index']);
-    $routes->get('authors/(:num)', 'WIP::index');
+    $routes->get('authors/(:num)', [\App\Controllers\Manage\Authors::class, 'detail']);
 });
 
 $routes->get('api/login', [\App\Controllers\Api\LoginAPI::class, 'sessionLogin'],  ['filter' => 'session']);

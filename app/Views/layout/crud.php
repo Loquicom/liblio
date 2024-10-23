@@ -88,28 +88,30 @@
     <!-- Result -->
     <section>
         <small id="total-indicator" class="hide"><?= lang('App.common.total') ?> : <span id="current-value">?</span>/<span id="total-value">?</span></small>
-        <table class="striped">
-            <thead>
-            <tr>
-                <?php foreach ($fields as $key => $field): ?>
-                    <?php if ($field['col']): ?>
-                        <th scope="col"><?= lang($field['lib']) ?></th>
+        <div class="overflow-auto">
+            <table class="striped">
+                <thead>
+                <tr>
+                    <?php foreach ($fields as $key => $field): ?>
+                        <?php if ($field['col']): ?>
+                            <th scope="col"><?= lang($field['lib']) ?></th>
+                        <?php endif ?>
+                    <?php endforeach ?>
+                    <?php if ($mode === 'edit' || $detail !== 'none'): ?>
+                        <th class="center" scope="col"><?= lang('App.common.action') ?></th>
                     <?php endif ?>
-                <?php endforeach ?>
-                <?php if ($mode === 'edit' || $detail !== 'none'): ?>
-                    <th class="center" scope="col"><?= lang('App.common.action') ?></th>
-                <?php endif ?>
-            </tr>
-            </thead>
-            <tbody id="table-content">
+                </tr>
+                </thead>
+                <tbody id="table-content">
                 <tr id="loading-row">
                     <td class="center" colspan="<?= $mode === 'edit' ? count($fields) + 1 : count($fields) ?>" aria-busy="true"><?= lang('App.common.loading') ?></td>
                 </tr>
                 <tr id="no-data-row" class="none">
                     <td class="center" colspan="<?= $mode === 'edit' ? count($fields) + 1 : count($fields) ?>"><?= lang('App.common.noData') ?></td>
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </section>
     <!-- Pagination -->
     <section>

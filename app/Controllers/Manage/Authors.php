@@ -3,6 +3,8 @@
 namespace App\Controllers\Manage;
 
 use App\Controllers\BaseController;
+use App\Models\AuthorsModel;
+use App\Models\BooksModel;
 
 class Authors extends BaseController
 {
@@ -42,6 +44,31 @@ class Authors extends BaseController
         ];
 
         return view('layout/crud', $params);
+    }
+
+    public function detail($id): string|\CodeIgniter\HTTP\RedirectResponse
+    {
+        // Check access
+        $user = auth()->user();
+        if (!$user->can('manage.authors')) {
+            return redirect()->to('manage');
+        }
+
+        // Get author info
+        $authorModel = model(AuthorsModel::class);
+        $author = $authorModel->find($id);
+        if ($author == null) {
+            return redirect()->to('404');
+        }
+
+        // Get books
+        $booksModel = model(BooksModel::class);
+        $params = [
+            'author' => $author['username'],
+            'books' => $booksModel->getBooksFromAuthor($id),
+        ];
+
+        return view('manage/detail/author', $params);
     }
 
 }
