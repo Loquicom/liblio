@@ -61,11 +61,14 @@ class Authors extends BaseController
             return redirect()->to('404');
         }
 
-        // Get books
+        // Set parameters
+        $get = $this->request->getGet();
         $booksModel = model(BooksModel::class);
         $params = [
+            'id' => $id,
+            'return' => $get['return'] ?? 'manage/authors',
             'author' => $author['username'],
-            'books' => $booksModel->getBooksFromAuthor($id),
+            'books' => $booksModel->getFromAuthor($id),
         ];
 
         return view('manage/detail/author', $params);

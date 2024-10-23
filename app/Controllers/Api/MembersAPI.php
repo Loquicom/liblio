@@ -136,14 +136,14 @@ class MembersAPI extends BaseController
         $json = $adapt['data'];
         $rules = $adapt['rules'];
 
-        // Any change ?
-        if (count($rules) === 0) {
+        // Any change left
+        if (count($json) === 0) {
             // Stop success
             return $this->respond(respond_success());
         }
 
         // Validate data
-        if (! $this->validateData($json, $rules, [])) {
+        if (count($rules) > 0 && !$this->validateData($json, $rules, [])) {
             return $this->respond(respond_error(implode('<br/>', $this->validator->getErrors())),$this->codes['invalid_data']);
         }
 
@@ -199,15 +199,8 @@ class MembersAPI extends BaseController
         }
 
         // Find borrowed books
-        $data = $this->model->select('book.isbn, book.title, author.username as author, publisher.name as publisher, borrow.out_date')
-            ->join('borrow', 'member.id = borrow.member')
-            ->join('book', 'borrow.book = book.isbn')
-            ->join('write', 'book.isbn = write.book')
-            ->join('author', 'write.author = author.id')
-            ->join('publisher', 'book.publisher = publisher.id')
-            ->where('write.main', true) // Main author only
-            ->where('borrow.return_date is null')
-            ->findAll();
+        $borrowModel = model(BorrowModel::class);
+        $data = $borrowModel->getBorrowsFromMember($id);
 
         return $this->respond(respond_success($data));
     }
@@ -249,7 +242,8 @@ class MembersAPI extends BaseController
             // Check borrow
             $borrowEntity = $borrowModel->where('member', $id)
                 ->where('book', $book['isbn'])
-                ->find();
+                ->where('return_date is null')
+                ->first();
             if ($borrowEntity != null) {
                 return $this->respond(respond_error(lang('Api.members.alreadyBorrow', [$book['isbn']])),$this->codes['invalid_data']);
             }

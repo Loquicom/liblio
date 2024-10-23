@@ -23,14 +23,15 @@ $routes->post('account', [\App\Controllers\Shield\Account::class, 'update'],  ['
 $routes->group('config', ['filter' => 'session'], function ($routes) {
     $routes->get('/', [\App\Controllers\Config\Menu::class, 'index']);
     $routes->get('users', [\App\Controllers\Config\Users::class, 'index']);
-    $routes->get('website', 'WIP::index');
     $routes->get('publishers', [\App\Controllers\Config\Publishers::class, 'index']);
+    $routes->get('website', 'WIP::index');
+    $routes->get('export', 'WIP::index');
 });
 
 $routes->group('manage', ['filter' => 'session'], function ($routes) {
     $routes->get('/', [\App\Controllers\Manage\Menu::class, 'index']);
     $routes->get('books', [\App\Controllers\Manage\Books::class, 'index']);
-    $routes->get('books/(:any)', 'WIP::index');
+    $routes->get('books/(:any)', [\App\Controllers\Manage\Books::class, 'detail']);
     $routes->get('members', [\App\Controllers\Manage\Members::class, 'index']);
     $routes->get('members/(:alphanum)', 'WIP::index');
     $routes->get('borrow', [\App\Controllers\Manage\Borrow::class, 'out']);
@@ -42,6 +43,7 @@ $routes->group('manage', ['filter' => 'session'], function ($routes) {
 $routes->get('api/login', [\App\Controllers\Api\LoginAPI::class, 'sessionLogin'],  ['filter' => 'session']);
 $routes->post('api/login', [\App\Controllers\Api\LoginAPI::class, 'credentialsLogin']);
 $routes->get('api/books', [\App\Controllers\Api\BooksAPI::class, 'search']);
+$routes->get('api/books/(:any)/authors', [\App\Controllers\Api\BooksAPI::class, 'getAuthors']);
 $routes->group('api', ['filter' => 'jwt'], static function ($routes) {
     $routes->get('users', [\App\Controllers\Api\UsersAPI::class, 'search']);
     $routes->post('users', [\App\Controllers\Api\UsersAPI::class, 'create']);
@@ -54,8 +56,10 @@ $routes->group('api', ['filter' => 'jwt'], static function ($routes) {
     $routes->delete('publishers/(:num)', [\App\Controllers\Api\PublishersAPI::class, 'delete']);
 
     $routes->get('books/(:any)', [\App\Controllers\Api\BooksAPI::class, 'read']);
+    $routes->post('books/(:any)/authors/(:num)', [\App\Controllers\Api\BooksAPI::class, 'addAuthor']);
     $routes->post('books', [\App\Controllers\Api\BooksAPI::class, 'create']);
     $routes->put('books/(:any)', [\App\Controllers\Api\BooksAPI::class, 'update']);
+    $routes->delete('books/(:any)/authors/(:num)', [\App\Controllers\Api\BooksAPI::class, 'deleteAuthor']);
     $routes->delete('books/(:any)', [\App\Controllers\Api\BooksAPI::class, 'delete']);
 
     $routes->get('authors', [\App\Controllers\Api\AuthorsAPI::class, 'search']);

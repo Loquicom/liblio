@@ -194,7 +194,7 @@
         <article>
             <header>
                 <button class="dialog-close" aria-label="Close" rel="prev"></button>
-                <?= $this->renderSection('detail-header') ?>
+                <h2><?= lang('App.common.detail') ?></h2>
             </header>
             <?= $this->renderSection('detail') ?>
             <footer>
@@ -224,4 +224,5 @@
         }
     </script>
     <script src="/js/crud.js"></script>
+    <?= $this->renderSection('detail-script') ?>
 <?= $this->endSection() ?>

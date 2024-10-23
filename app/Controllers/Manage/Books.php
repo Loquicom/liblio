@@ -4,6 +4,8 @@ namespace App\Controllers\Manage;
 
 use App\Controllers\BaseController;
 use App\Models\AuthorsModel;
+use App\Models\BooksModel;
+use App\Models\BorrowModel;
 use App\Models\PublishersModel;
 
 class Books extends BaseController
@@ -110,6 +112,52 @@ class Books extends BaseController
         ];
 
         return view('layout/crud', $params);
+    }
+
+    public function detail($id): string|\CodeIgniter\HTTP\RedirectResponse
+    {
+        // Check access
+        $user = auth()->user();
+        if (!$user->can('manage.books')) {
+            return redirect()->to('manage');
+        }
+
+        // Get book info
+        $booksModel = model(BooksModel::class);
+        $book = $booksModel->find($id);
+        if ($book == null) {
+            return redirect()->to('404');
+        }
+
+        // Get list of book author
+        $authorsModel = model(AuthorsModel::class);
+        $bookAuthors = $authorsModel->getAuthors($id);
+
+        // Get list of all author
+        $exludeAuthors = [];
+        foreach ($bookAuthors as $author) {
+            $exludeAuthors[] = $author['id'];
+        }
+        $authors = $authorsModel->whereNotIn('id', $exludeAuthors)->findAll();
+
+        // Get borrows list
+        $borrowModel = model(BorrowModel::class);
+        $borrows = $borrowModel->getBorrowsFromBook($id);
+        $oldBorrows = $borrowModel->getOldBorrowsFromBook($id);
+
+        // Set parameters
+        $get = $this->request->getGet();
+        $params = [
+            'id' => $id,
+            'return' => $get['return'] ?? 'manage/books',
+            'book' => $book,
+            'authors' => $authors,
+            'bookAuthors' => $bookAuthors,
+            'borrows' => $borrows,
+            'oldBorrows' => $oldBorrows
+        ];
+
+        return view('manage/detail/book', $params);
     }
 
 }

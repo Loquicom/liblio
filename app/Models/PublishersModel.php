@@ -17,10 +17,6 @@ class PublishersModel extends Model
         // Adapt page to limit
         $offset = $number * ($page - 1);
 
-        // Count total
-        $total = $this->selectCount('name')
-            ->first();
-
         // Set where clause
         $where = '1=1';
         if (isset($parameter['search'])) { // Simple
@@ -40,6 +36,11 @@ class PublishersModel extends Model
                 $orderBy = 'name';
             }
         }
+
+        // Count total
+        $total = $this->selectCount('name')
+            ->where($where)
+            ->first();
 
         // Get data
         $result = $this->select('id, name')

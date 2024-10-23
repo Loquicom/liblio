@@ -3,7 +3,7 @@
 <?= $this->section('title') ?><?= lang('App.manage.authors.detail', [$author]) ?><?= $this->endSection() ?>
 
 <?= $this->section('header') ?>
-<?= view_cell('HeaderCell', ['title' => lang('App.manage.authors.detail', [$author]), 'redirect' => 'manage', 'return' => 'manage/authors']) ?>
+<?= view_cell('HeaderCell', ['title' => lang('App.manage.authors.detail', [$author]), 'redirect' => 'manage', 'return' => $return]) ?>
 <?= $this->endSection() ?>
 
 <?= $this->section('main') ?>
@@ -25,15 +25,15 @@
             <tbody>
             <?php if (count($books) > 0): ?>
                 <?php foreach($books as $book): ?>
-                    <tr class="cursor-pointer" onclick="location.href = '<?= url_to('manage/books' ) . '/' . $book['isbn']  ?>'">
-                        <td class="cursor-pointer"><?= $book['isbn'] ?></td>
-                        <td class="cursor-pointer"><?= $book['title'] ?></td>
-                        <td class="cursor-pointer"><?= $book['author'] ?></td>
-                        <td class="cursor-pointer"><?= $book['role'] ?></td>
-                        <td class="cursor-pointer"><?= $book['publisher'] ?></td>
-                        <td class="cursor-pointer"><?= $book['theme'] ?></td>
-                        <td class="cursor-pointer"><?= $book['year'] ?></td>
-                        <td class="cursor-pointer"><?= $book['reference'] ?></td>
+                    <tr>
+                        <td><a href="<?= url_to('manage/books' ) . '/' . $book['isbn']  ?>?return=manage/authors"><?= $book['isbn'] ?></a></td>
+                        <td><?= $book['title'] ?></td>
+                        <td><?= $book['author'] ?></td>
+                        <td><?= $book['role'] ?></td>
+                        <td><?= $book['publisher'] ?></td>
+                        <td><?= $book['theme'] ?></td>
+                        <td><?= $book['year'] ?></td>
+                        <td><?= $book['reference'] ?></td>
                     </tr>
                 <?php endforeach ?>
             <?php else: ?>

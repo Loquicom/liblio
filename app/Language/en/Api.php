@@ -23,6 +23,8 @@ $lang = [
     "authors" => [
         "notFound" => "Author not found",
         "defaultDelete" => "Can't delete the default author",
+        "invalidRole" => "Role is invalid",
+        "deleteMain" => "Unable to delete book's main author",
     ],
     "members" => [
         "notFound" => "Member not found",

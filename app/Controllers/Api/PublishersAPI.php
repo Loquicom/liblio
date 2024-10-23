@@ -101,14 +101,14 @@ class PublishersAPI extends BaseController
         $json = $adapt['data'];
         $rules = $adapt['rules'];
 
-        // Any change ?
-        if (count($rules) === 0) {
+        // Any change left
+        if (count($json) === 0) {
             // Stop success
             return $this->respond(respond_success());
         }
 
         // Validate data
-        if (! $this->validateData($json, $rules, [])) {
+        if (count($rules) > 0 && !$this->validateData($json, $rules, [])) {
             return $this->respond(respond_error(implode('<br/>', $this->validator->getErrors())),$this->codes['invalid_data']);
         }
 

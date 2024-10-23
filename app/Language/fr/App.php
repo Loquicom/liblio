@@ -69,6 +69,7 @@ $lang = [
         "config" => "Configuration",
         "/" => "Accueil",
         "manage/authors" => "Auteurs",
+        "manage/books" => "Livres",
     ],
     "home" => [
         "title" => "Accueil",
@@ -117,6 +118,14 @@ Pellentesque in nisi at libero euismod tempor. In aliquam eget mauris finibus mo
             "copy" => "Exemplaire",
             "year" => "Année de parution",
             "reference" => "Cote",
+            "detail" => "Détail du livre : {0}",
+            "infos" => "Informations du livre",
+            "description" => "Description",
+            "authors" => "Auteurs du livre",
+            "selectAuthor" => "Sélectionner l'auteur",
+            "borrow" => "Emprunts actuels",
+            "oldBorrow" => "Anciens emprunts",
+            "noDescription" => "Aucune description",
         ],
         "members" => [
             "title" => "Gestion des adhérents",
@@ -158,6 +167,7 @@ Pellentesque in nisi at libero euismod tempor. In aliquam eget mauris finibus mo
             "detail" => "Détail de l'auteur : {0}",
             "books" => "Livres de l'auteur",
             "role" => "Role de l'auteur",
+            "main" => "Principal"
         ],
     ],
     "config" => [
@@ -187,13 +197,14 @@ Pellentesque in nisi at libero euismod tempor. In aliquam eget mauris finibus mo
             "password" => "Mot de passe",
             "edit" => "Édition d'un utilisateur",
         ],
-        "website" => "Site web",
         "publishers" => [
             "title" => "Configuration des éditeurs",
             "card" => "Éditeurs",
             "id" => "Identifiant",
             "name" => "Nom",
         ],
+        "website" => "Site web",
+        "export" => "Export",
     ],
 ];
 

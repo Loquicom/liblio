@@ -160,6 +160,12 @@ class Init extends Migration
         $this->forge->createTable('member');
         // Create table borrow
         $fields = [
+            'id' => [
+                'type' => 'INT',
+                'constraint' => 9,
+                'unsigned' => true,
+                'auto_increment' => true
+            ],
             'member' => [
                 'type' => 'VARCHAR',
                 'constraint' => 20
@@ -181,7 +187,7 @@ class Init extends Migration
             ]
         ];
         $this->forge->addField($fields);
-        $this->forge->addPrimaryKey(['member', 'book'], 'pk_borrow');
+        $this->forge->addPrimaryKey('id', 'pk_borrow');
         $this->forge->addForeignKey('member', 'member', 'id', 'CASCADE', 'CASCADE', 'fk_borrow_author');
         $this->forge->addForeignKey('book', 'book', 'isbn', 'CASCADE', 'CASCADE', 'fk_borrow_book');
         $this->forge->createTable('borrow');

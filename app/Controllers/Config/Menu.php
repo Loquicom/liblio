@@ -47,6 +47,14 @@ class Menu extends BaseController
                 'link' => url_to('config/website')
             ];
         }
+        // Can export data
+        if ($user->can('config.export') && $user->can( 'beta.access')) {
+            $params['menus'][] = [
+                'icon' => 'file-export-outline',
+                'name' => 'App.config.export',
+                'link' => url_to('config/export')
+            ];
+        }
 
         return view('layout/menu', $params);
     }

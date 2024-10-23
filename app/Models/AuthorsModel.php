@@ -17,10 +17,6 @@ class AuthorsModel extends Model
         // Adapt page to limit
         $offset = $number * ($page - 1);
 
-        // Count total
-        $total = $this->selectCount('username')
-            ->first();
-
         // Set where clause
         $where = '1=1';
         if (isset($parameter['search'])) { // Simple
@@ -41,6 +37,11 @@ class AuthorsModel extends Model
             }
         }
 
+        // Count total
+        $total = $this->selectCount('username')
+            ->where($where)
+            ->first();
+
         // Get data
         $result = $this->select('id, username')
             ->where($where)
@@ -60,6 +61,17 @@ class AuthorsModel extends Model
             ->where('write.book', $isbn)
             ->where('write.main', true)
             ->first();
+    }
+
+    public function getAuthors($book): array
+    {
+        // Retrieves all authors from a book
+        $data = $this->select('author.id, author.username, write.role, write.main')
+            ->join('write', 'author.id = write.author')
+            ->where('write.book', $book)
+            ->findAll();
+
+        return $data;
     }
 
 }

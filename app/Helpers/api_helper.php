@@ -36,18 +36,27 @@ function respond_error($message): array
 function adapt_rules_and_data_for_update($entity, $data, $rules, $exclude = []): array
 {
     $newRules = $rules;
-    $newData = $data;
+    $tmpData = $data;
+    // Check fields with rules
     foreach ($rules as $rule => $validation) {
         if (in_array($rule, $exclude)) continue;
         if (isset($data[$rule])) {
             // No change, remove
             if ($entity[$rule] === $data[$rule]) {
-                unset($newData[$rule]);
+                unset($tmpData[$rule]);
                 unset($newRules[$rule]);
             }
         } else {
             // No data for the rules remove
             unset($newRules[$rule]);
+        }
+    }
+    // Check field without rules
+    $newData = $tmpData;
+    foreach ($tmpData as $key => $val) {
+        if (isset($newRules[$key])) continue;
+        if ($entity[$key] == $val) {
+            unset($newData[$key]);
         }
     }
 

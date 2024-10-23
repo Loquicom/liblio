@@ -23,6 +23,8 @@ $lang = [
     "authors" => [
         "notFound" => "Auteur introuvable",
         "defaultDelete" => "Impossible de supprimer l'auteur par défaut",
+        "invalidRole" => "Le role est invalide",
+        "deleteMain" => "Impossible de supprimer l'auteur principal d'un livre",
     ],
     "members" => [
         "notFound" => "Adhérent introuvable",

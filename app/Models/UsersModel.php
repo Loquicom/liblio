@@ -13,12 +13,6 @@ class UsersModel
         // Get provider
         $users = auth()->getProvider();
 
-        // Count total
-        $total = $users->selectCount('username')
-            ->join('auth_identities', 'users.id = auth_identities.user_id')
-            ->join('auth_groups_users', 'users.id = auth_groups_users.user_id')
-            ->first();
-
         // Set where clause
         $where = '1=1';
         if (isset($parameter['search'])) { // Simple
@@ -64,6 +58,13 @@ class UsersModel
                 $orderBy = 'group';
             }
         }
+
+        // Count total
+        $total = $users->selectCount('username')
+            ->join('auth_identities', 'users.id = auth_identities.user_id')
+            ->join('auth_groups_users', 'users.id = auth_groups_users.user_id')
+            ->where($where)
+            ->first();
 
         // Get data
         $result = $users->select('users.id, username, secret, group')

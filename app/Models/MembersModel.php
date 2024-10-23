@@ -17,10 +17,6 @@ class MembersModel extends Model
         // Adapt page to limit
         $offset = $number * ($page - 1);
 
-        // Count total
-        $total = $this->selectCount('id')
-            ->first();
-
         // Set where clause
         $where = '1=1';
         if (isset($parameter['search'])) { // Simple
@@ -68,6 +64,11 @@ class MembersModel extends Model
                 $orderBy = 'created_at';
             }
         }
+
+        // Count total
+        $total = $this->selectCount('id')
+            ->where($where)
+            ->first();
 
         // Get data
         $result = $this->select('id, firstname, lastname, email, created_at')

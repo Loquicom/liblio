@@ -116,7 +116,7 @@ function generateTable(values) {
                 const url = location.endsWith('/') ? location + val['id'] : location + '/' + val['id'];
                 html += '<a class="secondary action-detail" href="' + url + '" data-tooltip="' + lang['detail'] + '" data-placement="top"><span class="iconify" data-icon="mdi-eye"></span></a>'
             } else if (detail === 'popup') {
-                html += '<a class="secondary action-detail dialog-open" href="#" data-dialog="dialog-detail" data-tooltip="' + lang['detail'] + '" data-placement="top" onclick=\'selectedId="'+ val['id'] +'"\'><span class="iconify" data-icon="mdi-eye"></span></a>'
+                html += '<a class="secondary action-detail dialog-open" href="#" data-dialog="dialog-detail" data-tooltip="' + lang['detail'] + '" data-placement="top" onclick="openPopupDetail(\'' + val['id'] + '\')"><span class="iconify" data-icon="mdi-eye"></span></a>'
             }
             if (mode === 'edit') {
                 html += '<a class="secondary action-edit dialog-open" href="#" data-dialog="dialog-edit" data-tooltip="' + lang['edit'] + '" data-placement="top" onclick=\'selectedId="'+ val['id'] +'"\'><span class="iconify" data-icon="mdi-pencil"></span></a>'
@@ -275,6 +275,11 @@ function sendSearch(event) {
     if (event.key === "Enter") {
         loadData();
     }
+}
+
+function openPopupDetail(id) {
+    selectedId = id;
+    loadPopupDetail(id);
 }
 
 /* --- Page load --- */

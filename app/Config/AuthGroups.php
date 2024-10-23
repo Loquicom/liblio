@@ -80,8 +80,9 @@ class AuthGroups extends ShieldAuthGroups
         'config.users.admin' => 'Can manage admin users',
         'config.users.view'  => 'Can view users informations',
         'config.users.edit'  => 'Can edit users informations',
-        'config.website'     => 'Can configure website parameters',
         'config.publisher'   => 'Manage publisher',
+        'config.website'     => 'Can configure website parameters',
+        'config.export'      => 'Can export data to CSV',
         'beta.access'        => 'Can access beta-level features',
     ];
 
@@ -103,6 +104,7 @@ class AuthGroups extends ShieldAuthGroups
             'config.users.view',
             'config.users.edit',
             'config.publisher',
+            'config.export',
         ],
         'manager' => [
             'manage.*',

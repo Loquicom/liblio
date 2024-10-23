@@ -17,10 +17,6 @@ class BooksModel extends Model
         // Adapt page to limit
         $offset = $number * ($page - 1);
 
-        // Count total
-        $total = $this->selectCount('isbn')
-            ->first();
-
         // Set where clause
         $where = '1=1';
         if (isset($parameter['search'])) { // Simple
@@ -94,8 +90,16 @@ class BooksModel extends Model
             }
         }
 
+        // Count total
+        $total = $this->selectCount('isbn')
+            ->join('publisher', 'book.publisher = publisher.id')
+            ->join('write', '(book.isbn = write.book and write.main = true)')
+            ->join('author', 'write.author = author.id')
+            ->where($where)
+            ->first();
+
         // Get data
-        $result = $this->select('isbn, title, author.id as author_id, author.username as author_username, publisher.id as publisher_id, publisher.name as publisher_name, theme, year, reference, copy')
+        $result = $this->select('isbn, title, description, author.id as author_id, author.username as author_username, publisher.id as publisher_id, publisher.name as publisher_name, theme, year, reference, copy')
             ->join('publisher', 'book.publisher = publisher.id')
             ->join('write', '(book.isbn = write.book and write.main = true)')
             ->join('author', 'write.author = author.id')
@@ -126,7 +130,7 @@ class BooksModel extends Model
         ];
     }
 
-    public function getBooksFromAuthor($authorId): array
+    public function getFromAuthor($authorId): array
     {
         // Retrieves books in which the author has participated
         $data = $this->select('book.isbn, book.title, book.theme, book.year, book.reference, publisher.name as publisher, write.role')
