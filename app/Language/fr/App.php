@@ -74,8 +74,8 @@ $lang = [
         "config" => "Configuration",
         "manage/authors" => "Auteurs",
         "manage/books" => "Livres",
+        "manage/members" => "Adhérents",
         "members/auth" => "S'identifier",
-        "members/members" => "Adhérents",
     ],
     "404" => [
         "text" => "Il semble que vous soyez perdus, il n'y a rien ici",
