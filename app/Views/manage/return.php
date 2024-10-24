@@ -56,7 +56,7 @@
                     <td><?= lang('App.manage.borrow.bookAuthor') ?></td>
                     <td><?= lang('App.manage.borrow.bookPublisher') ?></td>
                     <td><?= lang('App.manage.return.outDate') ?></td>
-                    <td><?= lang('App.common.select') ?></td>
+                    <td class="center"><?= lang('App.common.select') ?></td>
                 </tr>
                 </thead>
                 <tbody id="books-data">

@@ -89,3 +89,5 @@ Export en CSV v2
 Refaire le readme v1
 
 Detail adherent v1
+
+Purge données v2
