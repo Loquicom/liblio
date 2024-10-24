@@ -42,6 +42,7 @@ $lang = [
         "valid" => "Valid",
         "comment" => "Comment",
         "optional" => "Optional",
+        "login" => "Log in",
     ],
     "helper" => [
         "id" => "ID is auto-generated",

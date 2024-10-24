@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Home;
 
+use App\Controllers\BaseController;
 use App\Models\AuthorsModel;
 use App\Models\PublishersModel;
 
@@ -76,7 +77,7 @@ class Books extends BaseController
             ]
         ];
 
-        return view('books', $params);
+        return view('home/books', $params);
     }
 
 }

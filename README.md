@@ -78,7 +78,6 @@ Amélioration de la recherche simple v2
 
 Système d'envoie d'email (pour le rappel de ce qui doit être rendue) v2
 Bouton pour envoyer email v2
-Bouton mailto v1
 
 Pouvoir configurer les infos du site web (nom, nb de jour de pret, ...) v2
 
@@ -88,6 +87,6 @@ Export en CSV v2
 
 Refaire le readme v1
 
-Detail adherent v1
-
 Purge données v2
+
+Plus d'info dans l'historique des adhérent publique avec code de vérification envoyé par email v2?

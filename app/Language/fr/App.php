@@ -43,6 +43,7 @@ $lang = [
         "valid" => "Valider",
         "comment" => "Commentaire",
         "optional" => "Optionnel",
+        "login" => "S'identifier",
     ],
     "helper" => [
         "id" => "L'identifiant est généré automatiquement",

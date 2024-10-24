@@ -11,10 +11,12 @@ service('auth')->routes($routes, ['except' => ['login']]);
 $routes->get('login', [\CodeIgniter\Shield\Controllers\LoginController::class, 'loginView']);
 $routes->post('login', [\CodeIgniter\Shield\Controllers\LoginController::class, 'loginAction'], ['filter' => 'csrf']);
 
-$routes->get('/', 'Home::index');
-$routes->get('books', 'Books::index');
-$routes->get('members/auth', 'WIP::index');
-$routes->view('legal', 'legal');
+$routes->get('/', [App\Controllers\Home\Home::class, 'index']);
+$routes->get('books', [App\Controllers\Home\Books::class, 'index']);
+$routes->get('members/auth', [App\Controllers\Home\Members::class, 'auth']);
+$routes->post('members/auth', [App\Controllers\Home\Members::class, 'authAction'], ['filter' => 'csrf']);
+$routes->get('members/detail', [App\Controllers\Home\Members::class, 'detail']);
+$routes->view('legal', 'home/legal');
 
 $routes->get('preference', [\App\Controllers\Config\Preference::class, 'index']);
 $routes->get('account', [\App\Controllers\Shield\Account::class, 'index'],  ['filter' => 'session']);

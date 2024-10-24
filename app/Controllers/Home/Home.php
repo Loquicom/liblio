@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Home;
+
+use App\Controllers\BaseController;
 
 class Home extends BaseController
 {
@@ -9,7 +11,7 @@ class Home extends BaseController
         if(auth()->loggedIn()) {
             return redirect()->to('manage');
         } else {
-            return view('home');
+            return view('home/index');
         }
     }
 }

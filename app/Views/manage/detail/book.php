@@ -166,7 +166,7 @@
                             <td><?= lang('App.manage.members.lastname') ?></td>
                             <td><?= lang('App.manage.members.email') ?></td>
                             <td><?= lang('App.manage.return.outDate') ?></td>
-                            <td><?= lang('App.manage.borrow.delay') ?></td>
+                            <td class="center"><?= lang('App.manage.borrow.delay') ?></td>
                         </tr>
                     </thead>
                     <tbody>
@@ -178,7 +178,7 @@
                                     <td><?= $borrow['lastname'] ?></td>
                                     <td><a href="mailto:<?= $borrow['email'] ?>"><?= $borrow['email'] ?></a></td>
                                     <td><?= $borrow['out_date'] ?></td>
-                                    <td><?= $borrow['delay'] ?></td>
+                                    <td class="center"><?= $borrow['delay'] ?></td>
                                 </tr>
                             <?php endforeach ?>
                         <?php else: ?>
