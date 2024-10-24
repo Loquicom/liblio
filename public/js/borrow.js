@@ -3,6 +3,8 @@
 let dataMember = null;
 let dataBooks = {};
 let selectedBook = null;
+let scanner = null;
+let selectedSource = null;
 
 /* --- Members search --- */
 
@@ -275,3 +277,71 @@ function reset() {
     document.getElementById('dialog-member-no-data-row').classList.remove('none');
     document.getElementById('no-data-row').classList.remove('none');
 }
+
+/* --- Scanner --- */
+
+function initScanner() {
+    // Create scanner
+    scanner = new ZXing.BrowserMultiFormatReader();
+    // Detect video reader
+    scanner.listVideoInputDevices().then(videoInputDevices => {
+        const select = document.getElementById('video-source-select');
+        selectedSource = videoInputDevices[0].deviceId; // Default one
+        // If no source disabled button
+        if (selectedSource != null) {
+            document.getElementById('scan-btn').removeAttribute('disabled');
+        }
+        // Generate select if more than one input
+        if (videoInputDevices.length > 1) {
+            videoInputDevices.forEach((element) => {
+                const sourceOption = document.createElement('option')
+                sourceOption.text = element.label
+                sourceOption.value = element.deviceId
+                select.appendChild(sourceOption)
+            })
+            // Manage select change
+            select.onchange = () => {
+                selectedSource = select.value;
+            };
+            // Show select
+            document.getElementById('video-source').classList.remove('none');
+        }
+    }).catch((err) => {
+        console.error(err)
+    });
+}
+
+function startScan() {
+    if (scanner == null) {
+        alert(lang.noScanner);
+        return;
+    }
+    if (selectedSource == null) {
+        alert(lang.noSource);
+        return;
+    }
+    scanner.decodeFromVideoDevice(selectedSource, 'video', (result, err) => {
+        if (result) {
+            console.log(result);
+            document.getElementById('scan-result').value = result.text;
+        }
+        if (err && !(err instanceof ZXing.NotFoundException)) {
+            console.error(err);
+            document.getElementById('scan-message').textContent = err;
+        }
+    })
+}
+
+function stopScan() {
+    if (scanner == null) {
+        alert(lang.noScanner);
+        return;
+    }
+    scanner.reset();
+}
+
+/* --- On load --- */
+
+window.addEventListener('load', function() {
+    initScanner();
+});

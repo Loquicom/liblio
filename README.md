@@ -69,9 +69,6 @@ Additionally, make sure that the following extensions are enabled in your PHP:
 
 ## TODO
 
-lecteur code barre : v1?
-https://github.com/zxing-js/library/tree/master
-
 Système de tag v2
 
 Amélioration de la recherche simple v2

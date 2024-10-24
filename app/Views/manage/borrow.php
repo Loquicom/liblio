@@ -51,16 +51,20 @@
             <div>
                 <label>
                     <?= lang('App.manage.borrow.bookISBN') ?>
-                    <input id="isbn" name="isbn" type="text" placeholder="<?= lang('App.manage.borrow.bookISBN') ?>" onchange="getBook()"/>
+                    <span role="group">
+                        <input id="isbn" name="isbn" type="text" placeholder="<?= lang('App.manage.borrow.bookISBN') ?>" onchange="getBook()"/>
+                        <button id="scan-btn" class="dialog-open outline" data-dialog="dialog-scan" onclick="startScan()" disabled><span class="iconify" data-icon="mdi-barcode-scan"></span></button>
+                    </span>
                 </label>
             </div>
             <div id="delay-container">
                 <label>
                     <?= lang('App.manage.borrow.delay') ?>
-                    <input id="delay" name="delay" type="number" value="<?= setting('App.specific')['delay'] ?>" placeholder="<?= lang('App.manage.borrow.delay') ?>"/>
+                    <span>
+                        <input id="delay" name="delay" type="number" value="<?= setting('App.specific')['delay'] ?>" placeholder="<?= lang('App.manage.borrow.delay') ?>"/>
+                    </span>
                 </label>
             </div>
-            <div class="none-on-small"></div>
             <div class="right">
                 <label class="none-on-small">&nbsp;</label>
                 <button id="add-book" data-tooltip="<?= lang('App.common.add') ?>" data-placement="top" data-dialog="dialog-edit" onclick="addBook()" disabled><span class="iconify" data-icon="mdi-plus-circle-outline"></span></button>
@@ -140,15 +144,49 @@
             </footer>
         </article>
     </dialog>
+
+    <!-- Modal scan -->
+    <dialog id="dialog-scan">
+        <article>
+            <header>
+                <button class="dialog-close" aria-label="Close" rel="prev"></button>
+                <h2><?= lang('App.manage.borrow.scanner') ?></h2>
+            </header>
+            <div id="scanner">
+                <div class="center">
+                    <video id="video" width="348" height="216"></video>
+                </div>
+                <div id="video-source" class="none">
+                    <label>
+                        <?= lang('App.manage.borrow.scannerSource') ?>
+                        <select id="video-source-select" ></select>
+                    </label>
+                </div>
+            </div>
+            <div id="result">
+                <label>
+                    <?= lang('App.common.result') ?>
+                    <input id="scan-result" type="text" disabled>
+                    <small id="scan-message"></small>
+                </label>
+            </div>
+            <footer>
+                <button class="dialog-close" onclick=""><?= lang('App.common.valid') ?></button>
+            </footer>
+        </article>
+    </dialog>
 <?= $this->endSection() ?>
 
 <?= $this->section('script') ?>
+    <script src="/js/zxing.min.js"></script>
     <script>
         const defaultDelay = <?= setting('App.specific')['delay'] ?>;
         const lang = {
             del: '<?= lang('App.common.delete') ?>',
             errorAjax: '<?= lang('App.common.errorAjax') ?>',
             saveSuccess: '<?= lang('App.common.saveSuccess') ?>',
+            noScanner: '<?= lang('App.manage.borrow.noScanner') ?>',
+            noSource: '<?= lang('App.manage.borrow.noSource') ?>'
         }
     </script>
     <script src="/js/borrow.js"></script>

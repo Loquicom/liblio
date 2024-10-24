@@ -153,6 +153,7 @@ Pellentesque in nisi at libero euismod tempor. In aliquam eget mauris finibus mo
             "memberId" => "Member ID",
             "memberFirstname" => "Member firstname",
             "memberLastname" => "Member lastname",
+            "memberFind" => "Find member",
             "selectBooks" => "Select books",
             "bookISBN" => "Book ISBN",
             "bookTitle" => "Book title",
@@ -160,6 +161,10 @@ Pellentesque in nisi at libero euismod tempor. In aliquam eget mauris finibus mo
             "bookPublisher" => "Book publisher",
             "bookCollection" => "Book collection",
             "delay" => "Delay (days)",
+            "scanner" => "Scan ISBN",
+            "scannerSource" => "Change video source",
+            "noScanner" => "Scanner not initialized",
+            "noSource" => "No video source selected",
         ],
         "return" => [
             "title" => "Return",
