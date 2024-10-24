@@ -28,7 +28,7 @@
                     <td><?= lang('App.common.title') ?></td>
                     <td><?= lang('App.manage.members.email') ?></td>
                     <td><?= lang('App.manage.return.outDate') ?></td>
-                    <td><?= lang('App.manage.borrow.delay') ?></td>
+                    <td><?= lang('App.manage.return.returnDateMax') ?></td>
                 </tr>
                 </thead>
                 <tbody>
@@ -42,7 +42,7 @@
                             <td><?= $alert['title'] ?></td>
                             <td><a href="mailto:<?= $alert['email'] ?>"><?= $alert['email'] ?></a></td>
                             <td><?= $alert['out_date'] ?></td>
-                            <td><?= $alert['delay'] ?></td>
+                            <td><?= date('Y-m-d', strtotime($alert['out_date']) + ($alert['delay'] * 24 * 3600)) ?></td>
                         </tr>
                     <?php endforeach ?>
                 <?php else: ?>

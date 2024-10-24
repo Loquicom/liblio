@@ -74,6 +74,7 @@ $lang = [
         "config" => "Config",
         "manage/authors" => "Authors",
         "manage/books" => "Books",
+        "members/auth" => "Log in",
     ],
     "404" => [
         "text" => "It seems you're lost, there's nothing here",
@@ -171,7 +172,8 @@ Pellentesque in nisi at libero euismod tempor. In aliquam eget mauris finibus mo
             "title" => "Return",
             "card" => "Return",
             "outDate" => "Borrow date",
-            "returnDate" => "Date de retour",
+            "returnDate" => "Return date",
+            "returnDateMax" => "Max return date",
             "loadError" => "Error while loading data",
         ],
         "authors" => [

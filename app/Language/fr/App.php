@@ -74,6 +74,7 @@ $lang = [
         "config" => "Configuration",
         "manage/authors" => "Auteurs",
         "manage/books" => "Livres",
+        "members/auth" => "S'identifier",
     ],
     "404" => [
         "text" => "Il semble que vous soyez perdus, il n'y a rien ici",
@@ -172,6 +173,7 @@ Pellentesque in nisi at libero euismod tempor. In aliquam eget mauris finibus mo
             "card" => "Retour",
             "outDate" => "Date de prêt",
             "returnDate" => "Date de retour",
+            "returnDateMax" => "Date de retour max",
             "loadError" => "Erreur lors du chargement des données",
         ],
         "authors" => [

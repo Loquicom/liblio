@@ -293,9 +293,22 @@ function startScan(scanner, selectedDeviceId) {
 
 function initScan(scanner) {
     scanner.decodeFromVideoDevice(undefined, 'video', (result, err) => {
-        scanner.reset();
-        document.getElementById('scan-btn').removeAttribute('disabled');
-    })
+        // NO-OP
+    });
+    // Check when scanner is enabled
+    const interval = setInterval(async () => {
+        const videoInputDevices = await scanner.listVideoInputDevices();
+        const selectedDeviceId = videoInputDevices[0].deviceId;
+        // If devices is find scanner is enabled
+        if (selectedDeviceId != null) {
+            // Reset scanner and active button
+            scanner.reset();
+            document.getElementById('scan-btn').removeAttribute('disabled');
+            clearInterval(interval);
+            console.log('Scanner setup: Ok');
+        }
+    }, 1000);
+
 }
 
 function closeScan() {
@@ -311,7 +324,7 @@ function closeScan() {
 
 window.addEventListener('load', function () {
     let selectedDeviceId;
-    const scanner = new ZXing.BrowserMultiFormatReader()
+    const scanner = new ZXing.BrowserMultiFormatReader();
     // List video inputs
     scanner.listVideoInputDevices().then((videoInputDevices) => {
         const sourceSelect = document.getElementById('video-source-select');

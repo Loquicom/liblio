@@ -49,7 +49,7 @@
                             <td><?= lang('App.manage.books.author') ?></td>
                             <td><?= lang('App.manage.books.publisher') ?></td>
                             <td><?= lang('App.manage.return.outDate') ?></td>
-                            <td><?= lang('App.manage.borrow.delay') ?></td>
+                            <td><?= lang('App.manage.return.returnDateMax') ?></td>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,7 +61,7 @@
                                     <td><?= $borrow['author'] ?></td>
                                     <td><?= $borrow['publisher'] ?></td>
                                     <td><?= $borrow['out_date'] ?></td>
-                                    <td><?= $borrow['delay'] ?></td>
+                                    <td><?= date('Y-m-d', strtotime($borrow['out_date']) + ($borrow['delay'] * 24 * 3600)) ?></td>
                                 </tr>
                             <?php endforeach ?>
                         <?php else: ?>

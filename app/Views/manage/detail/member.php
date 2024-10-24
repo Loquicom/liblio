@@ -88,7 +88,7 @@
                             <td><?= lang('App.manage.books.author') ?></td>
                             <td><?= lang('App.manage.books.publisher') ?></td>
                             <td><?= lang('App.manage.return.outDate') ?></td>
-                            <td class="center"><?= lang('App.manage.borrow.delay') ?></td>
+                            <td><?= lang('App.manage.return.returnDateMax') ?></td>
                         </tr>
                     </thead>
                     <tbody>
@@ -100,7 +100,7 @@
                                     <td><a href="<?= url_to('manage/authors') . '/' . $borrow['author_id'] ?>?return=<?= url_to('manage/members') . '/' . $id ?>"><?= $borrow['author'] ?></a></td>
                                     <td><?= $borrow['publisher'] ?></td>
                                     <td><?= $borrow['out_date'] ?></td>
-                                    <td class="center"><?= $borrow['delay'] ?></td>
+                                    <td><?= date('Y-m-d', strtotime($borrow['out_date']) + ($borrow['delay'] * 24 * 3600)) ?></td>
                                 </tr>
                             <?php endforeach ?>
                         <?php else: ?>
