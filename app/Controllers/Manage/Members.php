@@ -89,7 +89,7 @@ class Members extends BaseController
         $get = $this->request->getGet();
         $params = [
             'id' => $id,
-            'return' => $get['return'] ?? 'manage/books',
+            'return' => $get['return'] ?? 'manage/members',
             'member' => $member,
             'borrows' => $borrows,
             'oldBorrows' => $oldBorrows
