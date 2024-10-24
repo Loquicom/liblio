@@ -141,6 +141,8 @@ Pellentesque in nisi at libero euismod tempor. In aliquam eget mauris finibus mo
             "lastname" => "Nom",
             "email" => "Email",
             "createdAt" => "Date de création",
+            "detail" => "Détail de l'adhérent : {0}",
+            "infos" => "Informations de l'adhérent",
         ],
         "borrow" => [
             "title" => "Emprunt",

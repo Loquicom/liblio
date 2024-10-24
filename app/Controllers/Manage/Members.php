@@ -3,6 +3,8 @@
 namespace App\Controllers\Manage;
 
 use App\Controllers\BaseController;
+use App\Models\BorrowModel;
+use App\Models\MembersModel;
 
 class Members extends BaseController
 {
@@ -61,6 +63,39 @@ class Members extends BaseController
         ];
 
         return view('layout/crud', $params);
+    }
+
+    public function detail($id)
+    {
+        // Check access
+        $user = auth()->user();
+        if (!$user->can('manage.mambers')) {
+            return redirect()->to('manage');
+        }
+
+        // Get member info
+        $memberModel = model(MembersModel::class);
+        $member = $memberModel->find($id);
+        if ($member == null) {
+            return redirect()->to('404');
+        }
+
+        // Get borrows list
+        $borrowModel = model(BorrowModel::class);
+        $borrows = $borrowModel->getBorrowsFromMember($id);
+        $oldBorrows = $borrowModel->getOldBorrowsFromMember($id);
+
+        // Set parameters
+        $get = $this->request->getGet();
+        $params = [
+            'id' => $id,
+            'return' => $get['return'] ?? 'manage/books',
+            'member' => $member,
+            'borrows' => $borrows,
+            'oldBorrows' => $oldBorrows
+        ];
+
+        return view('manage/detail/member', $params);
     }
 
 }

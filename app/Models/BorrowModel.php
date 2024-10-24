@@ -32,7 +32,7 @@ class BorrowModel extends Model
 
     public function getBorrowsFromMember($member): array
     {
-        return $this->select('book.isbn, book.title, author.username as author, publisher.name as publisher, borrow.out_date, borrow.return_date, borrow.delay')
+        return $this->select('book.isbn, book.title, author.username as author, author.id as author_id, publisher.name as publisher, borrow.out_date, borrow.return_date, borrow.delay')
             ->join('book', 'borrow.book = book.isbn')
             ->join('write', 'book.isbn = write.book')
             ->join('author', 'write.author = author.id')
@@ -41,6 +41,19 @@ class BorrowModel extends Model
             ->where('borrow.return_date is null')
             ->where('borrow.member', $member)
             ->findAll();
+    }
+
+    public function getOldBorrowsFromMember($member, $limit = 20): array
+    {
+        return $this->select('book.isbn, book.title, author.username as author, author.id as author_id, publisher.name as publisher, borrow.out_date, borrow.return_date, borrow.delay')
+            ->join('book', 'borrow.book = book.isbn')
+            ->join('write', 'book.isbn = write.book')
+            ->join('author', 'write.author = author.id')
+            ->join('publisher', 'book.publisher = publisher.id')
+            ->where('write.main', true) // Main author only
+            ->where('borrow.return_date is not null')
+            ->where('borrow.member', $member)
+            ->findAll($limit);
     }
 
     public function getOverdue(): array

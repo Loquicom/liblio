@@ -33,7 +33,7 @@ $routes->group('manage', ['filter' => 'session'], function ($routes) {
     $routes->get('books', [\App\Controllers\Manage\Books::class, 'index']);
     $routes->get('books/(:any)', [\App\Controllers\Manage\Books::class, 'detail']);
     $routes->get('members', [\App\Controllers\Manage\Members::class, 'index']);
-    $routes->get('members/(:alphanum)', 'WIP::index');
+    $routes->get('members/(:alphanum)', [\App\Controllers\Manage\Members::class, 'detail']);
     $routes->get('borrow', [\App\Controllers\Manage\Borrow::class, 'out']);
     $routes->get('return', [\App\Controllers\Manage\Borrow::class, 'in']);
     $routes->get('authors', [\App\Controllers\Manage\Authors::class, 'index']);

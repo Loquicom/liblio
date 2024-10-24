@@ -89,7 +89,7 @@
                     <mark id="error-text" class="none"></mark>
                 </div>
                 <div class="right">
-                    <button id="save-btn" onclick="save()"><span class="iconify" data-icon="mdi-content-save"></span> Enregistrer</button>
+                    <button id="save-btn" onclick="save()"><span class="iconify" data-icon="mdi-content-save"></span> <?= lang('App.common.save') ?></button>
                 </div>
             </div>
         </div>
@@ -173,7 +173,7 @@
                         <?php if (count($borrows) > 0): ?>
                             <?php foreach($borrows as $borrow): ?>
                                 <tr>
-                                    <td><a href="<?= url_to('manage/members') . '/' . $borrow['id'] ?>?return=manage/books"><?= $borrow['id'] ?></a></td>
+                                    <td><a href="<?= url_to('manage/members') . '/' . $borrow['id'] ?>?return=<?= url_to('manage/books') . '/' . $id ?>"><?= $borrow['id'] ?></a></td>
                                     <td><?= $borrow['firstname'] ?></td>
                                     <td><?= $borrow['lastname'] ?></td>
                                     <td><a href="mailto:<?= $borrow['email'] ?>"><?= $borrow['email'] ?></a></td>
@@ -212,7 +212,7 @@
                     <?php if (count($oldBorrows) > 0): ?>
                         <?php foreach($oldBorrows as $borrow): ?>
                             <tr>
-                                <td><a href="<?= url_to('manage/members') . '/' . $borrow['id'] ?>?return=manage/books"><?= $borrow['id'] ?></a></td>
+                                <td><a href="<?= url_to('manage/members') . '/' . $borrow['id'] ?>?return=<?= url_to('manage/books') . '/' . $id ?>"><?= $borrow['id'] ?></a></td>
                                 <td><?= $borrow['firstname'] ?></td>
                                 <td><?= $borrow['lastname'] ?></td>
                                 <td><a href="mailto:<?= $borrow['email'] ?>"><?= $borrow['email'] ?></a></td>
