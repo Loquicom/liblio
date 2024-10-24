@@ -75,6 +75,7 @@ $lang = [
         "manage/authors" => "Authors",
         "manage/books" => "Books",
         "members/auth" => "Log in",
+        "members/members" => "Members",
     ],
     "404" => [
         "text" => "It seems you're lost, there's nothing here",
