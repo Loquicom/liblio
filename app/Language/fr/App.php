@@ -45,6 +45,7 @@ $lang = [
         "optional" => "Optionnel",
         "login" => "S'identifier",
         "sendEmail" => "Envoyer un email",
+        "result" => "Résultat",
     ],
     "helper" => [
         "id" => "L'identifiant est généré automatiquement",

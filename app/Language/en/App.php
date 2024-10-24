@@ -44,6 +44,7 @@ $lang = [
         "optional" => "Optional",
         "login" => "Log in",
         "sendEmail" => "Send email",
+        "result" => "Result",
     ],
     "helper" => [
         "id" => "ID is auto-generated",

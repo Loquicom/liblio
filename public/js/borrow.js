@@ -3,8 +3,6 @@
 let dataMember = null;
 let dataBooks = {};
 let selectedBook = null;
-let scanner = null;
-let selectedSource = null;
 
 /* --- Members search --- */
 
@@ -280,47 +278,8 @@ function reset() {
 
 /* --- Scanner --- */
 
-function initScanner() {
-    // Create scanner
-    scanner = new ZXing.BrowserMultiFormatReader();
-    // Detect video reader
-    scanner.listVideoInputDevices().then(videoInputDevices => {
-        const select = document.getElementById('video-source-select');
-        selectedSource = videoInputDevices[0].deviceId; // Default one
-        // If no source disabled button
-        if (selectedSource != null) {
-            document.getElementById('scan-btn').removeAttribute('disabled');
-        }
-        // Generate select if more than one input
-        if (videoInputDevices.length > 1) {
-            videoInputDevices.forEach((element) => {
-                const sourceOption = document.createElement('option')
-                sourceOption.text = element.label
-                sourceOption.value = element.deviceId
-                select.appendChild(sourceOption)
-            })
-            // Manage select change
-            select.onchange = () => {
-                selectedSource = select.value;
-            };
-            // Show select
-            document.getElementById('video-source').classList.remove('none');
-        }
-    }).catch((err) => {
-        console.error(err)
-    });
-}
-
-function startScan() {
-    if (scanner == null) {
-        alert(lang.noScanner);
-        return;
-    }
-    if (selectedSource == null) {
-        alert(lang.noSource);
-        return;
-    }
-    scanner.decodeFromVideoDevice(selectedSource, 'video', (result, err) => {
+function startScan(scanner, selectedDeviceId) {
+    scanner.decodeFromVideoDevice(selectedDeviceId, 'video', (result, err) => {
         if (result) {
             console.log(result);
             document.getElementById('scan-result').value = result.text;
@@ -329,19 +288,68 @@ function startScan() {
             console.error(err);
             document.getElementById('scan-message').textContent = err;
         }
+    });
+}
+
+function initScan(scanner) {
+    scanner.decodeFromVideoDevice(undefined, 'video', (result, err) => {
+        scanner.reset();
+        document.getElementById('scan-btn').removeAttribute('disabled');
     })
 }
 
-function stopScan() {
-    if (scanner == null) {
-        alert(lang.noScanner);
+function closeScan() {
+    const value = document.getElementById('scan-result').value;
+    if (value == null || value.trim() === '') {
         return;
     }
-    scanner.reset();
+    document.getElementById('isbn').value = value;
+    getBook();
 }
 
 /* --- On load --- */
 
-window.addEventListener('load', function() {
-    initScanner();
-});
+window.addEventListener('load', function () {
+    let selectedDeviceId;
+    const scanner = new ZXing.BrowserMultiFormatReader()
+    // List video inputs
+    scanner.listVideoInputDevices().then((videoInputDevices) => {
+        const sourceSelect = document.getElementById('video-source-select');
+        selectedDeviceId = videoInputDevices[0].deviceId;
+        // Enable button only if source is find
+        if (selectedDeviceId == null) {
+            initScan(scanner);
+        } else {
+            document.getElementById('scan-btn').removeAttribute('disabled');
+        }
+        if (videoInputDevices.length > 1) {
+            videoInputDevices.forEach((element) => {
+                const sourceOption = document.createElement('option');
+                sourceOption.text = element.label;
+                sourceOption.value = element.deviceId;
+                sourceSelect.appendChild(sourceOption);
+            });
+            // Manage select change
+            sourceSelect.onchange = () => {
+                selectedDeviceId = sourceSelect.value;
+                scanner.reset();
+                startScan(scanner, selectedDeviceId);
+            };
+            // Show select
+            document.getElementById('video-source').classList.remove('none');
+        }
+
+        // Defined start action
+        document.getElementById('scan-btn').addEventListener('click', () => {
+            startScan(scanner, selectedDeviceId);
+        });
+
+        document.querySelectorAll('.stop-scan').forEach(elt => {
+            elt.addEventListener('click', () => {
+                scanner.reset();
+            });
+        });
+    }).catch((err) => {
+        console.error(err);
+    });
+})

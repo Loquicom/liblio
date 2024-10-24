@@ -53,7 +53,7 @@
                     <?= lang('App.manage.borrow.bookISBN') ?>
                     <span role="group">
                         <input id="isbn" name="isbn" type="text" placeholder="<?= lang('App.manage.borrow.bookISBN') ?>" onchange="getBook()"/>
-                        <button id="scan-btn" class="dialog-open outline" data-dialog="dialog-scan" onclick="startScan()" disabled><span class="iconify" data-icon="mdi-barcode-scan"></span></button>
+                        <button id="scan-btn" class="dialog-open outline" data-dialog="dialog-scan" disabled><span class="iconify" data-icon="mdi-barcode-scan"></span></button>
                     </span>
                 </label>
             </div>
@@ -149,7 +149,7 @@
     <dialog id="dialog-scan">
         <article>
             <header>
-                <button class="dialog-close" aria-label="Close" rel="prev"></button>
+                <button class="dialog-close stop-scan" aria-label="Close" rel="prev"></button>
                 <h2><?= lang('App.manage.borrow.scanner') ?></h2>
             </header>
             <div id="scanner">
@@ -171,7 +171,7 @@
                 </label>
             </div>
             <footer>
-                <button class="dialog-close" onclick=""><?= lang('App.common.valid') ?></button>
+                <button class="dialog-close stop-scan" onclick="closeScan()"><?= lang('App.common.valid') ?></button>
             </footer>
         </article>
     </dialog>
