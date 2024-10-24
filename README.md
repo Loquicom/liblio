@@ -1,52 +1,33 @@
-# CodeIgniter 4 Application Starter
+# Liblio
 
-## What is CodeIgniter?
+Liblio is an easy-to-use library management system (SIGB in French).
+
+## CodeIgniter
+
+The application is written in PHP using the CodeIgniter 4 framework.
 
 CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
 More information can be found at the [official site](https://codeigniter.com).
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
-
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
-
 You can read the [user guide](https://codeigniter.com/user_guide/)
 corresponding to the latest version of the framework.
 
-## Installation & updates
-
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
-
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
-
 ## Setup
+
+Copy the application files to the server 
+(:warn: note that the application's public folder must be the root folder of your website).
 
 Copy `env` to `.env` and tailor for your app, specifically the baseURL
 and any database settings.
 
-## Important Change with index.php
+Run the following commands from the application root:
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+```bash
+composer install --no-dev
+php spark migrate --all
+```
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
-
-**Please** read the user guide for a better explanation of how CI4 works!
-
-## Repository Management
-
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+It's all good, the default account is admin/admin (don't forget to change the password in the application)
 
 ## Server Requirements
 
@@ -67,23 +48,18 @@ Additionally, make sure that the following extensions are enabled in your PHP:
 - [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
 - [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
 
-## TODO
+See CodeIgniter documentation for more information.
 
-Système de tag v2
+## Planned improvements
 
-Amélioration de la recherche simple v2
+Next update:
+  - Tag system for books (with search)
+  - Automatic email system (reminder to return a book, for example) and ability to send emails from the application for managers
+  - Be able to configure the app's basic parameters from the site (name, no. of borrowing days, etc.)
+  - CSV export
+  - Customizable data purges
 
-Système d'envoie d'email (pour le rappel de ce qui doit être rendue) v2
-Bouton pour envoyer email v2
-
-Pouvoir configurer les infos du site web (nom, nb de jour de pret, ...) v2
-
-Ajouter controle pour voir s'il ne reste plus d'exemplaire lors de l'emprunt v2?
-
-Export en CSV v2
-
-Refaire le readme v1
-
-Purge données v2
-
-Plus d'info dans l'historique des adhérent publique avec code de vérification envoyé par email v2?
+Maybe one day:
+  - Better simple search
+  - Alert if a book is borrowed more than its number of copies
+  - Authentication system with code sent by email to allow users to view their full profile
