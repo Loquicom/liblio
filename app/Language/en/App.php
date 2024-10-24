@@ -43,6 +43,7 @@ $lang = [
         "comment" => "Comment",
         "optional" => "Optional",
         "login" => "Log in",
+        "sendEmail" => "Send email",
     ],
     "helper" => [
         "id" => "ID is auto-generated",

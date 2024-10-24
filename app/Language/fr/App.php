@@ -44,6 +44,7 @@ $lang = [
         "comment" => "Commentaire",
         "optional" => "Optionnel",
         "login" => "S'identifier",
+        "sendEmail" => "Envoyer un email",
     ],
     "helper" => [
         "id" => "L'identifiant est généré automatiquement",

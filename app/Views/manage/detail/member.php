@@ -44,7 +44,10 @@
                 <div>
                     <label>
                         <?= lang('App.manage.members.email') ?>
-                        <input type="text" value="<?= $member['email'] ?>" disabled>
+                        <span role="group">
+                            <input type="text" value="<?= $member['email'] ?>" disabled>
+                            <a role="button" class="outline" href="mailto:<?= $member['email'] ?>" data-tooltip="<?= lang('App.common.sendEmail') ?>"><span class="iconify" data-icon="mdi-email"></span></a>
+                        </span>
                     </label>
                 </div>
                 <div>
