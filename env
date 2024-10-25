@@ -60,6 +60,27 @@ database.default.DBDriver = MySQLi
 # database.tests.port = 3306
 
 #--------------------------------------------------------------------
+# Email
+#--------------------------------------------------------------------
+
+# email.fromEmail  =
+# email.fromName   =
+# email.recipients =
+# email.userAgent = CodeIgniter
+# The mail sending protocol: mail, sendmail, smtp
+# email.protocol = smtp
+# The server path to Sendmail.
+# email.mailPath = '/usr/sbin/sendmail'
+# email.SMTPHost =
+# email.SMTPUser =
+# email.SMTPPass =
+# emailSMTPPort = 465
+# '', 'tls' or 'ssl'. 'tls' will issue a STARTTLS command
+# to the server. 'ssl' means implicit SSL. Connection on port
+# 465 should set this to ''.
+# email.SMTPCrypto = ''
+
+#--------------------------------------------------------------------
 # ENCRYPTION
 #--------------------------------------------------------------------
 
