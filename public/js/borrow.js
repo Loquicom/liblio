@@ -312,11 +312,12 @@ function initScan(scanner) {
 }
 
 function closeScan() {
-    const value = document.getElementById('scan-result').value;
-    if (value == null || value.trim() === '') {
+    const result = document.getElementById('scan-result');
+    if (result.value == null || result.value.trim() === '') {
         return;
     }
-    document.getElementById('isbn').value = value;
+    document.getElementById('isbn').value = result.value;
+    result.value = '';
     getBook();
 }
 
