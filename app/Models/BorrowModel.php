@@ -61,7 +61,7 @@ class BorrowModel extends Model
         return $this->select('book.isbn, book.title, member.id as member, member.firstname, member.lastname, member.email, borrow.out_date, borrow.delay')
             ->join('book', 'borrow.book = book.isbn')
             ->join('member', 'borrow.member = member.id')
-            ->where('sysdate() >= out_date + delay')
+            ->where('sysdate() >= DATE_ADD(out_date, INTERVAL delay day)')
             ->where('return_date is null')
             ->findAll();
     }
