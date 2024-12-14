@@ -27,7 +27,7 @@
     </main>
 
     <footer id="main-footer">
-        <?= setting('App.siteName') ?> v<?= setting('App.version') ?>, <?= lang('App.footer.designed') ?> Loquicom, <?= lang('App.footer.with') ?> <a href="https://codeigniter.com" target="_blank">CodeIgniter 4</a>, <a href="https://picocss.com" target="_blank">Pico CSS</a> <?= lang('App.footer.and') ?> <a href="https://pictogrammers.com/library/mdi/" target="_blank">Pictogramers MDI</a>. <?= lang('App.footer.available', ['https://github.com/Loquicom/liblio']) ?>. <?= lang('App.footer.legal', [url_to('legal')]) ?>.
+        Liblio v<?= setting('App.version') ?>, <?= lang('App.footer.designed') ?> Loquicom, <?= lang('App.footer.with') ?> <a href="https://codeigniter.com" target="_blank">CodeIgniter 4</a>, <a href="https://picocss.com" target="_blank">Pico CSS</a> <?= lang('App.footer.and') ?> <a href="https://pictogrammers.com/library/mdi/" target="_blank">Pictogramers MDI</a>. <?= lang('App.footer.available', ['https://github.com/Loquicom/liblio']) ?>. <?= lang('App.footer.legal', [url_to('legal')]) ?>.
     </footer>
 
     <script src="//code.iconify.design/1/1.0.6/iconify.min.js"></script>

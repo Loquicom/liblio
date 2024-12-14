@@ -1,5 +1,5 @@
 {
-    "name": "liblio",
+    "name": "loquicom/liblio",
     "description": "Simple library management system (SIGB in french)",
     "license": "MIT",
     "type": "project",
