@@ -104,10 +104,10 @@
                 </thead>
                 <tbody id="table-content">
                 <tr id="loading-row">
-                    <td class="center" colspan="<?= $mode === 'edit' ? count($fields) + 1 : count($fields) ?>" aria-busy="true"><?= lang('App.common.loading') ?></td>
+                    <td class="center" colspan="<?= $mode === 'edit' || $detail !== 'none'  ? count($fields) + 1 : count($fields) ?>" aria-busy="true"><?= lang('App.common.loading') ?></td>
                 </tr>
                 <tr id="no-data-row" class="none">
-                    <td class="center" colspan="<?= $mode === 'edit' ? count($fields) + 1 : count($fields) ?>"><?= lang('App.common.noData') ?></td>
+                    <td class="center" colspan="<?= $mode === 'edit' || $detail !== 'none' ? count($fields) + 1 : count($fields) ?>"><?= lang('App.common.noData') ?></td>
                 </tr>
                 </tbody>
             </table>
@@ -207,7 +207,7 @@
 <?= $this->section('script') ?>
     <script>
         const api = '<?= $api ?>';
-        const fields = JSON.parse('<?= json_encode($fields) ?>');
+        const fields = JSON.parse('<?= str_replace("'", "\\'", json_encode($fields)) ?>');
         const mode = '<?= $mode ?>';
         const detail = '<?= $detail ?>';
         const lang = {
