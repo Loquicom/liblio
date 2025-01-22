@@ -32,6 +32,7 @@ class BooksAPI extends BaseController
         helper('api');
         $this->model = model(BooksModel::class);
         $this->writeModel = model(WriteModel::class);
+        $this->rules['isbn'] .= '|regex_match[/\A[' . config('App')->permittedURIChars . ']+\z/iu]';
     }
 
     public function read(string $isbn): \CodeIgniter\HTTP\ResponseInterface
@@ -194,9 +195,9 @@ class BooksAPI extends BaseController
         $json = $adapt['data'];
         $rules = $adapt['rules'];
 
-        // Remove year if is empty
+        // Set year field to null if is empty (and remove control)
         if (isset($json['year']) && trim($json['year']) === '') {
-            unset($json['year']);
+            $json['year'] = null;
             unset($rules['year']);
         }
 
