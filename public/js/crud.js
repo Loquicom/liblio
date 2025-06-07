@@ -296,6 +296,7 @@ function loadAllData(autocompleteKey) {
     document.getElementById(autocompleteKey).value = null;
     autocomplete[autocompleteKey].input.value = '';
     autocomplete[autocompleteKey].threshold = 0;
+    autocomplete[autocompleteKey].resultsList.maxResults = undefined;
     autocomplete[autocompleteKey].start();
     autocomplete[autocompleteKey].data.cache = true;
 }
