@@ -23,7 +23,28 @@ class AuthorsAPI extends BaseController
         $this->model = model(AuthorsModel::class);
     }
 
-    public function search(): \CodeIgniter\HTTP\ResponseInterface
+    public function read(string $id): \CodeIgniter\HTTP\ResponseInterface
+    {
+        // Search by ID
+        $author = $this->model->find($id);
+        if ($author == null) {
+            return $this->respond(respond_error(lang('Api.authors.notFound')),$this->codes['invalid_data']);
+        }
+
+        return $this->respond(respond_success($author));
+    }
+
+    public function search($search): \CodeIgniter\HTTP\ResponseInterface
+    {
+        $get = $this->request->getGet();
+        $number = $get['number'] ?? 200;
+
+        $params['search'] = $search;
+        $data = $this->model->search($params, 1, $number);
+        return $this->respond(respond_success($data['data']));
+    }
+
+    public function pagedSearch(): \CodeIgniter\HTTP\ResponseInterface
     {
         // Check authorization
         $user = auth()->user();

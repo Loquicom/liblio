@@ -4,6 +4,7 @@
 
 <?= $this->section('style') ?>
     <link rel="stylesheet" href="/css/crud.css" />
+    <link rel="stylesheet" href="/css/autocomplete.css" />
 <?= $this->endSection() ?>
 
 <?= $this->section('header') ?>
@@ -23,6 +24,7 @@
             <summary onclick="setSearchMode()"><?= lang('App.common.advancedSearch') ?></summary>
             <div id="advanced-search-form">
                 <?php $i = 0 ?>
+                <?php $autocomplete = [] ?>
                 <?php foreach ($fields as $key => $field): ?>
                     <?php if (!$field['search']) continue ?>
                     <?php if ($i % 3 == 0): ?>
@@ -40,6 +42,13 @@
                                 <?php endforeach ?>
                             </select>
                         </label>
+                    <?php elseif (str_starts_with($field['type'], 'autocomplete')): ?>
+                        <?php $autocomplete['advanced-search-' . $key] = $field ?>
+                        <label class="autocomplete-label">
+                            <?= lang($field['lib']) ?> <a id="advanced-search-<?= $key ?>-load-all" data-tooltip="<?= lang('App.common.loadAll') ?>" data-placement="top" onclick="loadAllData('advanced-search-<?= $key ?>')"><span class="iconify" data-icon="mdi-sync"></span></a>
+                            <input id="advanced-search-<?= $key ?>-autocomplete" type="text" name="autocomplete-advanced-search-<?= $key ?>" onchange="resetIfEmpty('advanced-search-<?= $key ?>')">
+                        </label>
+                        <input id="advanced-search-<?= $key ?>" type="hidden" name="<?= $key ?>" class="none">
                     <?php else: ?>
                         <label>
                             <?= lang($field['lib']) ?>
@@ -156,6 +165,13 @@
                                 <?php endforeach ?>
                             </select>
                         </label>
+                    <?php elseif (str_starts_with($field['type'], 'autocomplete')): ?>
+                        <?php $autocomplete['edit-' . $key] = $field ?>
+                        <label class="autocomplete-label">
+                            <?= lang($field['lib']) ?> <a id="edit-<?= $key ?>-load-all" data-tooltip="<?= lang('App.common.loadAll') ?>" data-placement="top" onclick="loadAllData('edit-<?= $key ?>')"><span class="iconify" data-icon="mdi-sync"></span></a>
+                            <input id="edit-<?= $key ?>-autocomplete" type="text" name="autocomplete-edit-<?= $key ?>" onchange="resetIfEmpty('edit-<?= $key ?>')">
+                        </label>
+                        <input id="edit-<?= $key ?>" type="hidden" name="<?= $key ?>" class="none">
                     <?php else: ?>
                         <label>
                             <?= lang($field['lib']) ?>
@@ -205,6 +221,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('script') ?>
+    <script src="/js/autocomplete.min.js"></script>
     <script>
         const api = '<?= $api ?>';
         const fields = JSON.parse('<?= str_replace("'", "\\'", json_encode($fields)) ?>');
@@ -222,6 +239,53 @@
         const url = {
             api: '<?= $api ?>'
         }
+
+        const autocomplete = {};
+        <?php foreach ($autocomplete as $key => $field): ?>
+            autocomplete['<?= $key ?>'] = new autoComplete({
+                name: 'autocomplete-<?= $key ?>',
+                selector: '#<?= $key ?>-autocomplete',
+                data: {
+                    src: async(query) => {
+                        let data = [];
+                        const url = '<?= explode(':', $field['type'])[2] ?>';
+                        if (autocomplete['<?= $key ?>'].threshold === 0 && query?.trim() === '') {
+                            data = await callGet(url, {number: 500});
+                            data = data.data.values;
+                        } else if (query != null) {
+                            data = await callGet(url + '/search/' + query, {number: 5});
+                            data = data.data;
+                        }
+                        return data;
+                    },
+                    keys: ['<?= explode(':', $field['type'])[1] ?>'],
+                    cache: false
+                },
+                threshold: 3,
+                debounce: 500,
+                resultsList: {
+                    maxResults: 5
+                },
+                resultItem: {
+                    highlight: true
+                },
+                events: {
+                    input: {
+                        selection: (event) => {
+                            const selection = event.detail.selection.value;
+                            autocomplete['<?= $key ?>'].input.value = selection[autocomplete['<?= $key ?>'].data.keys[0]];
+                            document.getElementById('<?= $key ?>').value = selection['id'];
+                            <?php if(!str_starts_with($key, 'edit')): ?>
+                                loadData();
+                            <?php endif; ?>
+                        },
+                        focus() {
+                            autocomplete['<?= $key ?>'].start();
+                        }
+                    }
+                }
+            });
+        <?php endforeach; ?>
     </script>
     <script src="/js/crud.js"></script>
     <?= $this->renderSection('detail-script') ?>

@@ -30,13 +30,6 @@ class Books extends BaseController
             $mode = 'edit';
         }
 
-        // Load author
-        $authorModel = model(AuthorsModel::class);
-        $authorData = $authorModel->findAll();
-        foreach ($authorData as $data) {
-            $author[$data['id']] = $data['username'];
-        }
-
         // Load publisher
         $publisherModel = model(PublishersModel::class);
         $publisherData = $publisherModel->findAll();
@@ -69,7 +62,7 @@ class Books extends BaseController
                     'search' => true,
                     'col' => true,
                     'lib' => 'App.manage.books.author',
-                    'type' => $author
+                    'type' => 'autocomplete:username:api/authors'
                 ],
                 'publisher' => [
                     'search' => true,

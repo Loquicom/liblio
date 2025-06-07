@@ -43,10 +43,19 @@ $routes->group('manage', ['filter' => 'session'], function ($routes) {
     $routes->get('alerts', [\App\Controllers\Manage\Alerts::class, 'index']);
 });
 
-$routes->get('api/login', [\App\Controllers\Api\LoginAPI::class, 'sessionLogin'],  ['filter' => 'session']);
-$routes->post('api/login', [\App\Controllers\Api\LoginAPI::class, 'credentialsLogin']);
-$routes->get('api/books', [\App\Controllers\Api\BooksAPI::class, 'search']);
-$routes->get('api/books/(:any)/authors', [\App\Controllers\Api\BooksAPI::class, 'getAuthors']);
+// API sans authentification
+$routes->group('api', static function ($routes) {
+    $routes->get('login', [\App\Controllers\Api\LoginAPI::class, 'sessionLogin'],  ['filter' => 'session']);
+    $routes->post('login', [\App\Controllers\Api\LoginAPI::class, 'credentialsLogin']);
+
+    $routes->get('books', [\App\Controllers\Api\BooksAPI::class, 'search']);
+    $routes->get('books/(:any)/authors', [\App\Controllers\Api\BooksAPI::class, 'getAuthors']);
+
+    $routes->get('authors', [\App\Controllers\Api\AuthorsAPI::class, 'pagedSearch']);
+    $routes->get('authors/(:num)', [\App\Controllers\Api\AuthorsAPI::class, 'read']);
+    $routes->get('authors/search/(:any)', [\App\Controllers\Api\AuthorsAPI::class, 'search']);
+});
+// API avec authentification
 $routes->group('api', ['filter' => 'jwt'], static function ($routes) {
     $routes->get('users', [\App\Controllers\Api\UsersAPI::class, 'search']);
     $routes->post('users', [\App\Controllers\Api\UsersAPI::class, 'create']);
@@ -65,7 +74,6 @@ $routes->group('api', ['filter' => 'jwt'], static function ($routes) {
     $routes->delete('books/(:any)/authors/(:num)', [\App\Controllers\Api\BooksAPI::class, 'deleteAuthor']);
     $routes->delete('books/(:any)', [\App\Controllers\Api\BooksAPI::class, 'delete']);
 
-    $routes->get('authors', [\App\Controllers\Api\AuthorsAPI::class, 'search']);
     $routes->post('authors', [\App\Controllers\Api\AuthorsAPI::class, 'create']);
     $routes->put('authors/(:num)', [\App\Controllers\Api\AuthorsAPI::class, 'update']);
     $routes->delete('authors/(:num)', [\App\Controllers\Api\AuthorsAPI::class, 'delete']);

@@ -132,11 +132,20 @@ function generateTable(values) {
     // Setup dialog
     refreshDialog();
     document.querySelectorAll('.action-edit').forEach(elt => {
-       elt.addEventListener('click', () => {
+       elt.addEventListener('click', async () => {
            for (const key in fields) {
+               console.log(fields);
                if (data[selectedId][key] == null) continue;
-               const value = typeof data[selectedId][key] === 'object' ? data[selectedId][key]['code'] : data[selectedId][key];
-               document.getElementById('edit-'+key).value = value;
+               if (typeof fields[key]['type'] === 'string' && fields[key]['type'].startsWith('autocomplete')) {
+                   const split = fields[key]['type'].split(':');
+                   const id = typeof data[selectedId][key] === 'object' ? data[selectedId][key]['code'] : data[selectedId][key];
+                   const value = await callGet( split[2] + '/' + id);
+                   document.getElementById('edit-'+key+'-autocomplete').value = value.data[split[1]];
+                   document.getElementById('edit-'+key).value = id;
+               } else {
+                   const value = typeof data[selectedId][key] === 'object' ? data[selectedId][key]['code'] : data[selectedId][key];
+                   document.getElementById('edit-'+key).value = value;
+               }
            }
        });
     });
@@ -280,6 +289,24 @@ function sendSearch(event) {
 function openPopupDetail(id) {
     selectedId = id;
     loadPopupDetail(id);
+}
+
+function loadAllData(autocompleteKey) {
+    document.getElementById(autocompleteKey + '-load-all').remove();
+    document.getElementById(autocompleteKey).value = null;
+    autocomplete[autocompleteKey].input.value = '';
+    autocomplete[autocompleteKey].threshold = 0;
+    autocomplete[autocompleteKey].start();
+    autocomplete[autocompleteKey].data.cache = true;
+}
+
+function resetIfEmpty(autocompleteKey) {
+    if (autocomplete[autocompleteKey].input.value.trim() === '') {
+        document.getElementById(autocompleteKey).value = null;
+        if (!autocompleteKey.startsWith('edit')) {
+            loadData();
+        }
+    }
 }
 
 /* --- Page load --- */
