@@ -30,13 +30,6 @@ class Books extends BaseController
             $mode = 'edit';
         }
 
-        // Load publisher
-        $publisherModel = model(PublishersModel::class);
-        $publisherData = $publisherModel->findAll();
-        foreach ($publisherData as $data) {
-            $publisher[$data['id']] = $data['name'];
-        }
-
         // View params
         $params = [
             'title' => 'App.manage.books.title',
@@ -68,7 +61,7 @@ class Books extends BaseController
                     'search' => true,
                     'col' => true,
                     'lib' => 'App.manage.books.publisher',
-                    'type' => $publisher
+                    'type' => 'autocomplete:name:api/publishers'
                 ],
                 'theme' => [
                     'search' => true,

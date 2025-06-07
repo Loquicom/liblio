@@ -23,7 +23,36 @@ class PublishersAPI extends BaseController
         $this->model = model(PublishersModel::class);
     }
 
+    public function read(string $id): \CodeIgniter\HTTP\ResponseInterface
+    {
+        // Search by ID
+        $publisher = $this->model->find($id);
+        if ($publisher == null) {
+            return $this->respond(respond_error(lang('Api.publishers.notFound')),$this->codes['invalid_data']);
+        }
+
+        return $this->respond(respond_success($publisher));
+    }
+
     public function search(): \CodeIgniter\HTTP\ResponseInterface
+    {
+        // Read GET parameters
+        $get = $this->request->getGet();
+        $number = $get['number'] ?? 100;
+        $search = $get['search'] ?? '';
+
+        // Limit number to 500
+        if ($number > 500) {
+            $number = 500;
+        }
+
+        // Search
+        $params['search'] = $search;
+        $data = $this->model->search($params, 1, $number);
+        return $this->respond(respond_success($data['data']));
+    }
+
+    public function pagedSearch(): \CodeIgniter\HTTP\ResponseInterface
     {
         // Check authorization
         $user = auth()->user();

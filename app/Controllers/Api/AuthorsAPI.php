@@ -34,11 +34,19 @@ class AuthorsAPI extends BaseController
         return $this->respond(respond_success($author));
     }
 
-    public function search($search): \CodeIgniter\HTTP\ResponseInterface
+    public function search(): \CodeIgniter\HTTP\ResponseInterface
     {
+        // Read GET parameters
         $get = $this->request->getGet();
-        $number = $get['number'] ?? 200;
+        $number = $get['number'] ?? 100;
+        $search = $get['search'] ?? '';
 
+        // Limit number to 500
+        if ($number > 500) {
+            $number = 500;
+        }
+
+        // Search
         $params['search'] = $search;
         $data = $this->model->search($params, 1, $number);
         return $this->respond(respond_success($data['data']));

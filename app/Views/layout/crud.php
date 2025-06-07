@@ -249,11 +249,13 @@
                     src: async(query) => {
                         let data = [];
                         const url = '<?= explode(':', $field['type'])[2] ?>';
-                        if (autocomplete['<?= $key ?>'].threshold === 0 && query?.trim() === '') {
-                            data = await callGet(url, {number: 500});
-                            data = data.data.values;
-                        } else if (query != null) {
-                            data = await callGet(url + '/search/' + query, {number: 5});
+                        const number = 5
+                        if (query != null) {
+                            let number = 5;
+                            if (autocomplete['<?= $key ?>'].threshold === 0 && query?.trim() === '') {
+                                number = 500
+                            }
+                            data = await callGet(url + '/search', {search: query, number: number});
                             data = data.data;
                         }
                         return data;

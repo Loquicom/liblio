@@ -45,6 +45,7 @@ $lang = [
         "login" => "Log in",
         "sendEmail" => "Send email",
         "result" => "Result",
+        "loadAll" => "Load all elements",
     ],
     "helper" => [
         "id" => "ID is auto-generated",

@@ -43,7 +43,7 @@ $routes->group('manage', ['filter' => 'session'], function ($routes) {
     $routes->get('alerts', [\App\Controllers\Manage\Alerts::class, 'index']);
 });
 
-// API sans authentification
+// API without authentication
 $routes->group('api', static function ($routes) {
     $routes->get('login', [\App\Controllers\Api\LoginAPI::class, 'sessionLogin'],  ['filter' => 'session']);
     $routes->post('login', [\App\Controllers\Api\LoginAPI::class, 'credentialsLogin']);
@@ -51,18 +51,20 @@ $routes->group('api', static function ($routes) {
     $routes->get('books', [\App\Controllers\Api\BooksAPI::class, 'search']);
     $routes->get('books/(:any)/authors', [\App\Controllers\Api\BooksAPI::class, 'getAuthors']);
 
-    $routes->get('authors', [\App\Controllers\Api\AuthorsAPI::class, 'pagedSearch']);
     $routes->get('authors/(:num)', [\App\Controllers\Api\AuthorsAPI::class, 'read']);
-    $routes->get('authors/search/(:any)', [\App\Controllers\Api\AuthorsAPI::class, 'search']);
+    $routes->get('authors/search', [\App\Controllers\Api\AuthorsAPI::class, 'search']);
+
+    $routes->get('publishers/(:num)', [\App\Controllers\Api\PublishersAPI::class, 'read']);
+    $routes->get('publishers/search', [\App\Controllers\Api\PublishersAPI::class, 'search']);
 });
-// API avec authentification
+// API with authentication
 $routes->group('api', ['filter' => 'jwt'], static function ($routes) {
     $routes->get('users', [\App\Controllers\Api\UsersAPI::class, 'search']);
     $routes->post('users', [\App\Controllers\Api\UsersAPI::class, 'create']);
     $routes->put('users/(:num)', [\App\Controllers\Api\UsersAPI::class, 'update']);
     $routes->delete('users/(:num)', [\App\Controllers\Api\UsersAPI::class, 'delete']);
 
-    $routes->get('publishers', [\App\Controllers\Api\PublishersAPI::class, 'search']);
+    $routes->get('publishers', [\App\Controllers\Api\PublishersAPI::class, 'pagedSearch']);
     $routes->post('publishers', [\App\Controllers\Api\PublishersAPI::class, 'create']);
     $routes->put('publishers/(:num)', [\App\Controllers\Api\PublishersAPI::class, 'update']);
     $routes->delete('publishers/(:num)', [\App\Controllers\Api\PublishersAPI::class, 'delete']);
@@ -74,6 +76,7 @@ $routes->group('api', ['filter' => 'jwt'], static function ($routes) {
     $routes->delete('books/(:any)/authors/(:num)', [\App\Controllers\Api\BooksAPI::class, 'deleteAuthor']);
     $routes->delete('books/(:any)', [\App\Controllers\Api\BooksAPI::class, 'delete']);
 
+    $routes->get('authors', [\App\Controllers\Api\AuthorsAPI::class, 'pagedSearch']);
     $routes->post('authors', [\App\Controllers\Api\AuthorsAPI::class, 'create']);
     $routes->put('authors/(:num)', [\App\Controllers\Api\AuthorsAPI::class, 'update']);
     $routes->delete('authors/(:num)', [\App\Controllers\Api\AuthorsAPI::class, 'delete']);

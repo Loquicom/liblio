@@ -15,20 +15,6 @@ class Books extends BaseController
         $publisher = [];
         $author = [];
 
-        // Load publisher
-        $publisherModel = model(PublishersModel::class);
-        $publisherData = $publisherModel->findAll();
-        foreach ($publisherData as $data) {
-            $publisher[$data['id']] = $data['name'];
-        }
-
-        // Load author
-        $authorModel = model(AuthorsModel::class);
-        $authorData = $authorModel->findAll();
-        foreach ($authorData as $data) {
-            $author[$data['id']] = $data['username'];
-        }
-
         // View params
         $params = [
             'title' => 'App.common.books',
@@ -54,13 +40,13 @@ class Books extends BaseController
                     'search' => true,
                     'col' => true,
                     'lib' => 'App.manage.books.author',
-                    'type' => $author
+                    'type' => 'autocomplete:username:api/authors'
                 ],
                 'publisher' => [
                     'search' => true,
                     'col' => true,
                     'lib' => 'App.manage.books.publisher',
-                    'type' => $publisher
+                    'type' => 'autocomplete:name:api/publishers'
                 ],
                 'theme' => [
                     'search' => true,
