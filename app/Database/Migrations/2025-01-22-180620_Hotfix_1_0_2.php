@@ -14,7 +14,7 @@ class Hotfix_1_0_2 extends Migration
         $i = 1;
         foreach ($books as $book) {
             if (preg_match($regex, $book->isbn) !== 1) {
-                $sql = 'insert into dev.book (isbn, title, description, publisher, theme, `year`, copy, reference, comment)'
+                $sql = 'insert into book (isbn, title, description, publisher, theme, `year`, copy, reference, comment)'
                     . "values ('todo_isbn". $i . "','" . $book->title . "','" . $book->description . "','" . $book->publisher
                     . "','" . $book->theme . "','" . $book->year . "','" . $book->copy . "','" . $book->reference . "','" . $book->comment . "');";
                 $this->db->query($sql);
